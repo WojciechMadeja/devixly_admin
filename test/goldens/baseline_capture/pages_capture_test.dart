@@ -84,7 +84,8 @@ void main() {
   setUp(setUpLegacySession);
   tearDownAll(() {
     // ignore: avoid_print
-    print('Widoki z przepełnieniem układu: ${_overflowingGoldens.toList()..sort()}');
+    print(
+        'Widoki z przepełnieniem układu: ${_overflowingGoldens.toList()..sort()}');
   });
 
   for (final page in _pages.entries) {

@@ -5,3 +5,6 @@ targets:
         options:
           # Zagnieżdżone modele freezed muszą serializować się do map.
           explicit_to_json: true
+          # Czytelny błąd (CheckedFromJsonException), gdy odpowiedź API ma
+          # inny kształt niż model.
+          checked: true

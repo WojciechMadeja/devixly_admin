@@ -16,9 +16,11 @@ class FakeXanoApi {
   final Duration? responseDelay;
 
   static final Map<String, FakeResponse> _defaultRoutes = {
-    'POST /api:Q_aNNNvL/auth/admin/login': const FakeResponse('admin_login.json'),
+    'POST /api:Q_aNNNvL/auth/admin/login':
+        const FakeResponse('admin_login.json'),
     'POST /api:Q_aNNNvL/auth/refresh': const FakeResponse('refresh_token.json'),
     'POST /api:Q_aNNNvL/auth/revoke_token': const FakeResponse(null),
+    'POST /api:Q_aNNNvL/auth/reset_password': const FakeResponse(null),
     'GET /api:iiXsTPtO/news': const FakeResponse('news.json'),
     'GET /api:Qct1TYOV/categories': const FakeResponse('categories.json'),
     'GET /api:lUs0VlvB/companies': const FakeResponse('companies.json'),
@@ -27,7 +29,7 @@ class FakeXanoApi {
   };
 
   final Map<String, FakeResponse> _routes;
-  final List<http.BaseRequest> requests = [];
+  final List<RecordedRequest> requests = [];
 
   http.Client get client => MockClient.streaming(_handle);
 
@@ -35,15 +37,23 @@ class FakeXanoApi {
     http.BaseRequest request,
     http.ByteStream bodyStream,
   ) async {
-    await bodyStream.drain<void>();
-    requests.add(request);
+    final requestBody = utf8.decode(await bodyStream.toBytes());
+    requests.add(
+      RecordedRequest(
+        request.method,
+        request.url,
+        request.headers,
+        requestBody,
+      ),
+    );
     if (responseDelay != null) await Future<void>.delayed(responseDelay!);
     final stub = _routes['${request.method} ${request.url.path}'];
     if (stub == null) {
       return _response(404, {'message': 'Brak fixture dla ${request.url}'});
     }
-    final body =
-        stub.fixture == null ? <String, Object?>{} : readJsonFixture('api/${stub.fixture}');
+    final body = stub.fixture == null
+        ? <String, Object?>{}
+        : readJsonFixture('api/${stub.fixture}');
     return _response(stub.statusCode, body);
   }
 
@@ -67,3 +77,18 @@ class FakeResponse {
   final int statusCode;
 }
 
+/// Żądanie zapisane przez `FakeXanoApi`.
+class RecordedRequest {
+  const RecordedRequest(this.method, this.url, this.headers, this.body);
+
+  final String method;
+  final Uri url;
+  final Map<String, String> headers;
+  final String body;
+
+  /// Body żądania JSON jako mapa.
+  Map<String, dynamic> get json => jsonDecode(body) as Map<String, dynamic>;
+
+  @override
+  String toString() => '$method $url $body';
+}

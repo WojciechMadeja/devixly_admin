@@ -12,6 +12,7 @@ class AdminPageScaffold extends StatelessWidget {
     required this.body,
     this.showBackButton = true,
     this.logoNavigatesHome = true,
+    this.headerGap = 16,
   });
 
   /// Tytuł karty przeglądarki (jak w wersji FlutterFlow, np. „HomePage”).
@@ -19,6 +20,9 @@ class AdminPageScaffold extends StatelessWidget {
   final Widget body;
   final bool showBackButton;
   final bool logoNavigatesHome;
+
+  /// Odstęp między nagłówkiem a treścią (16 na większości stron).
+  final double headerGap;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,7 @@ class AdminPageScaffold extends StatelessWidget {
                   showBackButton: showBackButton,
                   logoNavigatesHome: logoNavigatesHome,
                 ),
+                SizedBox(height: headerGap),
                 Expanded(child: body),
               ],
             ),

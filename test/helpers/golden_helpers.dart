@@ -45,10 +45,13 @@ Future<void> _loadRobotoFromSdk() async {
 Directory? _materialFontsDirectory() {
   final flutterRoot = Platform.environment['FLUTTER_ROOT'];
   final candidates = <String>[
-    if (flutterRoot != null)
-      '$flutterRoot/bin/cache/artifacts/material_fonts',
+    if (flutterRoot != null) '$flutterRoot/bin/cache/artifacts/material_fonts',
     // flutter_tester leży w <FLUTTER_ROOT>/bin/cache/artifacts/engine/<platforma>/
-    File(Platform.resolvedExecutable).parent.parent.parent.uri
+    File(Platform.resolvedExecutable)
+        .parent
+        .parent
+        .parent
+        .uri
         .resolve('material_fonts')
         .toFilePath(),
   ];

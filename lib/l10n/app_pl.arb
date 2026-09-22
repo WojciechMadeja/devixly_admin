@@ -14,5 +14,29 @@
       }
     }
   },
-  "errorGeneric": "Coś poszło nie tak"
+  "errorGeneric": "Coś poszło nie tak",
+  "loginEmailHint": "E-mail",
+  "loginPasswordHint": "Hasło",
+  "loginForgotPassword": "Zapomniałeś hasła? Kliknij",
+  "loginSubmit": "Zaloguj",
+  "loginEmptyFieldsTitle": "Pola nie mogą być puste!",
+  "loginEmptyFieldsDescription": "Uzupełnij pola o adres e-mail i hasło",
+  "invalidEmailTitle": "Zły format e-mail",
+  "invalidEmailDescription": "Wpisz poprawny adres e-mail",
+  "resetPasswordTitle": "Wpisz e-mail, aby zresetować hasło",
+  "resetPasswordSubmit": "Wyślij",
+  "resetPasswordSentTitle": "Twoje hasło zostało zresetowane",
+  "resetPasswordSentDescription": "Sprawdź swoją skrzynkę e-mailową",
+  "resetPasswordFailedTitle": "Poszło coś nie tak",
+  "homeAddNews": "Dodaj do aktualności",
+  "homeNewsList": "Lista aktualności",
+  "homeCategories": "Zarządzaj kategoriami",
+  "homeCompanies": "Zarządzaj firmami",
+  "homeAddUnits": "Dodaj jednostki",
+  "homeAddUser": "Dodaj użytkownika",
+  "homeImportUsers": "Dodaj użytkowników z CSV",
+  "homeUsersList": "Lista użytkowników",
+  "homeAddAdmin": "Dodaj administratora",
+  "homeOffers": "Oferty",
+  "homeSettings": "Ustawienia"
 }

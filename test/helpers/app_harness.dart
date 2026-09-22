@@ -51,3 +51,19 @@ Future<void> pumpComponent(
 /// położonego [depth] katalogów pod `test/`).
 String baselineGolden(String name, {required int depth}) =>
     '${'../' * depth}goldens/baseline/$name.png';
+
+/// Renderuje cały widok (stronę) w zadanym rozmiarze okna — odpowiednik
+/// `pumpLegacyPage` z harnessu wzorców FlutterFlow.
+Future<void> pumpView(
+  WidgetTester tester,
+  Widget view, {
+  required Size viewport,
+  Duration settle = const Duration(milliseconds: 500),
+}) async {
+  setViewport(tester, viewport);
+  await tester.pumpWidget(testApp(view));
+  await tester.pump();
+  await tester.pump(settle);
+  await precacheImages(tester);
+  await tester.pump(const Duration(milliseconds: 16));
+}

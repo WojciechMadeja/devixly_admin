@@ -75,7 +75,8 @@ Widget legacyApp(Widget home) {
       theme: ThemeData(
         brightness: Brightness.light,
         scrollbarTheme: ScrollbarThemeData(
-          thumbColor: WidgetStateProperty.resolveWith((_) => const Color(0x00000000)),
+          thumbColor:
+              WidgetStateProperty.resolveWith((_) => const Color(0x00000000)),
         ),
         useMaterial3: false,
       ),

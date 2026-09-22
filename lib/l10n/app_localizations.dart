@@ -141,6 +141,150 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Coś poszło nie tak'**
   String get errorGeneric;
+
+  /// No description provided for @loginEmailHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'E-mail'**
+  String get loginEmailHint;
+
+  /// No description provided for @loginPasswordHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Hasło'**
+  String get loginPasswordHint;
+
+  /// No description provided for @loginForgotPassword.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zapomniałeś hasła? Kliknij'**
+  String get loginForgotPassword;
+
+  /// No description provided for @loginSubmit.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zaloguj'**
+  String get loginSubmit;
+
+  /// No description provided for @loginEmptyFieldsTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Pola nie mogą być puste!'**
+  String get loginEmptyFieldsTitle;
+
+  /// No description provided for @loginEmptyFieldsDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Uzupełnij pola o adres e-mail i hasło'**
+  String get loginEmptyFieldsDescription;
+
+  /// No description provided for @invalidEmailTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zły format e-mail'**
+  String get invalidEmailTitle;
+
+  /// No description provided for @invalidEmailDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz poprawny adres e-mail'**
+  String get invalidEmailDescription;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz e-mail, aby zresetować hasło'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @resetPasswordSubmit.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wyślij'**
+  String get resetPasswordSubmit;
+
+  /// No description provided for @resetPasswordSentTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Twoje hasło zostało zresetowane'**
+  String get resetPasswordSentTitle;
+
+  /// No description provided for @resetPasswordSentDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Sprawdź swoją skrzynkę e-mailową'**
+  String get resetPasswordSentDescription;
+
+  /// No description provided for @resetPasswordFailedTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Poszło coś nie tak'**
+  String get resetPasswordFailedTitle;
+
+  /// No description provided for @homeAddNews.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj do aktualności'**
+  String get homeAddNews;
+
+  /// No description provided for @homeNewsList.
+  ///
+  /// In pl, this message translates to:
+  /// **'Lista aktualności'**
+  String get homeNewsList;
+
+  /// No description provided for @homeCategories.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zarządzaj kategoriami'**
+  String get homeCategories;
+
+  /// No description provided for @homeCompanies.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zarządzaj firmami'**
+  String get homeCompanies;
+
+  /// No description provided for @homeAddUnits.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj jednostki'**
+  String get homeAddUnits;
+
+  /// No description provided for @homeAddUser.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj użytkownika'**
+  String get homeAddUser;
+
+  /// No description provided for @homeImportUsers.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj użytkowników z CSV'**
+  String get homeImportUsers;
+
+  /// No description provided for @homeUsersList.
+  ///
+  /// In pl, this message translates to:
+  /// **'Lista użytkowników'**
+  String get homeUsersList;
+
+  /// No description provided for @homeAddAdmin.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj administratora'**
+  String get homeAddAdmin;
+
+  /// No description provided for @homeOffers.
+  ///
+  /// In pl, this message translates to:
+  /// **'Oferty'**
+  String get homeOffers;
+
+  /// No description provided for @homeSettings.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ustawienia'**
+  String get homeSettings;
 }
 
 class _AppLocalizationsDelegate

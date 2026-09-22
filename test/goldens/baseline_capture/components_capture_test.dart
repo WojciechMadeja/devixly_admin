@@ -43,7 +43,8 @@ abstract final class ComponentViewport {
 }
 
 class _Capture {
-  const _Capture(this.build, {this.viewport = ComponentViewport.dialog, this.setUp});
+  const _Capture(this.build,
+      {this.viewport = ComponentViewport.dialog, this.setUp});
 
   final Widget Function() build;
   final Size viewport;
@@ -249,7 +250,8 @@ void main() {
   setUp(setUpLegacySession);
   tearDownAll(() {
     // ignore: avoid_print
-    print('Komponenty z przepełnieniem układu: ${_overflowing.toList()..sort()}');
+    print(
+        'Komponenty z przepełnieniem układu: ${_overflowing.toList()..sort()}');
   });
 
   for (final entry in _components.entries) {
