@@ -1,0 +1,18 @@
+{
+  "@@locale": "pl",
+  "commonCancel": "Anuluj",
+  "commonClose": "Zamknij",
+  "commonDelete": "Usuń",
+  "commonSave": "Zapisz",
+  "commonBack": "Cofnij",
+  "confirmChoiceTitle": "Potwierdź swój wybór",
+  "typedConfirmationHint": "Wpisz {phrase}",
+  "@typedConfirmationHint": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
+  "errorGeneric": "Coś poszło nie tak"
+}
