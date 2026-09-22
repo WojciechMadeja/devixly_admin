@@ -11,11 +11,16 @@ class SkeletonFade extends StatelessWidget {
     required this.child,
     this.duration = const Duration(milliseconds: 600),
     this.delay = Duration.zero,
+    this.repeat = true,
   });
 
   final Widget child;
   final Duration duration;
   final Duration delay;
+
+  /// `false` odtwarza pojawienie się tylko raz (tak działa część szkieletów
+  /// w wersji FlutterFlow).
+  final bool repeat;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +34,7 @@ class SkeletonFade extends StatelessWidget {
           end: 1,
         ),
       ],
-      onPlay: (controller) => controller.repeat(),
+      onPlay: repeat ? (controller) => controller.repeat() : null,
       child: child,
     );
   }
@@ -43,18 +48,21 @@ class SkeletonBox extends StatelessWidget {
     required this.height,
     this.duration = const Duration(milliseconds: 600),
     this.delay = Duration.zero,
+    this.repeat = true,
   });
 
   final double width;
   final double height;
   final Duration duration;
   final Duration delay;
+  final bool repeat;
 
   @override
   Widget build(BuildContext context) {
     return SkeletonFade(
       duration: duration,
       delay: delay,
+      repeat: repeat,
       child: Container(width: width, height: height, color: AppColors.tertiary),
     );
   }

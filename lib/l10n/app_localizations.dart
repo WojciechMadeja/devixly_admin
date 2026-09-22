@@ -861,6 +861,144 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Wczytaj plik CSV i wybierz firmę'**
   String get csvNothingToImport;
+
+  /// No description provided for @settingsCompanyPlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Firma'**
+  String get settingsCompanyPlaceholder;
+
+  /// No description provided for @settingsEmailPlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Email'**
+  String get settingsEmailPlaceholder;
+
+  /// No description provided for @settingsPhonePlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Numer Telefonu'**
+  String get settingsPhonePlaceholder;
+
+  /// No description provided for @settingsEditProfile.
+  ///
+  /// In pl, this message translates to:
+  /// **'Edytuj dane osobowe'**
+  String get settingsEditProfile;
+
+  /// No description provided for @settingsChangePassword.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zmień hasło'**
+  String get settingsChangePassword;
+
+  /// No description provided for @editProfileTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zmień swoje dane osobowe'**
+  String get editProfileTitle;
+
+  /// No description provided for @profileSavedTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zmiany zapisane'**
+  String get profileSavedTitle;
+
+  /// No description provided for @profileSavedDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zapisano zmiany'**
+  String get profileSavedDescription;
+
+  /// No description provided for @emptyFieldsTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Pola nie mogą być puste'**
+  String get emptyFieldsTitle;
+
+  /// No description provided for @errorDialogTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Błąd'**
+  String get errorDialogTitle;
+
+  /// No description provided for @errorDialogDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Coś poszło nie tak.'**
+  String get errorDialogDescription;
+
+  /// No description provided for @updatePasswordTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zmień swoje hasło'**
+  String get updatePasswordTitle;
+
+  /// No description provided for @passwordCurrentHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Aktualne hasło'**
+  String get passwordCurrentHint;
+
+  /// No description provided for @passwordNewHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nowe hasło'**
+  String get passwordNewHint;
+
+  /// No description provided for @passwordRepeatHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Powtórz nowe hasło'**
+  String get passwordRepeatHint;
+
+  /// No description provided for @passwordUpdatedDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zaktualizowano hasło do konta.'**
+  String get passwordUpdatedDescription;
+
+  /// No description provided for @passwordMismatchTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wartości nie są identyczne'**
+  String get passwordMismatchTitle;
+
+  /// No description provided for @passwordMismatchDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'W polach Nowe hasło i Powtórz hasło wartości muszą być identyczne.'**
+  String get passwordMismatchDescription;
+
+  /// No description provided for @unitAddTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj jednostkę'**
+  String get unitAddTitle;
+
+  /// No description provided for @unitApartmentNumberHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Numer mieszkania'**
+  String get unitApartmentNumberHint;
+
+  /// No description provided for @unitPriceHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Cena'**
+  String get unitPriceHint;
+
+  /// No description provided for @unitSaved.
+  ///
+  /// In pl, this message translates to:
+  /// **'Pomyślnie zapisano jednostkę'**
+  String get unitSaved;
+
+  /// No description provided for @unitSaveFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się zapisać jednostki'**
+  String get unitSaveFailed;
 }
 
 class _AppLocalizationsDelegate

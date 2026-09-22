@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/theme/app_colors.dart';
+import '../theme/app_colors.dart';
 
 /// Ikona w polu hasła przełączająca jego widoczność.
 class PasswordVisibilityToggle extends StatelessWidget {

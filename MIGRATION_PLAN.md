@@ -21,6 +21,21 @@
     - komponent `display_news_horizontal`.
   - **Uwaga do goldenów:** flutter_test rysuje cienie jako czarny obrys (`debugDisableShadows`), tak samo dla starej i nowej wersji.
 
+- **Fazy 1–5 — fundament, logowanie i sesja, kategorie, firmy, aktualności, użytkownicy: zrobione.** Szczegóły w commitach `b0492ea`, `0cce66d`, `de18ca4`, `8167e77`, `6c20407`.
+
+- **Faza 6 — ustawienia i jednostki: zrobiona.**
+  - `features/settings` z własną warstwą danych (`ProfileRepository`: `GET`/`PUT user/{id}`, `PATCH user/update_password/{id}`), cubitami `ProfileCubit`, `EditProfileCubit`, `UpdatePasswordCubit` i widokami `SettingsView`, `EditProfileView`, `UpdatePasswordView`. Trasy `/settingsPage`, `/editPersonDataPage`, `/updatePasswordPage` bez zmian.
+  - Poprawki: zapis danych wysyła prawdziwe id firmy zamiast `companies: 1`, po zapisie aktualizuje się sesja (nagłówek i formularze nie pokazują starych danych), bez id firmy zapis nie rusza, literówki „Zmiany zapisanme” i „Noe hasło” poprawione, błąd pobrania danych pokazuje SnackBar zamiast szkieletu w nieskończoność.
+  - `features/units`: `AddUnitView` wygląda 1:1, ale **nie ma trasy ani wpisu w `injection.dart`** i nie woła `auth/admin/signup` (stary ekran zakładał konto administratora zamiast zapisywać jednostkę). Zapis prowadzi przez `UnitsRepository`, który celowo nie ma implementacji — sposób podłączenia opisuje doc-comment w widoku.
+  - `PasswordVisibilityToggle` przeniesiony do `core/widgets` (używają go logowanie i zmiana hasła). `SkeletonBox` ma flagę `repeat`, bo jeden ze szkieletów ustawień w wersji FlutterFlow nie jest zapętlony.
+  - Goldeny `settings`, `settings_loading`, `edit_person_data`, `update_password` i `add_unity` (desktop) zgodne co do piksela (`GOLDEN_TOLERANCE=0`).
+
+- **Do weryfikacji na żywym API (nie blokuje Fazy 7):**
+  - `expiresAt` vs `authTokenExpireAt` w odpowiedzi logowania;
+  - aktualność bez obrazka: pusty plik przy `POST`, tekst `"null"` przy `PATCH`;
+  - odpowiedź `PUT user/{id}` — nowa wersja czyta z niej zapisany profil (fixture zwraca pełnego użytkownika);
+  - `companies` przy administratorze bez firmy (wysyłamy id z `GET user/{id}`, dotąd zawsze `1`).
+
 ---
 
 

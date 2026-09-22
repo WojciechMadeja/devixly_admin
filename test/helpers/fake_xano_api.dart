@@ -42,6 +42,8 @@ class FakeXanoApi {
     'POST /api:Q_aNNNvL/auth/admin/signup': const FakeResponse(null),
     'POST /api:Q_aNNNvL/auth/series/signup': const FakeResponse(null),
     'GET /api:om78GTVu/user/1': const FakeResponse('user.json'),
+    'PUT /api:om78GTVu/user/1': const FakeResponse('user.json'),
+    'PATCH /api:om78GTVu/user/update_password/1': const FakeResponse(null),
   };
 
   final Map<String, FakeResponse> _routes;

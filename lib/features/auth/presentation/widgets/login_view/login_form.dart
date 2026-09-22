@@ -5,10 +5,10 @@ import '../../../../../core/constants/app_assets.dart';
 import '../../../../../core/l10n/l10n.dart';
 import '../../../../../core/widgets/app_button.dart';
 import '../../../../../core/widgets/app_text_field.dart';
+import '../../../../../core/widgets/password_visibility_toggle.dart';
 import '../../view_model/login_cubit.dart';
 import '../../view_model/login_state.dart';
 import 'forgot_password_link.dart';
-import 'password_visibility_toggle.dart';
 
 /// Logo, pola e-mail i hasła, link resetu hasła i przycisk logowania.
 class LoginForm extends StatefulWidget {

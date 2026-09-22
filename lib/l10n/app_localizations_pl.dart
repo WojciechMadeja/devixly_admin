@@ -406,4 +406,74 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get csvNothingToImport => 'Wczytaj plik CSV i wybierz firmę';
+
+  @override
+  String get settingsCompanyPlaceholder => 'Firma';
+
+  @override
+  String get settingsEmailPlaceholder => 'Email';
+
+  @override
+  String get settingsPhonePlaceholder => 'Numer Telefonu';
+
+  @override
+  String get settingsEditProfile => 'Edytuj dane osobowe';
+
+  @override
+  String get settingsChangePassword => 'Zmień hasło';
+
+  @override
+  String get editProfileTitle => 'Zmień swoje dane osobowe';
+
+  @override
+  String get profileSavedTitle => 'Zmiany zapisane';
+
+  @override
+  String get profileSavedDescription => 'Zapisano zmiany';
+
+  @override
+  String get emptyFieldsTitle => 'Pola nie mogą być puste';
+
+  @override
+  String get errorDialogTitle => 'Błąd';
+
+  @override
+  String get errorDialogDescription => 'Coś poszło nie tak.';
+
+  @override
+  String get updatePasswordTitle => 'Zmień swoje hasło';
+
+  @override
+  String get passwordCurrentHint => 'Aktualne hasło';
+
+  @override
+  String get passwordNewHint => 'Nowe hasło';
+
+  @override
+  String get passwordRepeatHint => 'Powtórz nowe hasło';
+
+  @override
+  String get passwordUpdatedDescription => 'Zaktualizowano hasło do konta.';
+
+  @override
+  String get passwordMismatchTitle => 'Wartości nie są identyczne';
+
+  @override
+  String get passwordMismatchDescription =>
+      'W polach Nowe hasło i Powtórz hasło wartości muszą być identyczne.';
+
+  @override
+  String get unitAddTitle => 'Dodaj jednostkę';
+
+  @override
+  String get unitApartmentNumberHint => 'Numer mieszkania';
+
+  @override
+  String get unitPriceHint => 'Cena';
+
+  @override
+  String get unitSaved => 'Pomyślnie zapisano jednostkę';
+
+  @override
+  String get unitSaveFailed => 'Nie udało się zapisać jednostki';
 }

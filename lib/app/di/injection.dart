@@ -33,6 +33,12 @@ import '../../features/admins/data/repositories/admins_repository_impl.dart';
 import '../../features/admins/domain/repositories/admins_repository.dart';
 import '../../features/admins/presentation/view_model/admin_form_cubit.dart';
 import '../../features/news/presentation/view_model/news_list_cubit.dart';
+import '../../features/settings/data/datasources/profile_remote_data_source.dart';
+import '../../features/settings/data/repositories/profile_repository_impl.dart';
+import '../../features/settings/domain/repositories/profile_repository.dart';
+import '../../features/settings/presentation/view_model/edit_profile_cubit.dart';
+import '../../features/settings/presentation/view_model/profile_cubit.dart';
+import '../../features/settings/presentation/view_model/update_password_cubit.dart';
 import '../../features/users/data/datasources/users_remote_data_source.dart';
 import '../../features/users/data/repositories/users_repository_impl.dart';
 import '../../features/users/domain/repositories/users_repository.dart';
@@ -57,6 +63,7 @@ Future<void> setupDependencies({http.Client? httpClient}) async {
   _registerNews();
   _registerUsers();
   _registerAdmins();
+  _registerSettings();
 }
 
 void _registerCore(SharedPreferences preferences, http.Client httpClient) {
@@ -135,6 +142,21 @@ void _registerUsers() {
     ..registerFactory(
       () => CsvImportCubit(getIt(), getIt(), getIt(), getIt()),
     );
+}
+
+/// Ekran „Dodaj jednostkę” (`features/units`) celowo nie jest tu
+/// rejestrowany — nie ma jeszcze endpointu ani trasy.
+void _registerSettings() {
+  getIt
+    ..registerLazySingleton<ProfileRemoteDataSource>(
+      () => ProfileRemoteDataSourceImpl(getIt(), getIt()),
+    )
+    ..registerLazySingleton<ProfileRepository>(
+      () => ProfileRepositoryImpl(getIt(), getIt()),
+    )
+    ..registerFactory(() => ProfileCubit(getIt()))
+    ..registerFactory(() => EditProfileCubit(getIt(), getIt()))
+    ..registerFactory(() => UpdatePasswordCubit(getIt()));
 }
 
 void _registerAdmins() {
