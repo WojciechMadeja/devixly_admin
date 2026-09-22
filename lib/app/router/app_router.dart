@@ -7,6 +7,10 @@ import '../../features/auth/presentation/view_model/session_state.dart';
 import '../../features/categories/presentation/view/categories_view.dart';
 import '../../features/companies/presentation/view/companies_view.dart';
 import '../../features/home/presentation/view/home_view.dart';
+import '../../features/news/domain/entities/news.dart';
+import '../../features/news/presentation/view/add_news_view.dart';
+import '../../features/news/presentation/view/edit_news_view.dart';
+import '../../features/news/presentation/view/news_list_view.dart';
 import 'app_routes.dart';
 import 'stream_listenable.dart';
 
@@ -55,6 +59,25 @@ GoRouter createAppRouter(SessionCubit session) {
       GoRoute(
         path: AppRoutes.companies,
         builder: (context, state) => const CompaniesView(),
+      ),
+      GoRoute(
+        path: AppRoutes.newsList,
+        builder: (context, state) => const NewsListView(),
+      ),
+      GoRoute(
+        path: AppRoutes.addNews,
+        builder: (context, state) => const AddNewsView(),
+      ),
+      GoRoute(
+        path: AppRoutes.editNews,
+        redirect: (context, state) =>
+            int.tryParse(state.uri.queryParameters['id'] ?? '') == null
+                ? AppRoutes.newsList
+                : null,
+        builder: (context, state) => EditNewsView(
+          newsId: int.parse(state.uri.queryParameters['id']!),
+          news: state.extra is News ? state.extra! as News : null,
+        ),
       ),
     ],
   );

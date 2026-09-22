@@ -483,6 +483,114 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Dodaj firmę'**
   String get companyPickerAdd;
+
+  /// No description provided for @newsListTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Lista aktualizacji'**
+  String get newsListTitle;
+
+  /// No description provided for @newsCategories.
+  ///
+  /// In pl, this message translates to:
+  /// **'Kategorie: {names}'**
+  String newsCategories(String names);
+
+  /// No description provided for @newsDeleteMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz usunąć aktualizację:'**
+  String get newsDeleteMessage;
+
+  /// No description provided for @newsDeleted.
+  ///
+  /// In pl, this message translates to:
+  /// **'Udało się'**
+  String get newsDeleted;
+
+  /// No description provided for @newsAddTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj do aktualności'**
+  String get newsAddTitle;
+
+  /// No description provided for @newsEditTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Edytuj aktualność'**
+  String get newsEditTitle;
+
+  /// No description provided for @newsAddPhoto.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj zdjęcie'**
+  String get newsAddPhoto;
+
+  /// No description provided for @newsTitleHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Tytuł'**
+  String get newsTitleHint;
+
+  /// No description provided for @newsContentHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Opis'**
+  String get newsContentHint;
+
+  /// No description provided for @newsPickDate.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wybierz datę'**
+  String get newsPickDate;
+
+  /// No description provided for @newsAddSubmit.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj'**
+  String get newsAddSubmit;
+
+  /// No description provided for @newsEditSubmit.
+  ///
+  /// In pl, this message translates to:
+  /// **'Edytuj'**
+  String get newsEditSubmit;
+
+  /// No description provided for @newsAdded.
+  ///
+  /// In pl, this message translates to:
+  /// **'Udało się zapisać aktualność'**
+  String get newsAdded;
+
+  /// No description provided for @newsAddFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się dodać aktualności'**
+  String get newsAddFailed;
+
+  /// No description provided for @newsEdited.
+  ///
+  /// In pl, this message translates to:
+  /// **'Udało się edytować'**
+  String get newsEdited;
+
+  /// No description provided for @newsEditFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się edytować aktualności'**
+  String get newsEditFailed;
+
+  /// No description provided for @newsTitleRequired.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz tytuł aktualności'**
+  String get newsTitleRequired;
+
+  /// No description provided for @newsUnsupportedImage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nieobsługiwany format pliku — wybierz obrazek PNG, JPG lub GIF'**
+  String get newsUnsupportedImage;
 }
 
 class _AppLocalizationsDelegate

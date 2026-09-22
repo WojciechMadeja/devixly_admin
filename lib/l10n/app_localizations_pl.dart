@@ -210,4 +210,61 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get companyPickerAdd => 'Dodaj firmę';
+
+  @override
+  String get newsListTitle => 'Lista aktualizacji';
+
+  @override
+  String newsCategories(String names) {
+    return 'Kategorie: $names';
+  }
+
+  @override
+  String get newsDeleteMessage => 'Czy na pewno chcesz usunąć aktualizację:';
+
+  @override
+  String get newsDeleted => 'Udało się';
+
+  @override
+  String get newsAddTitle => 'Dodaj do aktualności';
+
+  @override
+  String get newsEditTitle => 'Edytuj aktualność';
+
+  @override
+  String get newsAddPhoto => 'Dodaj zdjęcie';
+
+  @override
+  String get newsTitleHint => 'Tytuł';
+
+  @override
+  String get newsContentHint => 'Opis';
+
+  @override
+  String get newsPickDate => 'Wybierz datę';
+
+  @override
+  String get newsAddSubmit => 'Dodaj';
+
+  @override
+  String get newsEditSubmit => 'Edytuj';
+
+  @override
+  String get newsAdded => 'Udało się zapisać aktualność';
+
+  @override
+  String get newsAddFailed => 'Nie udało się dodać aktualności';
+
+  @override
+  String get newsEdited => 'Udało się edytować';
+
+  @override
+  String get newsEditFailed => 'Nie udało się edytować aktualności';
+
+  @override
+  String get newsTitleRequired => 'Wpisz tytuł aktualności';
+
+  @override
+  String get newsUnsupportedImage =>
+      'Nieobsługiwany format pliku — wybierz obrazek PNG, JPG lub GIF';
 }

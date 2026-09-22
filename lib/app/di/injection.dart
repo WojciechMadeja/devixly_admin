@@ -6,6 +6,7 @@ import '../../core/network/auth_token_provider.dart';
 import '../../core/network/authorized_api_client.dart';
 import '../../core/network/current_admin.dart';
 import '../../core/network/http_json_client.dart';
+import '../../core/services/media_picker.dart';
 import '../../features/auth/data/datasources/auth_remote_data_source.dart';
 import '../../features/auth/data/datasources/session_local_data_source.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
@@ -23,6 +24,11 @@ import '../../features/companies/data/repositories/companies_repository_impl.dar
 import '../../features/companies/domain/repositories/companies_repository.dart';
 import '../../features/companies/presentation/view_model/companies_cubit.dart';
 import '../../features/companies/presentation/view_model/company_form_cubit.dart';
+import '../../features/news/data/datasources/news_remote_data_source.dart';
+import '../../features/news/data/repositories/news_repository_impl.dart';
+import '../../features/news/domain/repositories/news_repository.dart';
+import '../../features/news/presentation/view_model/news_editor_cubit.dart';
+import '../../features/news/presentation/view_model/news_list_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -37,6 +43,7 @@ Future<void> setupDependencies({http.Client? httpClient}) async {
   _registerAuth();
   _registerCategories();
   _registerCompanies();
+  _registerNews();
 }
 
 void _registerCore(SharedPreferences preferences, http.Client httpClient) {
@@ -44,7 +51,8 @@ void _registerCore(SharedPreferences preferences, http.Client httpClient) {
     ..registerSingleton(preferences)
     ..registerSingleton(httpClient)
     ..registerLazySingleton(() => HttpJsonClient(getIt()))
-    ..registerLazySingleton(() => AuthorizedApiClient(getIt(), getIt()));
+    ..registerLazySingleton(() => AuthorizedApiClient(getIt(), getIt()))
+    ..registerLazySingleton<MediaPicker>(DeviceMediaPicker.new);
 }
 
 void _registerAuth() {
@@ -88,4 +96,16 @@ void _registerCompanies() {
     )
     ..registerFactory(() => CompaniesCubit(getIt()))
     ..registerFactory(() => CompanyFormCubit(getIt()));
+}
+
+void _registerNews() {
+  getIt
+    ..registerLazySingleton<NewsRemoteDataSource>(
+      () => NewsRemoteDataSourceImpl(getIt()),
+    )
+    ..registerLazySingleton<NewsRepository>(() => NewsRepositoryImpl(getIt()))
+    ..registerFactory(() => NewsListCubit(getIt(), getIt()))
+    ..registerFactory(
+      () => NewsEditorCubit(getIt(), getIt(), getIt(), getIt()),
+    );
 }

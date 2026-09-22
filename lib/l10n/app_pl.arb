@@ -85,5 +85,30 @@
   "commonBlock": "Zablokuj",
   "commonUnblock": "Odblokuj",
   "companyPickerEmpty": "Nie masz  jeszcze dodanych firm",
-  "companyPickerAdd": "Dodaj firmę"
+  "companyPickerAdd": "Dodaj firmę",
+  "newsListTitle": "Lista aktualizacji",
+  "newsCategories": "Kategorie: {names}",
+  "@newsCategories": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "newsDeleteMessage": "Czy na pewno chcesz usunąć aktualizację:",
+  "newsDeleted": "Udało się",
+  "newsAddTitle": "Dodaj do aktualności",
+  "newsEditTitle": "Edytuj aktualność",
+  "newsAddPhoto": "Dodaj zdjęcie",
+  "newsTitleHint": "Tytuł",
+  "newsContentHint": "Opis",
+  "newsPickDate": "Wybierz datę",
+  "newsAddSubmit": "Dodaj",
+  "newsEditSubmit": "Edytuj",
+  "newsAdded": "Udało się zapisać aktualność",
+  "newsAddFailed": "Nie udało się dodać aktualności",
+  "newsEdited": "Udało się edytować",
+  "newsEditFailed": "Nie udało się edytować aktualności",
+  "newsTitleRequired": "Wpisz tytuł aktualności",
+  "newsUnsupportedImage": "Nieobsługiwany format pliku — wybierz obrazek PNG, JPG lub GIF"
 }

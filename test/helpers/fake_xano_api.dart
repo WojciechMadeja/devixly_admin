@@ -22,6 +22,9 @@ class FakeXanoApi {
     'POST /api:Q_aNNNvL/auth/revoke_token': const FakeResponse(null),
     'POST /api:Q_aNNNvL/auth/reset_password': const FakeResponse(null),
     'GET /api:iiXsTPtO/news': const FakeResponse('news.json'),
+    'POST /api:iiXsTPtO/news': const FakeResponse(null),
+    'PATCH /api:iiXsTPtO/news/11': const FakeResponse(null),
+    'DELETE /api:iiXsTPtO/news/11': const FakeResponse(null),
     'GET /api:Qct1TYOV/categories': const FakeResponse('categories.json'),
     'POST /api:Qct1TYOV/categories': const FakeResponse('category.json'),
     'PATCH /api:Qct1TYOV/categories/2': const FakeResponse('category.json'),
@@ -95,6 +98,30 @@ class RecordedRequest {
 
   /// Body żądania JSON jako mapa.
   Map<String, dynamic> get json => jsonDecode(body) as Map<String, dynamic>;
+
+  /// Części żądania multipart: nazwa → (nazwa pliku, zawartość tekstowa).
+  Map<String, ({String? filename, String value})> get multipartParts {
+    final boundary = RegExp('boundary=(.+)')
+        .firstMatch(headers['content-type'] ?? '')
+        ?.group(1);
+    if (boundary == null) return const {};
+    final parts = <String, ({String? filename, String value})>{};
+    for (final raw in body.split('--$boundary')) {
+      final separator = raw.indexOf('\r\n\r\n');
+      if (separator < 0) continue;
+      final head = raw.substring(0, separator);
+      final name = RegExp('name="([^"]*)"').firstMatch(head)?.group(1);
+      if (name == null) continue;
+      final value = raw.substring(separator + 4);
+      parts[name] = (
+        filename: RegExp('filename="([^"]*)"').firstMatch(head)?.group(1),
+        value: value.endsWith('\r\n')
+            ? value.substring(0, value.length - 2)
+            : value,
+      );
+    }
+    return parts;
+  }
 
   @override
   String toString() => '$method $url $body';
