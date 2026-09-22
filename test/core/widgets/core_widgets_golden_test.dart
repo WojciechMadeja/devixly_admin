@@ -87,7 +87,7 @@ void main() {
       tester,
       const TypedConfirmationDialog(
         messagePrefix: 'Czy na pewno chcesz zablokować firmę ',
-        highlight: 'Devixly Sp. z o.o.',
+        highlights: ['Devixly Sp. z o.o.'],
         messageSuffix: ' ze wszystkim przypisanymi jej agentami?',
         phrase: 'BLOCK',
         mismatchMessage: 'Wpisz BLOCK, aby zablokować',

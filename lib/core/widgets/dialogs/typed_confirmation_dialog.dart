@@ -13,7 +13,7 @@ class TypedConfirmationDialog extends StatefulWidget {
   const TypedConfirmationDialog({
     super.key,
     required this.messagePrefix,
-    required this.highlight,
+    required this.highlights,
     required this.phrase,
     required this.mismatchMessage,
     required this.confirmLabel,
@@ -25,8 +25,9 @@ class TypedConfirmationDialog extends StatefulWidget {
   /// Pytanie przed nazwą elementu, np. „Czy na pewno chcesz zablokować firmę ”.
   final String messagePrefix;
 
-  /// Pogrubiona nazwa elementu.
-  final String highlight;
+  /// Pogrubione fragmenty (np. nazwa firmy albo nazwisko i imię) —
+  /// rozdzielone zwykłą spacją.
+  final List<String> highlights;
   final String messageSuffix;
 
   /// Fraza, którą trzeba wpisać, żeby potwierdzić.
@@ -83,10 +84,13 @@ class _TypedConfirmationDialogState extends State<TypedConfirmationDialog> {
             style: AppTextStyles.bodyLarge,
             children: [
               TextSpan(text: widget.messagePrefix),
-              TextSpan(
-                text: widget.highlight,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
+              for (var i = 0; i < widget.highlights.length; i++) ...[
+                if (i > 0) const TextSpan(text: ' '),
+                TextSpan(
+                  text: widget.highlights[i],
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
               TextSpan(text: widget.messageSuffix),
             ],
           ),

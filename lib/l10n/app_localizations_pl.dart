@@ -267,4 +267,143 @@ class AppLocalizationsPl extends AppLocalizations {
   @override
   String get newsUnsupportedImage =>
       'Nieobsługiwany format pliku — wybierz obrazek PNG, JPG lub GIF';
+
+  @override
+  String get companyPickerPlaceholder => 'Wybierz firmę';
+
+  @override
+  String get userEmailHint => 'E-mail';
+
+  @override
+  String get userFirstNameHint => 'Imię';
+
+  @override
+  String get userLastNameHint => 'Nazwisko';
+
+  @override
+  String get userPhoneHint => 'Numer telefonu';
+
+  @override
+  String get userPasswordHint => 'Hasło';
+
+  @override
+  String get addUserTitle => 'Dodaj dane użytkownika';
+
+  @override
+  String get addAdminTitle => 'Dodaj admina';
+
+  @override
+  String get userSaved => 'Pomyślnie zapisano użytkownika';
+
+  @override
+  String get userSaveFailed => 'Nie udało się zapisać użytkownika';
+
+  @override
+  String get formIncomplete => 'Wszystkie pola powinny być wypełnione';
+
+  @override
+  String get usersListTitle => 'Lista użytkowników';
+
+  @override
+  String get usersColumnNumber => 'Lp.';
+
+  @override
+  String get usersColumnName => 'Nazwisko i imię';
+
+  @override
+  String get usersColumnCompany => 'Firma';
+
+  @override
+  String get usersColumnAdmin => 'Admin';
+
+  @override
+  String get usersColumnActions => 'Akcje';
+
+  @override
+  String get usersColumnEmail => 'E-mail';
+
+  @override
+  String get usersColumnPhone => 'Numer telefonu';
+
+  @override
+  String get yes => 'Tak';
+
+  @override
+  String get no => 'Nie';
+
+  @override
+  String get userPreviewName => 'Imię i nazwisko: ';
+
+  @override
+  String get userPreviewEmail => 'Adres e-mail: ';
+
+  @override
+  String get userPreviewPhone => 'Numer telefonu: ';
+
+  @override
+  String get userPreviewDeals => 'Deale';
+
+  @override
+  String get userEditTitle => 'Edytuj użytkownika';
+
+  @override
+  String get userBlockMessage => 'Czy na pewno chcesz zablokować użytkownika ';
+
+  @override
+  String get userUnblockMessage =>
+      'Czy na pewno chcesz odblokować użytkownika ';
+
+  @override
+  String get userDeleteMessage => 'Czy na pewno chcesz usunąć użytkownika ';
+
+  @override
+  String get userDeleteAdminSuffix => ' z prawami administratora?';
+
+  @override
+  String get userQuestionMark => '?';
+
+  @override
+  String get deleteAdminPhrase => 'DELETE ADMIN';
+
+  @override
+  String get deleteAdminMismatch => 'Wpisz DELETE ADMIN, aby usunąć';
+
+  @override
+  String get userBlockedCompanyTitle => 'Nie możesz tego zrobić';
+
+  @override
+  String get userBlockedCompanyDescription =>
+      'Nie możesz odblokować tego użytkownika, ponieważ jego firma jest zablokowana. Aby odblokować użytkownika, odblokuj firmę.';
+
+  @override
+  String get csvLoadFile => 'Załaduj plik';
+
+  @override
+  String get csvDeleteMessage => 'Czy na pewno chcesz usunąć użytkownika:';
+
+  @override
+  String get csvInvalidEmailsTitle => 'Błąd';
+
+  @override
+  String get csvInvalidEmailsDescription =>
+      'Poniżej jest lista błędów zwiazanych z walidacją adresu e-mail:';
+
+  @override
+  String get csvNotRecognizedTitle => 'Błąd';
+
+  @override
+  String get csvNotRecognizedDescription => 'Wybrany plik nie jest plikiem CSV';
+
+  @override
+  String get csvMissingHeadersDescription =>
+      'Plik CSV musi zawierać kolumny: firstName, lastName, email, phoneNumber';
+
+  @override
+  String get csvImported => 'Użytkownicy zostali dodani';
+
+  @override
+  String get csvImportFailed => 'Nie udało się dodać użytkowników';
+
+  @override
+  String get csvNothingToImport => 'Wczytaj plik CSV i wybierz firmę';
 }

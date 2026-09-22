@@ -4,8 +4,8 @@ import '../../../../../core/l10n/l10n.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 import '../../../../../core/utils/date_formatters.dart';
-import '../../../../../core/utils/responsive.dart';
-import '../../../../../core/widgets/app_icon_button.dart';
+import '../../../../../core/widgets/dialogs/dialog_close_button.dart';
+import '../../../../../core/widgets/gold_divider.dart';
 import '../../../domain/entities/news.dart';
 import '../shared/news_image.dart';
 
@@ -51,7 +51,7 @@ class NewsPreviewDialog extends StatelessWidget {
                   child: Column(
                     spacing: 20,
                     children: [
-                      const _GoldDivider(),
+                      const GoldDivider(),
                       NewsImage.network(news.imageUrl, ratio: news.ratio),
                       Column(
                         spacing: 5,
@@ -90,49 +90,17 @@ class NewsPreviewDialog extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const _GoldDivider(),
+                      const GoldDivider(),
                       Text(news.content, style: AppTextStyles.input),
-                      const _GoldDivider(),
+                      const GoldDivider(),
                     ],
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 23, right: 23),
-                  child: AppIconButton(
-                    icon: Icons.close_rounded,
-                    iconSize: 15,
-                    iconColor: AppColors.info,
-                    buttonSize: 35,
-                    borderRadius: 50,
-                    fillColor: AppColors.accent1,
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ),
-              ),
+              DialogCloseButton(onPressed: () => Navigator.pop(context)),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// Złota linia oddzielająca sekcje podglądu.
-class _GoldDivider extends StatelessWidget {
-  const _GoldDivider();
-
-  @override
-  Widget build(BuildContext context) {
-    final inset = Responsive.percentOfWidth(context, 6);
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: inset),
-      child: Container(
-        width: double.infinity,
-        height: 2,
-        color: AppColors.accent1,
       ),
     );
   }

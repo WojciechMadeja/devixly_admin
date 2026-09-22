@@ -10,7 +10,11 @@ import '../../features/home/presentation/view/home_view.dart';
 import '../../features/news/domain/entities/news.dart';
 import '../../features/news/presentation/view/add_news_view.dart';
 import '../../features/news/presentation/view/edit_news_view.dart';
+import '../../features/admins/presentation/view/add_admin_view.dart';
 import '../../features/news/presentation/view/news_list_view.dart';
+import '../../features/users/presentation/view/add_user_view.dart';
+import '../../features/users/presentation/view/csv_import_view.dart';
+import '../../features/users/presentation/view/users_list_view.dart';
 import 'app_routes.dart';
 import 'stream_listenable.dart';
 
@@ -67,6 +71,22 @@ GoRouter createAppRouter(SessionCubit session) {
       GoRoute(
         path: AppRoutes.addNews,
         builder: (context, state) => const AddNewsView(),
+      ),
+      GoRoute(
+        path: AppRoutes.usersList,
+        builder: (context, state) => const UsersListView(),
+      ),
+      GoRoute(
+        path: AppRoutes.addUser,
+        builder: (context, state) => const AddUserView(),
+      ),
+      GoRoute(
+        path: AppRoutes.importUsers,
+        builder: (context, state) => const CsvImportView(),
+      ),
+      GoRoute(
+        path: AppRoutes.addAdmin,
+        builder: (context, state) => const AddAdminView(),
       ),
       GoRoute(
         path: AppRoutes.editNews,

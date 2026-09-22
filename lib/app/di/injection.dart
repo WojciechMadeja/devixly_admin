@@ -28,7 +28,18 @@ import '../../features/news/data/datasources/news_remote_data_source.dart';
 import '../../features/news/data/repositories/news_repository_impl.dart';
 import '../../features/news/domain/repositories/news_repository.dart';
 import '../../features/news/presentation/view_model/news_editor_cubit.dart';
+import '../../features/admins/data/datasources/admins_remote_data_source.dart';
+import '../../features/admins/data/repositories/admins_repository_impl.dart';
+import '../../features/admins/domain/repositories/admins_repository.dart';
+import '../../features/admins/presentation/view_model/admin_form_cubit.dart';
 import '../../features/news/presentation/view_model/news_list_cubit.dart';
+import '../../features/users/data/datasources/users_remote_data_source.dart';
+import '../../features/users/data/repositories/users_repository_impl.dart';
+import '../../features/users/domain/repositories/users_repository.dart';
+import '../../features/users/domain/usecases/parse_users_csv.dart';
+import '../../features/users/presentation/view_model/csv_import_cubit.dart';
+import '../../features/users/presentation/view_model/user_form_cubit.dart';
+import '../../features/users/presentation/view_model/users_list_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -44,6 +55,8 @@ Future<void> setupDependencies({http.Client? httpClient}) async {
   _registerCategories();
   _registerCompanies();
   _registerNews();
+  _registerUsers();
+  _registerAdmins();
 }
 
 void _registerCore(SharedPreferences preferences, http.Client httpClient) {
@@ -108,4 +121,29 @@ void _registerNews() {
     ..registerFactory(
       () => NewsEditorCubit(getIt(), getIt(), getIt(), getIt()),
     );
+}
+
+void _registerUsers() {
+  getIt
+    ..registerLazySingleton<UsersRemoteDataSource>(
+      () => UsersRemoteDataSourceImpl(getIt(), getIt()),
+    )
+    ..registerLazySingleton<UsersRepository>(() => UsersRepositoryImpl(getIt()))
+    ..registerLazySingleton(() => const ParseUsersCsv())
+    ..registerFactory(() => UsersListCubit(getIt(), getIt(), getIt()))
+    ..registerFactory(() => UserFormCubit(getIt(), getIt()))
+    ..registerFactory(
+      () => CsvImportCubit(getIt(), getIt(), getIt(), getIt()),
+    );
+}
+
+void _registerAdmins() {
+  getIt
+    ..registerLazySingleton<AdminsRemoteDataSource>(
+      () => AdminsRemoteDataSourceImpl(getIt(), getIt()),
+    )
+    ..registerLazySingleton<AdminsRepository>(
+      () => AdminsRepositoryImpl(getIt()),
+    )
+    ..registerFactory(() => AdminFormCubit(getIt()));
 }

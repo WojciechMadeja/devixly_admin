@@ -591,6 +591,276 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Nieobsługiwany format pliku — wybierz obrazek PNG, JPG lub GIF'**
   String get newsUnsupportedImage;
+
+  /// No description provided for @companyPickerPlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wybierz firmę'**
+  String get companyPickerPlaceholder;
+
+  /// No description provided for @userEmailHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'E-mail'**
+  String get userEmailHint;
+
+  /// No description provided for @userFirstNameHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Imię'**
+  String get userFirstNameHint;
+
+  /// No description provided for @userLastNameHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nazwisko'**
+  String get userLastNameHint;
+
+  /// No description provided for @userPhoneHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Numer telefonu'**
+  String get userPhoneHint;
+
+  /// No description provided for @userPasswordHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Hasło'**
+  String get userPasswordHint;
+
+  /// No description provided for @addUserTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj dane użytkownika'**
+  String get addUserTitle;
+
+  /// No description provided for @addAdminTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj admina'**
+  String get addAdminTitle;
+
+  /// No description provided for @userSaved.
+  ///
+  /// In pl, this message translates to:
+  /// **'Pomyślnie zapisano użytkownika'**
+  String get userSaved;
+
+  /// No description provided for @userSaveFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się zapisać użytkownika'**
+  String get userSaveFailed;
+
+  /// No description provided for @formIncomplete.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wszystkie pola powinny być wypełnione'**
+  String get formIncomplete;
+
+  /// No description provided for @usersListTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Lista użytkowników'**
+  String get usersListTitle;
+
+  /// No description provided for @usersColumnNumber.
+  ///
+  /// In pl, this message translates to:
+  /// **'Lp.'**
+  String get usersColumnNumber;
+
+  /// No description provided for @usersColumnName.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nazwisko i imię'**
+  String get usersColumnName;
+
+  /// No description provided for @usersColumnCompany.
+  ///
+  /// In pl, this message translates to:
+  /// **'Firma'**
+  String get usersColumnCompany;
+
+  /// No description provided for @usersColumnAdmin.
+  ///
+  /// In pl, this message translates to:
+  /// **'Admin'**
+  String get usersColumnAdmin;
+
+  /// No description provided for @usersColumnActions.
+  ///
+  /// In pl, this message translates to:
+  /// **'Akcje'**
+  String get usersColumnActions;
+
+  /// No description provided for @usersColumnEmail.
+  ///
+  /// In pl, this message translates to:
+  /// **'E-mail'**
+  String get usersColumnEmail;
+
+  /// No description provided for @usersColumnPhone.
+  ///
+  /// In pl, this message translates to:
+  /// **'Numer telefonu'**
+  String get usersColumnPhone;
+
+  /// No description provided for @yes.
+  ///
+  /// In pl, this message translates to:
+  /// **'Tak'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie'**
+  String get no;
+
+  /// No description provided for @userPreviewName.
+  ///
+  /// In pl, this message translates to:
+  /// **'Imię i nazwisko: '**
+  String get userPreviewName;
+
+  /// No description provided for @userPreviewEmail.
+  ///
+  /// In pl, this message translates to:
+  /// **'Adres e-mail: '**
+  String get userPreviewEmail;
+
+  /// No description provided for @userPreviewPhone.
+  ///
+  /// In pl, this message translates to:
+  /// **'Numer telefonu: '**
+  String get userPreviewPhone;
+
+  /// No description provided for @userPreviewDeals.
+  ///
+  /// In pl, this message translates to:
+  /// **'Deale'**
+  String get userPreviewDeals;
+
+  /// No description provided for @userEditTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Edytuj użytkownika'**
+  String get userEditTitle;
+
+  /// No description provided for @userBlockMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz zablokować użytkownika '**
+  String get userBlockMessage;
+
+  /// No description provided for @userUnblockMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz odblokować użytkownika '**
+  String get userUnblockMessage;
+
+  /// No description provided for @userDeleteMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz usunąć użytkownika '**
+  String get userDeleteMessage;
+
+  /// No description provided for @userDeleteAdminSuffix.
+  ///
+  /// In pl, this message translates to:
+  /// **' z prawami administratora?'**
+  String get userDeleteAdminSuffix;
+
+  /// No description provided for @userQuestionMark.
+  ///
+  /// In pl, this message translates to:
+  /// **'?'**
+  String get userQuestionMark;
+
+  /// No description provided for @deleteAdminPhrase.
+  ///
+  /// In pl, this message translates to:
+  /// **'DELETE ADMIN'**
+  String get deleteAdminPhrase;
+
+  /// No description provided for @deleteAdminMismatch.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz DELETE ADMIN, aby usunąć'**
+  String get deleteAdminMismatch;
+
+  /// No description provided for @userBlockedCompanyTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie możesz tego zrobić'**
+  String get userBlockedCompanyTitle;
+
+  /// No description provided for @userBlockedCompanyDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie możesz odblokować tego użytkownika, ponieważ jego firma jest zablokowana. Aby odblokować użytkownika, odblokuj firmę.'**
+  String get userBlockedCompanyDescription;
+
+  /// No description provided for @csvLoadFile.
+  ///
+  /// In pl, this message translates to:
+  /// **'Załaduj plik'**
+  String get csvLoadFile;
+
+  /// No description provided for @csvDeleteMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz usunąć użytkownika:'**
+  String get csvDeleteMessage;
+
+  /// No description provided for @csvInvalidEmailsTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Błąd'**
+  String get csvInvalidEmailsTitle;
+
+  /// No description provided for @csvInvalidEmailsDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Poniżej jest lista błędów zwiazanych z walidacją adresu e-mail:'**
+  String get csvInvalidEmailsDescription;
+
+  /// No description provided for @csvNotRecognizedTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Błąd'**
+  String get csvNotRecognizedTitle;
+
+  /// No description provided for @csvNotRecognizedDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wybrany plik nie jest plikiem CSV'**
+  String get csvNotRecognizedDescription;
+
+  /// No description provided for @csvMissingHeadersDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Plik CSV musi zawierać kolumny: firstName, lastName, email, phoneNumber'**
+  String get csvMissingHeadersDescription;
+
+  /// No description provided for @csvImported.
+  ///
+  /// In pl, this message translates to:
+  /// **'Użytkownicy zostali dodani'**
+  String get csvImported;
+
+  /// No description provided for @csvImportFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się dodać użytkowników'**
+  String get csvImportFailed;
+
+  /// No description provided for @csvNothingToImport.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wczytaj plik CSV i wybierz firmę'**
+  String get csvNothingToImport;
 }
 
 class _AppLocalizationsDelegate

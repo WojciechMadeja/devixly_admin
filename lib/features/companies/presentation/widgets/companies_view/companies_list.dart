@@ -76,7 +76,7 @@ class CompaniesList extends StatelessWidget {
       builder: (_) => TypedConfirmationDialog(
         messagePrefix:
             block ? l10n.companyBlockMessage : l10n.companyUnblockMessage,
-        highlight: company.name,
+        highlights: [company.name],
         messageSuffix: l10n.companyWithAgentsSuffix,
         phrase: block ? l10n.blockPhrase : l10n.unblockPhrase,
         mismatchMessage: block ? l10n.blockMismatch : l10n.unblockMismatch,
@@ -95,7 +95,7 @@ class CompaniesList extends StatelessWidget {
       context,
       builder: (_) => TypedConfirmationDialog(
         messagePrefix: l10n.companyDeleteMessage,
-        highlight: company.name,
+        highlights: [company.name],
         messageSuffix: l10n.companyWithAgentsSuffix,
         phrase: l10n.deletePhrase,
         mismatchMessage: l10n.deleteMismatch,

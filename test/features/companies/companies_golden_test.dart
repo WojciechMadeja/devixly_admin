@@ -142,7 +142,7 @@ void main() {
                 messagePrefix: block
                     ? l10n.companyBlockMessage
                     : l10n.companyUnblockMessage,
-                highlight: company.name,
+                highlights: [company.name],
                 messageSuffix: l10n.companyWithAgentsSuffix,
                 phrase: block ? l10n.blockPhrase : l10n.unblockPhrase,
                 mismatchMessage:
@@ -166,7 +166,7 @@ void main() {
             final l10n = context.l10n;
             return TypedConfirmationDialog(
               messagePrefix: l10n.companyDeleteMessage,
-              highlight: _devixly.name,
+              highlights: [_devixly.name],
               messageSuffix: l10n.companyWithAgentsSuffix,
               phrase: l10n.deletePhrase,
               mismatchMessage: l10n.deleteMismatch,

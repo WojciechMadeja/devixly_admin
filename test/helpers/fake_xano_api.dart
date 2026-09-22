@@ -35,6 +35,12 @@ class FakeXanoApi {
     'PATCH /api:lUs0VlvB/companies/block/2': const FakeResponse(null),
     'DELETE /api:lUs0VlvB/companies/2': const FakeResponse(null),
     'GET /api:om78GTVu/user': const FakeResponse('users.json'),
+    'PUT /api:om78GTVu/user/3': const FakeResponse('user.json'),
+    'PATCH /api:om78GTVu/user/block/3': const FakeResponse(null),
+    'DELETE /api:om78GTVu/user/admin/3': const FakeResponse(null),
+    'POST /api:Q_aNNNvL/auth/signup': const FakeResponse(null),
+    'POST /api:Q_aNNNvL/auth/admin/signup': const FakeResponse(null),
+    'POST /api:Q_aNNNvL/auth/series/signup': const FakeResponse(null),
     'GET /api:om78GTVu/user/1': const FakeResponse('user.json'),
   };
 
