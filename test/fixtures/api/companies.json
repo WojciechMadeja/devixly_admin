@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "name": "Crowd Empire",
+    "email": "biuro@crowdempire.ae",
+    "address": "ul. Złota 44",
+    "post_code": "00-120",
+    "city": "Warszawa",
+    "phone_number": "+48 22 100 20 30",
+    "company_representative": "Anna Nowak",
+    "number_of_agents": 12,
+    "is_blocked": false,
+    "admin": 1
+  },
+  {
+    "id": 2,
+    "name": "Devixly Sp. z o.o.",
+    "email": "kontakt@devixly.com",
+    "address": "ul. Długa 5",
+    "post_code": "30-001",
+    "city": "Kraków",
+    "phone_number": "+48 12 300 40 50",
+    "company_representative": "Piotr Wiśniewski",
+    "number_of_agents": 4,
+    "is_blocked": false,
+    "admin": 1
+  },
+  {
+    "id": 3,
+    "name": "Łódzkie Nieruchomości",
+    "email": "biuro@lodzkie.pl",
+    "address": "ul. Piotrkowska 100",
+    "post_code": "90-001",
+    "city": "Łódź",
+    "phone_number": "+48 42 600 70 80",
+    "company_representative": "Ewa Zielińska",
+    "number_of_agents": 0,
+    "is_blocked": true,
+    "admin": 1
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "first_name": "Jan",
+    "last_name": "Kowalski",
+    "email": "admin@devixly.com",
+    "is_administrator": true,
+    "phone_number": "+48 600 100 200",
+    "is_blocked": false,
+    "company": {
+      "id": 1,
+      "name": "Crowd Empire",
+      "is_blocked": false
+    }
+  },
+  {
+    "id": 2,
+    "first_name": "Anna",
+    "last_name": "Nowak",
+    "email": "anna.nowak@crowdempire.ae",
+    "is_administrator": true,
+    "phone_number": "+48 600 200 300",
+    "is_blocked": false,
+    "company": {
+      "id": 1,
+      "name": "Crowd Empire",
+      "is_blocked": false
+    }
+  },
+  {
+    "id": 3,
+    "first_name": "Piotr",
+    "last_name": "Wiśniewski",
+    "email": "piotr@devixly.com",
+    "is_administrator": false,
+    "phone_number": "+48 600 300 400",
+    "is_blocked": false,
+    "company": {
+      "id": 2,
+      "name": "Devixly Sp. z o.o.",
+      "is_blocked": false
+    }
+  },
+  {
+    "id": 4,
+    "first_name": "Ewa",
+    "last_name": "Zielińska",
+    "email": "ewa@lodzkie.pl",
+    "is_administrator": false,
+    "phone_number": "+48 600 400 500",
+    "is_blocked": true,
+    "company": {
+      "id": 3,
+      "name": "Łódzkie Nieruchomości",
+      "is_blocked": true
+    }
+  },
+  {
+    "id": 5,
+    "first_name": "Tomasz",
+    "last_name": "Żak",
+    "email": "tomasz.zak@devixly.com",
+    "is_administrator": false,
+    "phone_number": "+48 600 500 600",
+    "is_blocked": false,
+    "company": {
+      "id": 2,
+      "name": "Devixly Sp. z o.o.",
+      "is_blocked": false
+    }
+  }
+]

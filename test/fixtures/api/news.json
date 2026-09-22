@@ -1,0 +1,48 @@
+[
+  {
+    "id": 11,
+    "created_at": 1757500000000,
+    "title": "Nowa inwestycja w Dubaju",
+    "content": "Rozpoczynamy sprzedaż apartamentów w nowym projekcie. Szczegóły oferty znajdziesz w panelu.",
+    "image": {
+      "url": "https://example.com/news-11.png"
+    },
+    "author": "Jan Kowalski",
+    "ratio": "horizontal",
+    "categories": [
+      2,
+      4
+    ],
+    "date": "2026-09-5"
+  },
+  {
+    "id": 12,
+    "created_at": 1757600000000,
+    "title": "Spotkanie z inwestorami",
+    "content": "Zapraszamy na spotkanie z inwestorami w biurze Crowd Empire.",
+    "image": {
+      "url": "https://example.com/news-12.png"
+    },
+    "author": "Anna Nowak",
+    "ratio": "vertical",
+    "categories": [
+      3
+    ],
+    "date": "2026-09-12"
+  },
+  {
+    "id": 13,
+    "created_at": 1757700000000,
+    "title": "Podsumowanie kwartału",
+    "content": "Wyniki sprzedaży w trzecim kwartale przekroczyły oczekiwania.",
+    "image": {
+      "url": "https://example.com/news-13.png"
+    },
+    "author": "Jan Kowalski",
+    "ratio": "square",
+    "categories": [
+      1
+    ],
+    "date": "2026-09-20"
+  }
+]
