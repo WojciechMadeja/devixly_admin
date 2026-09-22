@@ -63,17 +63,18 @@ void main() {
     expect(request.headers['Authorization'], 'Bearer auth-token-1');
     expect(request.headers['content-type'], startsWith('multipart/form-data'));
     final parts = request.multipartParts;
-    expect({
-      for (final e in parts.entries) e.key: e.value.value
-    }, {
-      'title': 'Nowa inwestycja',
-      'content': 'Treść aktualności',
-      'author': 'Jan Kowalski',
-      'ratio': 'vertical',
-      'categories': '[2,4]',
-      'date': '2026-09-5',
-      'image_uploaded': '\x01\x02',
-    });
+    expect(
+      {for (final e in parts.entries) e.key: e.value.value},
+      {
+        'title': 'Nowa inwestycja',
+        'content': 'Treść aktualności',
+        'author': 'Jan Kowalski',
+        'ratio': 'vertical',
+        'categories': '[2,4]',
+        'date': '2026-09-5',
+        'image_uploaded': '\x01\x02',
+      },
+    );
     expect(parts['image_uploaded']?.filename, 'photo.png');
   });
 
@@ -86,17 +87,19 @@ void main() {
     expect(image.filename, isNull);
   });
 
-  test('PATCH news/{id} bez nowego obrazka wysyła pole "null" (jak dotąd)',
-      () async {
-    await dataSource.editNews(11, draft);
+  test(
+    'PATCH news/{id} bez nowego obrazka wysyła pole "null" (jak dotąd)',
+    () async {
+      await dataSource.editNews(11, draft);
 
-    final request = api.requests.single;
-    expect(request.method, 'PATCH');
-    expect(request.url.toString(), '$base/11');
-    final parts = request.multipartParts;
-    expect(parts['image_uploaded'], (filename: null, value: 'null'));
-    expect(parts['title']?.value, 'Nowa inwestycja');
-  });
+      final request = api.requests.single;
+      expect(request.method, 'PATCH');
+      expect(request.url.toString(), '$base/11');
+      final parts = request.multipartParts;
+      expect(parts['image_uploaded'], (filename: null, value: 'null'));
+      expect(parts['title']?.value, 'Nowa inwestycja');
+    },
+  );
 
   test('DELETE news/{id}', () async {
     await dataSource.deleteNews(11);

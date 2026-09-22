@@ -30,7 +30,8 @@ class ListCard extends StatelessWidget {
       constraints: const BoxConstraints(minWidth: 320, maxWidth: 600),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        color: color ??
+        color:
+            color ??
             (selected ? AppColors.selectedCard : AppColors.secondaryBackground),
         elevation: 4,
         shape: _shape,

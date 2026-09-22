@@ -31,9 +31,9 @@ class CategoryChips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chipTheme = Theme.of(context).copyWith(
-      canvasColor: Colors.transparent,
-    );
+    final chipTheme = Theme.of(
+      context,
+    ).copyWith(canvasColor: Colors.transparent);
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 800),
       child: Wrap(

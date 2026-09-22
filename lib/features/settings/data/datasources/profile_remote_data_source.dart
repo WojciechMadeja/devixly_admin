@@ -54,10 +54,10 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
 
   @override
   Future<void> updatePassword(PasswordChange change) => _client.patch(
-        '$_users/update_password/${_admin.id}',
-        body: {
-          'old_password': change.oldPassword,
-          'new_password': change.newPassword,
-        },
-      );
+    '$_users/update_password/${_admin.id}',
+    body: {
+      'old_password': change.oldPassword,
+      'new_password': change.newPassword,
+    },
+  );
 }

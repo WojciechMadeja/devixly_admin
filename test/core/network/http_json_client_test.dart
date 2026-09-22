@@ -11,11 +11,10 @@ void main() {
 
   HttpJsonClient clientReturning(
     http.Response Function(http.Request request) handler,
-  ) =>
-      HttpJsonClient(
-        MockClient((request) async => handler(request)),
-        baseUrl: baseUrl,
-      );
+  ) => HttpJsonClient(
+    MockClient((request) async => handler(request)),
+    baseUrl: baseUrl,
+  );
 
   test('wysyła body jako JSON z nagłówkiem Content-Type', () async {
     late http.Request sent;
@@ -34,10 +33,10 @@ void main() {
     expect(sent.url.toString(), '$baseUrl/api:grp/categories');
     expect(sent.headers['Content-Type'], startsWith('application/json'));
     expect(sent.headers['Authorization'], 'Bearer t');
-    expect(
-      jsonDecode(sent.body),
-      {'name': 'Inwestycje', 'admin_email': 'admin@devixly.com'},
-    );
+    expect(jsonDecode(sent.body), {
+      'name': 'Inwestycje',
+      'admin_email': 'admin@devixly.com',
+    });
   });
 
   test('dekoduje odpowiedź jako UTF-8 także bez charset w nagłówku', () async {
@@ -76,8 +75,11 @@ void main() {
     expect(
       client.get('api:grp/news'),
       throwsA(
-        isA<UnauthorizedException>()
-            .having((e) => e.message, 'message', 'Invalid token'),
+        isA<UnauthorizedException>().having(
+          (e) => e.message,
+          'message',
+          'Invalid token',
+        ),
       ),
     );
   });

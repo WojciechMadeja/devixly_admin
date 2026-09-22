@@ -69,18 +69,20 @@ void main() {
     expect(request.json, {'companies_id': 2, ...draftJson});
   });
 
-  test('PATCH companies/block/{id} z e-mailem admina i flagą blokady',
-      () async {
-    await dataSource.setBlocked(2, true);
+  test(
+    'PATCH companies/block/{id} z e-mailem admina i flagą blokady',
+    () async {
+      await dataSource.setBlocked(2, true);
 
-    final request = api.requests.single;
-    expect(request.url.toString(), '$base/block/2');
-    expect(request.json, {
-      'companies_id': 2,
-      'admin_email': 'admin@devixly.com',
-      'is_blocked': true,
-    });
-  });
+      final request = api.requests.single;
+      expect(request.url.toString(), '$base/block/2');
+      expect(request.json, {
+        'companies_id': 2,
+        'admin_email': 'admin@devixly.com',
+        'is_blocked': true,
+      });
+    },
+  );
 
   test('DELETE companies/{id}', () async {
     await dataSource.deleteCompany(2);

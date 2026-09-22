@@ -22,8 +22,8 @@ sealed class NewsListState with _$NewsListState {
 extension NewsListLoadedX on NewsListLoaded {
   /// Nazwy kategorii aktualności w kolejności jej id (nieznane pomijamy).
   List<String> categoryNamesOf(News item) => [
-        for (final id in item.categoryIds)
-          for (final category in categories)
-            if (category.id == id) category.name,
-      ];
+    for (final id in item.categoryIds)
+      for (final category in categories)
+        if (category.id == id) category.name,
+  ];
 }

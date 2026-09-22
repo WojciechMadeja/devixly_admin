@@ -31,9 +31,8 @@ class CompaniesCubit extends Cubit<CompaniesState> {
   void clearSelection() => _updateLoaded((s) => s.copyWith(selectedId: null));
 
   /// Dopisuje nowo dodaną firmę na koniec listy.
-  void add(Company company) => _updateLoaded(
-        (s) => s.copyWith(companies: [...s.companies, company]),
-      );
+  void add(Company company) =>
+      _updateLoaded((s) => s.copyWith(companies: [...s.companies, company]));
 
   Future<bool> update(Company company, CompanyDraft draft) =>
       _replaceWith(_repository.updateCompany(company, draft));

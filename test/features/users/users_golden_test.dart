@@ -65,9 +65,9 @@ const _csvUser = CsvUser(
 const _tall = Size(800, 1100);
 
 Future<void> _expectBaseline(String name) => expectLater(
-      find.byType(MaterialApp),
-      matchesGoldenFile(baselineGolden(name, depth: 2)),
-    );
+  find.byType(MaterialApp),
+  matchesGoldenFile(baselineGolden(name, depth: 2)),
+);
 
 Future<void> _expectBaselineWithBoldText(String name) =>
     expectGoldenWithTolerance(
@@ -145,8 +145,9 @@ void main() {
   group('dialogi', () {
     // Jedyna różnica wobec wzorca: poprawiona etykieta pierwszego wiersza
     // („Imię i nazwisko:” zamiast błędnego „Numer telefonu:”).
-    testWidgets('podgląd użytkownika wygląda jak w FlutterFlow',
-        (tester) async {
+    testWidgets('podgląd użytkownika wygląda jak w FlutterFlow', (
+      tester,
+    ) async {
       await pumpComponent(
         tester,
         const UserPreviewDialog(user: _user),
@@ -180,13 +181,15 @@ void main() {
             builder: (context) {
               final l10n = context.l10n;
               return TypedConfirmationDialog(
-                messagePrefix:
-                    block ? l10n.userBlockMessage : l10n.userUnblockMessage,
+                messagePrefix: block
+                    ? l10n.userBlockMessage
+                    : l10n.userUnblockMessage,
                 highlights: [user.lastName, user.firstName],
                 messageSuffix: l10n.userQuestionMark,
                 phrase: block ? l10n.blockPhrase : l10n.unblockPhrase,
-                mismatchMessage:
-                    block ? l10n.blockMismatch : l10n.unblockMismatch,
+                mismatchMessage: block
+                    ? l10n.blockMismatch
+                    : l10n.unblockMismatch,
                 confirmLabel: block ? l10n.commonBlock : l10n.commonUnblock,
                 confirmColor: block ? AppColors.accent1 : AppColors.accent2,
                 onConfirm: () async => true,
@@ -215,8 +218,9 @@ void main() {
                     ? l10n.userDeleteAdminSuffix
                     : l10n.userQuestionMark,
                 phrase: isAdmin ? l10n.deleteAdminPhrase : l10n.deletePhrase,
-                mismatchMessage:
-                    isAdmin ? l10n.deleteAdminMismatch : l10n.deleteMismatch,
+                mismatchMessage: isAdmin
+                    ? l10n.deleteAdminMismatch
+                    : l10n.deleteMismatch,
                 confirmLabel: l10n.commonDelete,
                 confirmColor: AppColors.accent3,
                 onConfirm: () async => true,
@@ -237,8 +241,9 @@ void main() {
       await _expectBaseline('components/update_csv_user');
     });
 
-    testWidgets('usunięcie wiersza CSV wygląda jak w FlutterFlow',
-        (tester) async {
+    testWidgets('usunięcie wiersza CSV wygląda jak w FlutterFlow', (
+      tester,
+    ) async {
       await pumpComponent(
         tester,
         Builder(
@@ -253,8 +258,9 @@ void main() {
       await _expectBaseline('components/delete_csv_user_confirm');
     });
 
-    testWidgets('lista błędnych e-maili wygląda jak w FlutterFlow',
-        (tester) async {
+    testWidgets('lista błędnych e-maili wygląda jak w FlutterFlow', (
+      tester,
+    ) async {
       await pumpComponent(
         tester,
         Builder(

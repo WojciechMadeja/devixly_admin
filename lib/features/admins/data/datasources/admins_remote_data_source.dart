@@ -15,14 +15,14 @@ class AdminsRemoteDataSourceImpl implements AdminsRemoteDataSource {
 
   @override
   Future<void> addAdmin(NewAdmin admin) => _client.post(
-        '${XanoApiGroup.auth}/auth/admin/signup',
-        body: {
-          'email': admin.email,
-          'first_name': admin.firstName,
-          'last_name': admin.lastName,
-          'admin_email': _admin.email,
-          'phone_number': admin.phoneNumber,
-          'password': admin.password,
-        },
-      );
+    '${XanoApiGroup.auth}/auth/admin/signup',
+    body: {
+      'email': admin.email,
+      'first_name': admin.firstName,
+      'last_name': admin.lastName,
+      'admin_email': _admin.email,
+      'phone_number': admin.phoneNumber,
+      'password': admin.password,
+    },
+  );
 }

@@ -49,15 +49,16 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         'userId': session.user.id,
       },
     );
-    return RefreshResponseModel.fromJson(_asMap(json))
-        .toSession(previous: session);
+    return RefreshResponseModel.fromJson(
+      _asMap(json),
+    ).toSession(previous: session);
   }
 
   @override
   Future<void> revoke(int refreshTokenId) => _client.post(
-        '$_auth/revoke_token',
-        body: {'refreshTokenId': refreshTokenId},
-      );
+    '$_auth/revoke_token',
+    body: {'refreshTokenId': refreshTokenId},
+  );
 
   @override
   Future<void> requestPasswordReset(String email) =>

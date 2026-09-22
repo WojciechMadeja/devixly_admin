@@ -10,14 +10,15 @@ import 'fixtures.dart';
 /// żądania, żeby testy mogły sprawdzić kontrakt.
 class FakeXanoApi {
   FakeXanoApi({Map<String, FakeResponse>? overrides, this.responseDelay})
-      : _routes = {..._defaultRoutes, ...?overrides};
+    : _routes = {..._defaultRoutes, ...?overrides};
 
   /// Opóźnienie odpowiedzi — pozwala uchwycić stany ładowania (szkielety).
   final Duration? responseDelay;
 
   static final Map<String, FakeResponse> _defaultRoutes = {
-    'POST /api:Q_aNNNvL/auth/admin/login':
-        const FakeResponse('admin_login.json'),
+    'POST /api:Q_aNNNvL/auth/admin/login': const FakeResponse(
+      'admin_login.json',
+    ),
     'POST /api:Q_aNNNvL/auth/refresh': const FakeResponse('refresh_token.json'),
     'POST /api:Q_aNNNvL/auth/revoke_token': const FakeResponse(null),
     'POST /api:Q_aNNNvL/auth/reset_password': const FakeResponse(null),
@@ -109,9 +110,9 @@ class RecordedRequest {
 
   /// Części żądania multipart: nazwa → (nazwa pliku, zawartość tekstowa).
   Map<String, ({String? filename, String value})> get multipartParts {
-    final boundary = RegExp('boundary=(.+)')
-        .firstMatch(headers['content-type'] ?? '')
-        ?.group(1);
+    final boundary = RegExp(
+      'boundary=(.+)',
+    ).firstMatch(headers['content-type'] ?? '')?.group(1);
     if (boundary == null) return const {};
     final parts = <String, ({String? filename, String value})>{};
     for (final raw in body.split('--$boundary')) {

@@ -46,7 +46,7 @@ abstract interface class MediaPicker {
 
 class DeviceMediaPicker implements MediaPicker {
   DeviceMediaPicker({ImagePicker? imagePicker})
-      : _imagePicker = imagePicker ?? ImagePicker();
+    : _imagePicker = imagePicker ?? ImagePicker();
 
   final ImagePicker _imagePicker;
 

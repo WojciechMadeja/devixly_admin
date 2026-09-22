@@ -47,8 +47,10 @@ class CsvImportView extends StatelessWidget {
                 _onSubmission(context, state.submission),
           ),
         ],
-        child:
-            const AdminPageScaffold(title: pageTitle, body: _CsvImportBody()),
+        child: const AdminPageScaffold(
+          title: pageTitle,
+          body: _CsvImportBody(),
+        ),
       ),
     );
   }

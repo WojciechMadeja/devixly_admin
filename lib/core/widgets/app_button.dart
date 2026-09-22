@@ -16,9 +16,9 @@ class AppButton extends StatelessWidget {
     required this.onPressed,
     this.color = AppColors.primary,
     this.isLoading = false,
-  })  : height = 40,
-        width = null,
-        textStyle = AppTextStyles.button;
+  }) : height = 40,
+       width = null,
+       textStyle = AppTextStyles.button;
 
   /// Duży przycisk formularza: wysokość 50 i stała szerokość.
   const AppButton.large({
@@ -28,8 +28,8 @@ class AppButton extends StatelessWidget {
     required double this.width,
     this.color = AppColors.primary,
     this.isLoading = false,
-  })  : height = 50,
-        textStyle = AppTextStyles.buttonLarge;
+  }) : height = 50,
+       textStyle = AppTextStyles.buttonLarge;
 
   final String label;
   final VoidCallback? onPressed;

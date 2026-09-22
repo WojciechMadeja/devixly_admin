@@ -20,8 +20,9 @@ void main() {
       ),
     );
     final auth = getIt<AuthRepository>();
-    final profile = (await getIt<ProfileRepository>().getProfile())
-        .getOrElse((_) => throw StateError('brak profilu'));
+    final profile = (await getIt<ProfileRepository>().getProfile()).getOrElse(
+      (_) => throw StateError('brak profilu'),
+    );
 
     final saved = await getIt<ProfileRepository>().updateProfile(
       profile,
@@ -44,8 +45,9 @@ void main() {
   test('profil zawiera id firmy potrzebne do zapisu', () async {
     await setUpTestDependencies();
 
-    final profile = (await getIt<ProfileRepository>().getProfile())
-        .getOrElse((_) => throw StateError('brak profilu'));
+    final profile = (await getIt<ProfileRepository>().getProfile()).getOrElse(
+      (_) => throw StateError('brak profilu'),
+    );
 
     expect(profile, isA<AdminProfile>());
     expect(profile.companyId, 1);

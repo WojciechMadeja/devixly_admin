@@ -42,8 +42,7 @@ class HttpJsonClient {
     String path, {
     Map<String, String>? query,
     Map<String, String> headers = const {},
-  }) =>
-      _send(http.Request('GET', _uri(path, query))..headers.addAll(headers));
+  }) => _send(http.Request('GET', _uri(path, query))..headers.addAll(headers));
 
   Future<Object?> delete(
     String path, {
@@ -56,22 +55,19 @@ class HttpJsonClient {
     String path, {
     Object? body,
     Map<String, String> headers = const {},
-  }) =>
-      _sendJson('POST', path, body, headers);
+  }) => _sendJson('POST', path, body, headers);
 
   Future<Object?> put(
     String path, {
     Object? body,
     Map<String, String> headers = const {},
-  }) =>
-      _sendJson('PUT', path, body, headers);
+  }) => _sendJson('PUT', path, body, headers);
 
   Future<Object?> patch(
     String path, {
     Object? body,
     Map<String, String> headers = const {},
-  }) =>
-      _sendJson('PATCH', path, body, headers);
+  }) => _sendJson('PATCH', path, body, headers);
 
   /// Żądanie multipart/form-data (np. aktualność z obrazkiem).
   Future<Object?> multipart(

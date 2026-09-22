@@ -7,7 +7,7 @@ import 'update_password_state.dart';
 /// Zmiana hasła konta administratora.
 class UpdatePasswordCubit extends Cubit<UpdatePasswordState> {
   UpdatePasswordCubit(this._profiles)
-      : super(const UpdatePasswordState.initial());
+    : super(const UpdatePasswordState.initial());
 
   final ProfileRepository _profiles;
 

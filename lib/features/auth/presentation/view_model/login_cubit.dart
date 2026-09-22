@@ -25,11 +25,6 @@ class LoginCubit extends Cubit<LoginState> {
     emit(const LoginState.submitting());
     final result = await _auth.login(email: email.trim(), password: password);
     if (isClosed) return;
-    emit(
-      result.match(
-        LoginState.failure,
-        (_) => const LoginState.success(),
-      ),
-    );
+    emit(result.match(LoginState.failure, (_) => const LoginState.success()));
   }
 }

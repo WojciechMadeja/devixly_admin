@@ -27,8 +27,10 @@ List<ManagedUser> sortUsers(
       });
     case UserSortKey.admin:
       sorted.sort((a, b) {
-        final byAdmin =
-            direction(a.isAdministrator ? 0 : 1, b.isAdministrator ? 0 : 1);
+        final byAdmin = direction(
+          a.isAdministrator ? 0 : 1,
+          b.isAdministrator ? 0 : 1,
+        );
         return byAdmin != 0 ? byAdmin : byLastName(a, b);
       });
     case UserSortKey.blocked:

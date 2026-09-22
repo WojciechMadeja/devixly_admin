@@ -36,9 +36,9 @@ class AppTextField extends StatelessWidget {
   final ValueChanged<String>? onFieldSubmitted;
 
   static OutlineInputBorder _border(Color color) => OutlineInputBorder(
-        borderSide: BorderSide(color: color, width: 2),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-      );
+    borderSide: BorderSide(color: color, width: 2),
+    borderRadius: const BorderRadius.all(Radius.circular(8)),
+  );
 
   static final _enabledBorder = _border(AppColors.secondary);
   static final _focusedBorder = _border(AppColors.accent1);

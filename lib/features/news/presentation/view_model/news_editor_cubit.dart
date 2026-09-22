@@ -16,7 +16,7 @@ import 'news_editor_state.dart';
 /// Formularz aktualności — wspólny dla dodawania i edycji.
 class NewsEditorCubit extends Cubit<NewsEditorState> {
   NewsEditorCubit(this._news, this._categories, this._auth, this._mediaPicker)
-      : super(const NewsEditorState(mode: NewsEditorMode.adding()));
+    : super(const NewsEditorState(mode: NewsEditorMode.adding()));
 
   final NewsRepository _news;
   final CategoriesRepository _categories;
@@ -97,16 +97,13 @@ class NewsEditorCubit extends Cubit<NewsEditorState> {
         ? await _news.addNews(draft)
         : await _news.editNews(original.id, draft);
     if (isClosed) return;
-    result.match(
-      (failure) => _finish(SubmissionStatus.failure(failure)),
-      (_) {
-        if (original == null) {
-          // Po dodaniu formularz jest czyszczony (proporcje i data zostają).
-          emit(state.copyWith(image: null, selectedCategoryIds: const {}));
-        }
-        _finish(const SubmissionStatus.success());
-      },
-    );
+    result.match((failure) => _finish(SubmissionStatus.failure(failure)), (_) {
+      if (original == null) {
+        // Po dodaniu formularz jest czyszczony (proporcje i data zostają).
+        emit(state.copyWith(image: null, selectedCategoryIds: const {}));
+      }
+      _finish(const SubmissionStatus.success());
+    });
   }
 
   /// Zgłasza wynik wysyłki (dla listenera widoku) i wraca do stanu `idle`,
@@ -117,12 +114,12 @@ class NewsEditorCubit extends Cubit<NewsEditorState> {
   }
 
   void _prefill(News news) => emit(
-        state.copyWith(
-          mode: NewsEditorMode.editing(news),
-          ratio: news.ratio,
-          selectedCategoryIds: news.categoryIds.toSet(),
-        ),
-      );
+    state.copyWith(
+      mode: NewsEditorMode.editing(news),
+      ratio: news.ratio,
+      selectedCategoryIds: news.categoryIds.toSet(),
+    ),
+  );
 
   Future<void> _loadCategories() async {
     final result = await _categories.getCategories();

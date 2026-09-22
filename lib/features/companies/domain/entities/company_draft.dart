@@ -21,6 +21,13 @@ class CompanyDraft extends Equatable {
   final String representative;
 
   @override
-  List<Object?> get props =>
-      [name, email, address, postCode, city, phoneNumber, representative];
+  List<Object?> get props => [
+    name,
+    email,
+    address,
+    postCode,
+    city,
+    phoneNumber,
+    representative,
+  ];
 }

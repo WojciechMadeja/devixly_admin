@@ -14,21 +14,32 @@ _ManagedUserModel _$ManagedUserModelFromJson(Map<String, dynamic> json) =>
         final val = _ManagedUserModel(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           firstName: $checkedConvert(
-              'first_name', (v) => v == null ? '' : stringFromJson(v)),
+            'first_name',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           lastName: $checkedConvert(
-              'last_name', (v) => v == null ? '' : stringFromJson(v)),
+            'last_name',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           email: $checkedConvert(
-              'email', (v) => v == null ? '' : stringFromJson(v)),
+            'email',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           phoneNumber: $checkedConvert(
-              'phone_number', (v) => v == null ? '' : stringFromJson(v)),
-          isAdministrator:
-              $checkedConvert('is_administrator', (v) => v as bool? ?? false),
+            'phone_number',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
+          isAdministrator: $checkedConvert(
+            'is_administrator',
+            (v) => v as bool? ?? false,
+          ),
           isBlocked: $checkedConvert('is_blocked', (v) => v as bool? ?? false),
           company: $checkedConvert(
-              'company',
-              (v) => v == null
-                  ? null
-                  : UserCompanyModel.fromJson(v as Map<String, dynamic>)),
+            'company',
+            (v) => v == null
+                ? null
+                : UserCompanyModel.fromJson(v as Map<String, dynamic>),
+          ),
         );
         return val;
       },
@@ -37,7 +48,7 @@ _ManagedUserModel _$ManagedUserModelFromJson(Map<String, dynamic> json) =>
         'lastName': 'last_name',
         'phoneNumber': 'phone_number',
         'isAdministrator': 'is_administrator',
-        'isBlocked': 'is_blocked'
+        'isBlocked': 'is_blocked',
       },
     );
 
@@ -54,20 +65,17 @@ Map<String, dynamic> _$ManagedUserModelToJson(_ManagedUserModel instance) =>
     };
 
 _UserCompanyModel _$UserCompanyModelFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      '_UserCompanyModel',
-      json,
-      ($checkedConvert) {
-        final val = _UserCompanyModel(
-          id: $checkedConvert('id', (v) => (v as num).toInt()),
-          name: $checkedConvert(
-              'name', (v) => v == null ? '' : stringFromJson(v)),
-          isBlocked: $checkedConvert('is_blocked', (v) => v as bool? ?? false),
-        );
-        return val;
-      },
-      fieldKeyMap: const {'isBlocked': 'is_blocked'},
-    );
+    $checkedCreate('_UserCompanyModel', json, ($checkedConvert) {
+      final val = _UserCompanyModel(
+        id: $checkedConvert('id', (v) => (v as num).toInt()),
+        name: $checkedConvert(
+          'name',
+          (v) => v == null ? '' : stringFromJson(v),
+        ),
+        isBlocked: $checkedConvert('is_blocked', (v) => v as bool? ?? false),
+      );
+      return val;
+    }, fieldKeyMap: const {'isBlocked': 'is_blocked'});
 
 Map<String, dynamic> _$UserCompanyModelToJson(_UserCompanyModel instance) =>
     <String, dynamic>{

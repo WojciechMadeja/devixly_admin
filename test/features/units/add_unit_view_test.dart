@@ -37,8 +37,9 @@ void main() {
     );
   });
 
-  testWidgets('zapis przekazuje dane jednostki, a nie rejestruje admina',
-      (tester) async {
+  testWidgets('zapis przekazuje dane jednostki, a nie rejestruje admina', (
+    tester,
+  ) async {
     await pumpView(
       tester,
       AddUnitView(repository: repository),

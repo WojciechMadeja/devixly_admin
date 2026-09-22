@@ -23,7 +23,9 @@ void main() {
 
   test('toPickerLabel używa polskich nazw miesięcy', () {
     expect(
-        DateFormatters.toPickerLabel(DateTime(2026, 9, 5)), '5 września 2026');
+      DateFormatters.toPickerLabel(DateTime(2026, 9, 5)),
+      '5 września 2026',
+    );
   });
 
   test('fromEpochMillis traktuje wartość jako UTC', () {

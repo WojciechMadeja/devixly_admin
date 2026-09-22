@@ -22,8 +22,9 @@ class _EditCsvUserDialogState extends State<EditCsvUserDialog> {
   late final _lastName = TextEditingController(text: widget.user.lastName);
   late final _firstName = TextEditingController(text: widget.user.firstName);
   late final _email = TextEditingController(text: widget.user.email);
-  late final _phoneNumber =
-      TextEditingController(text: widget.user.phoneNumber);
+  late final _phoneNumber = TextEditingController(
+    text: widget.user.phoneNumber,
+  );
 
   @override
   void dispose() {
@@ -43,12 +44,16 @@ class _EditCsvUserDialogState extends State<EditCsvUserDialog> {
         SizedBox(
           width: 250,
           child: AppTextField(
-              controller: _lastName, hintText: l10n.userLastNameHint),
+            controller: _lastName,
+            hintText: l10n.userLastNameHint,
+          ),
         ),
         SizedBox(
           width: 250,
           child: AppTextField(
-              controller: _firstName, hintText: l10n.userFirstNameHint),
+            controller: _firstName,
+            hintText: l10n.userFirstNameHint,
+          ),
         ),
         SizedBox(
           width: 250,
@@ -57,7 +62,9 @@ class _EditCsvUserDialogState extends State<EditCsvUserDialog> {
         SizedBox(
           width: 250,
           child: AppTextField(
-              controller: _phoneNumber, hintText: l10n.userPhoneHint),
+            controller: _phoneNumber,
+            hintText: l10n.userPhoneHint,
+          ),
         ),
         DialogActions(
           children: [

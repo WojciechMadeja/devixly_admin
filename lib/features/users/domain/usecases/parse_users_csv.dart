@@ -82,15 +82,16 @@ class ParseUsersCsv {
   }
 
   static String _decode(Uint8List bytes) {
-    final text =
-        utf8.decode(bytes, allowMalformed: true).replaceAll('\r\n', '\n');
+    final text = utf8
+        .decode(bytes, allowMalformed: true)
+        .replaceAll('\r\n', '\n');
     return text.startsWith('﻿') ? text.substring(1) : text;
   }
 
   static List<List<dynamic>> _rows(String text) => const CsvToListConverter(
-        shouldParseNumbers: false,
-        eol: '\n',
-      ).convert(text, fieldDelimiter: _detectDelimiter(text.split('\n').first));
+    shouldParseNumbers: false,
+    eol: '\n',
+  ).convert(text, fieldDelimiter: _detectDelimiter(text.split('\n').first));
 
   /// Separator = znak najczęściej występujący w wierszu nagłówka.
   static String _detectDelimiter(String headerLine) {
@@ -113,10 +114,10 @@ class ParseUsersCsv {
       row.isEmpty || row.every((cell) => '${cell ?? ''}'.trim().isEmpty);
 
   static List<String> _invalidEmails(List<List<dynamic>> rows, int index) => [
-        for (var r = 1; r < rows.length; r++)
-          if (!_isEmptyRow(rows[r]) && !_isValidCsvEmail(_cell(rows[r], index)))
-            'linia ${r + 1}: "${_cell(rows[r], index)}"',
-      ];
+    for (var r = 1; r < rows.length; r++)
+      if (!_isEmptyRow(rows[r]) && !_isValidCsvEmail(_cell(rows[r], index)))
+        'linia ${r + 1}: "${_cell(rows[r], index)}"',
+  ];
 
   static final _emailPattern = RegExp(
     r"^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@"

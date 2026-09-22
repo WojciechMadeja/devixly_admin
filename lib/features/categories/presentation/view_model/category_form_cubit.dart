@@ -6,7 +6,7 @@ import 'category_form_state.dart';
 /// Dodawanie nowej kategorii.
 class CategoryFormCubit extends Cubit<CategoryFormState> {
   CategoryFormCubit(this._repository)
-      : super(const CategoryFormState.initial());
+    : super(const CategoryFormState.initial());
 
   final CategoriesRepository _repository;
 

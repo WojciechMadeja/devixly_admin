@@ -25,8 +25,9 @@ void main() {
     );
   });
 
-  testWidgets('InfoDialog (błąd) wygląda jak dialog FlutterFlow',
-      (tester) async {
+  testWidgets('InfoDialog (błąd) wygląda jak dialog FlutterFlow', (
+    tester,
+  ) async {
     await pumpComponent(
       tester,
       const InfoDialog(
@@ -43,8 +44,9 @@ void main() {
     );
   });
 
-  testWidgets('InfoDialog (sukces) wygląda jak dialog FlutterFlow',
-      (tester) async {
+  testWidgets('InfoDialog (sukces) wygląda jak dialog FlutterFlow', (
+    tester,
+  ) async {
     await pumpComponent(
       tester,
       const InfoDialog(
@@ -61,8 +63,9 @@ void main() {
     );
   });
 
-  testWidgets('ConfirmDialog wygląda jak potwierdzenie usunięcia FlutterFlow',
-      (tester) async {
+  testWidgets('ConfirmDialog wygląda jak potwierdzenie usunięcia FlutterFlow', (
+    tester,
+  ) async {
     await pumpComponent(
       tester,
       const ConfirmDialog(
@@ -81,26 +84,27 @@ void main() {
   });
 
   testWidgets(
-      'TypedConfirmationDialog wygląda jak potwierdzenie blokady FlutterFlow',
-      (tester) async {
-    await pumpComponent(
-      tester,
-      const TypedConfirmationDialog(
-        messagePrefix: 'Czy na pewno chcesz zablokować firmę ',
-        highlights: ['Devixly Sp. z o.o.'],
-        messageSuffix: ' ze wszystkim przypisanymi jej agentami?',
-        phrase: 'BLOCK',
-        mismatchMessage: 'Wpisz BLOCK, aby zablokować',
-        confirmLabel: 'Zablokuj',
-        confirmColor: AppColors.accent1,
-        onConfirm: _noop,
-      ),
-    );
-    await expectLater(
-      find.byType(MaterialApp),
-      matchesGoldenFile(
-        baselineGolden('components/block_company_confirm', depth: 2),
-      ),
-    );
-  });
+    'TypedConfirmationDialog wygląda jak potwierdzenie blokady FlutterFlow',
+    (tester) async {
+      await pumpComponent(
+        tester,
+        const TypedConfirmationDialog(
+          messagePrefix: 'Czy na pewno chcesz zablokować firmę ',
+          highlights: ['Devixly Sp. z o.o.'],
+          messageSuffix: ' ze wszystkim przypisanymi jej agentami?',
+          phrase: 'BLOCK',
+          mismatchMessage: 'Wpisz BLOCK, aby zablokować',
+          confirmLabel: 'Zablokuj',
+          confirmColor: AppColors.accent1,
+          onConfirm: _noop,
+        ),
+      );
+      await expectLater(
+        find.byType(MaterialApp),
+        matchesGoldenFile(
+          baselineGolden('components/block_company_confirm', depth: 2),
+        ),
+      );
+    },
+  );
 }

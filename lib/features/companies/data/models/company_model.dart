@@ -34,26 +34,26 @@ abstract class CompanyModel with _$CompanyModel {
       _$CompanyModelFromJson(json);
 
   Company toEntity() => Company(
-        id: id,
-        name: name,
-        email: email,
-        address: address,
-        postCode: postCode,
-        city: city,
-        phoneNumber: phoneNumber,
-        representative: representative,
-        agentsCount: agentsCount,
-        isBlocked: isBlocked,
-      );
+    id: id,
+    name: name,
+    email: email,
+    address: address,
+    postCode: postCode,
+    city: city,
+    phoneNumber: phoneNumber,
+    representative: representative,
+    agentsCount: agentsCount,
+    isBlocked: isBlocked,
+  );
 
   /// Pola formularza w formacie API (wspólne dla dodawania i edycji).
   static Map<String, Object?> draftToJson(CompanyDraft draft) => {
-        'name': draft.name,
-        'email': draft.email,
-        'address': draft.address,
-        'post_code': draft.postCode,
-        'city': draft.city,
-        'phone_number': draft.phoneNumber,
-        'company_representative': draft.representative,
-      };
+    'name': draft.name,
+    'email': draft.email,
+    'address': draft.address,
+    'post_code': draft.postCode,
+    'city': draft.city,
+    'phone_number': draft.phoneNumber,
+    'company_representative': draft.representative,
+  };
 }

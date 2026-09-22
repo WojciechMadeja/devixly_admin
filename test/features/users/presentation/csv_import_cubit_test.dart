@@ -26,16 +26,17 @@ void main() {
   setUp(() {
     users = _MockUsers();
     companies = _MockCompanies();
-    when(companies.getCompanies)
-        .thenAnswer((_) async => const Right([company]));
+    when(
+      companies.getCompanies,
+    ).thenAnswer((_) async => const Right([company]));
   });
 
   CsvImportCubit build() => CsvImportCubit(
-        users,
-        companies,
-        FakeMediaPicker(),
-        const ParseUsersCsv(),
-      );
+    users,
+    companies,
+    FakeMediaPicker(),
+    const ParseUsersCsv(),
+  );
 
   blocTest<CsvImportCubit, CsvImportState>(
     'wczytuje użytkowników z pliku CSV',
@@ -56,10 +57,10 @@ void main() {
         ..removeUser(0)
         ..sortByName(ascending: true);
     },
-    verify: (cubit) => expect(
-      cubit.state.users.map((u) => u.lastName),
-      ['Kamińska', 'Wójcik'],
-    ),
+    verify: (cubit) => expect(cubit.state.users.map((u) => u.lastName), [
+      'Kamińska',
+      'Wójcik',
+    ]),
   );
 
   blocTest<CsvImportCubit, CsvImportState>(
@@ -81,10 +82,7 @@ void main() {
     'po imporcie czyści listę i wybraną firmę',
     build: build,
     setUp: () => when(
-      () => users.importUsers(
-        users: any(named: 'users'),
-        companyId: 2,
-      ),
+      () => users.importUsers(users: any(named: 'users'), companyId: 2),
     ).thenAnswer((_) async => const Right(unit)),
     act: (cubit) async {
       await cubit.pickFile();
@@ -102,10 +100,7 @@ void main() {
     'błąd importu zgłasza porażkę wysyłki',
     build: build,
     setUp: () => when(
-      () => users.importUsers(
-        users: any(named: 'users'),
-        companyId: 2,
-      ),
+      () => users.importUsers(users: any(named: 'users'), companyId: 2),
     ).thenAnswer((_) async => const Left(NetworkFailure())),
     act: (cubit) async {
       await cubit.pickFile();

@@ -55,8 +55,12 @@ class _AddUnitBodyState extends State<_AddUnitBody> {
   final _ownerLastName = TextEditingController();
   final _phoneNumber = TextEditingController();
 
-  List<TextEditingController> get _controllers =>
-      [_apartmentNumber, _price, _ownerLastName, _phoneNumber];
+  List<TextEditingController> get _controllers => [
+    _apartmentNumber,
+    _price,
+    _ownerLastName,
+    _phoneNumber,
+  ];
 
   @override
   void dispose() {
@@ -110,10 +114,7 @@ class _AddUnitBodyState extends State<_AddUnitBody> {
                 hint: l10n.unitApartmentNumberHint,
               ),
               _Field(controller: _price, hint: l10n.unitPriceHint),
-              _Field(
-                controller: _ownerLastName,
-                hint: l10n.userLastNameHint,
-              ),
+              _Field(controller: _ownerLastName, hint: l10n.userLastNameHint),
               _Field(controller: _phoneNumber, hint: l10n.userPhoneHint),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
@@ -124,11 +125,11 @@ class _AddUnitBodyState extends State<_AddUnitBody> {
                     width: 200,
                     isLoading: isSubmitting,
                     onPressed: () => context.read<AddUnitCubit>().submit(
-                          apartmentNumber: _apartmentNumber.text,
-                          price: _price.text,
-                          ownerLastName: _ownerLastName.text,
-                          phoneNumber: _phoneNumber.text,
-                        ),
+                      apartmentNumber: _apartmentNumber.text,
+                      price: _price.text,
+                      ownerLastName: _ownerLastName.text,
+                      phoneNumber: _phoneNumber.text,
+                    ),
                   ),
                 ),
               ),

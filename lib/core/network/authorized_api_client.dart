@@ -32,16 +32,15 @@ class AuthorizedApiClient {
     String path, {
     Map<String, String> fields = const {},
     List<MultipartFileData> files = const [],
-  }) =>
-      _authorized(
-        (headers) => _http.multipart(
-          method,
-          path,
-          fields: fields,
-          files: files,
-          headers: headers,
-        ),
-      );
+  }) => _authorized(
+    (headers) => _http.multipart(
+      method,
+      path,
+      fields: fields,
+      files: files,
+      headers: headers,
+    ),
+  );
 
   Future<Object?> _authorized(
     Future<Object?> Function(Map<String, String> headers) send,
@@ -57,6 +56,7 @@ class AuthorizedApiClient {
     }
   }
 
-  static Map<String, String> _bearer(String token) =>
-      {'Authorization': 'Bearer $token'};
+  static Map<String, String> _bearer(String token) => {
+    'Authorization': 'Bearer $token',
+  };
 }

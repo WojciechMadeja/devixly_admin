@@ -31,8 +31,9 @@ class RatioToggle extends StatelessWidget {
               iconColor: AppColors.info,
               buttonSize: 60,
               borderRadius: 8,
-              fillColor:
-                  option == ratio ? AppColors.accent1 : AppColors.secondary,
+              fillColor: option == ratio
+                  ? AppColors.accent1
+                  : AppColors.secondary,
               onPressed: () => onChanged(option),
             ),
         ],

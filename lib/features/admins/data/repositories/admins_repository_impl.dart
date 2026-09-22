@@ -13,7 +13,7 @@ class AdminsRepositoryImpl implements AdminsRepository {
 
   @override
   Future<Either<Failure, Unit>> addAdmin(NewAdmin admin) => guard(() async {
-        await _remote.addAdmin(admin);
-        return unit;
-      });
+    await _remote.addAdmin(admin);
+    return unit;
+  });
 }

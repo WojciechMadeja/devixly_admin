@@ -66,23 +66,23 @@ class _AppDataTableState<T> extends State<AppDataTable<T>> {
   }
 
   DataRow _buildRow(T row, int index) => DataRow(
-        color: WidgetStatePropertyAll(
-          index.isEven
-              ? AppColors.secondaryBackground
-              : AppColors.primaryBackground,
-        ),
-        cells: [
-          for (final cell in widget.rowBuilder(row, index)) DataCell(cell),
-        ],
-      );
+    color: WidgetStatePropertyAll(
+      index.isEven
+          ? AppColors.secondaryBackground
+          : AppColors.primaryBackground,
+    ),
+    cells: [for (final cell in widget.rowBuilder(row, index)) DataCell(cell)],
+  );
 
   @override
   Widget build(BuildContext context) {
     final fixedColumnsWidth = widget.columns
         .whereType<DataColumn2>()
         .where((column) => column.fixedWidth != null)
-        .fold(AppDataTable._horizontalMargin + 1,
-            (sum, c) => sum + c.fixedWidth!);
+        .fold(
+          AppDataTable._horizontalMargin + 1,
+          (sum, c) => sum + c.fixedWidth!,
+        );
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: SizedBox(

@@ -40,6 +40,13 @@ class AdminProfile extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [id, email, firstName, lastName, phoneNumber, companyId, companyName];
+  List<Object?> get props => [
+    id,
+    email,
+    firstName,
+    lastName,
+    phoneNumber,
+    companyId,
+    companyName,
+  ];
 }

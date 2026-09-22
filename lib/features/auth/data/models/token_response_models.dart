@@ -19,20 +19,20 @@ abstract class LoginResponseModel with _$LoginResponseModel {
       _$LoginResponseModelFromJson(json);
 
   AuthSessionModel toSession() => AuthSessionModel(
-        accessToken: user.authToken,
-        refreshToken: user.refreshToken,
-        refreshTokenId: user.refreshTokenId,
-        accessTokenExpiresAt: user.authTokenExpireAt,
-        sessionExpiresAt: user.expiresAt,
-        user: AdminUserModel(
-          id: user.id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          phoneNumber: user.phoneNumber,
-          company: user.company,
-        ),
-      );
+    accessToken: user.authToken,
+    refreshToken: user.refreshToken,
+    refreshTokenId: user.refreshTokenId,
+    accessTokenExpiresAt: user.authTokenExpireAt,
+    sessionExpiresAt: user.expiresAt,
+    user: AdminUserModel(
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      phoneNumber: user.phoneNumber,
+      company: user.company,
+    ),
+  );
 }
 
 @freezed

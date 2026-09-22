@@ -22,12 +22,11 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<Either<Failure, AdminProfile>> updateProfile(
     AdminProfile profile,
     ProfileUpdate update,
-  ) =>
-      guard(() async {
-        final saved = (await _remote.updateProfile(profile, update)).toEntity();
-        await _syncSession(saved);
-        return saved;
-      });
+  ) => guard(() async {
+    final saved = (await _remote.updateProfile(profile, update)).toEntity();
+    await _syncSession(saved);
+    return saved;
+  });
 
   @override
   Future<Either<Failure, Unit>> updatePassword(PasswordChange change) =>

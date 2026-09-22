@@ -19,8 +19,14 @@ class NewUser extends Equatable {
   final int companyId;
 
   @override
-  List<Object?> get props =>
-      [email, firstName, lastName, phoneNumber, password, companyId];
+  List<Object?> get props => [
+    email,
+    firstName,
+    lastName,
+    phoneNumber,
+    password,
+    companyId,
+  ];
 }
 
 /// Zmiana danych istniejącego użytkownika.
@@ -40,8 +46,13 @@ class UserUpdate extends Equatable {
   final int companyId;
 
   @override
-  List<Object?> get props =>
-      [email, firstName, lastName, phoneNumber, companyId];
+  List<Object?> get props => [
+    email,
+    firstName,
+    lastName,
+    phoneNumber,
+    companyId,
+  ];
 }
 
 /// Wiersz z pliku CSV (import użytkowników).
@@ -65,13 +76,12 @@ class CsvUser extends Equatable {
     String? lastName,
     String? email,
     String? phoneNumber,
-  }) =>
-      CsvUser(
-        firstName: firstName ?? this.firstName,
-        lastName: lastName ?? this.lastName,
-        email: email ?? this.email,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
-      );
+  }) => CsvUser(
+    firstName: firstName ?? this.firstName,
+    lastName: lastName ?? this.lastName,
+    email: email ?? this.email,
+    phoneNumber: phoneNumber ?? this.phoneNumber,
+  );
 
   @override
   List<Object?> get props => [firstName, lastName, email, phoneNumber];

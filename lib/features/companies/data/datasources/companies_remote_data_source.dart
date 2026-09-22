@@ -42,19 +42,19 @@ class CompaniesRemoteDataSourceImpl implements CompaniesRemoteDataSource {
 
   @override
   Future<void> updateCompany(int id, CompanyDraft draft) => _client.patch(
-        '$_companies/$id',
-        body: {'companies_id': id, ...CompanyModel.draftToJson(draft)},
-      );
+    '$_companies/$id',
+    body: {'companies_id': id, ...CompanyModel.draftToJson(draft)},
+  );
 
   @override
   Future<void> setBlocked(int id, bool blocked) => _client.patch(
-        '$_companies/block/$id',
-        body: {
-          'companies_id': id,
-          'admin_email': _admin.email,
-          'is_blocked': blocked,
-        },
-      );
+    '$_companies/block/$id',
+    body: {
+      'companies_id': id,
+      'admin_email': _admin.email,
+      'is_blocked': blocked,
+    },
+  );
 
   @override
   Future<void> deleteCompany(int id) => _client.delete('$_companies/$id');

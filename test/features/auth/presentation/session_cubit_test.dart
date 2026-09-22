@@ -12,8 +12,12 @@ import 'package:mocktail/mocktail.dart';
 class _MockAuthRepository extends Mock implements AuthRepository {}
 
 void main() {
-  const user =
-      AdminUser(id: 1, email: 'a@b.pl', firstName: 'Jan', lastName: 'K');
+  const user = AdminUser(
+    id: 1,
+    email: 'a@b.pl',
+    firstName: 'Jan',
+    lastName: 'K',
+  );
   const session = AuthSession(
     accessToken: 't',
     refreshToken: 'r',

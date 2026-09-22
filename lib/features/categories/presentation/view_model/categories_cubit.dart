@@ -28,14 +28,14 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   /// Dodaje nową albo podmienia zmienioną kategorię.
   void upsert(Category category) => _updateLoaded(
-        (s) => s.copyWith(
-          categories: _sorted([
-            for (final c in s.categories)
-              if (c.id != category.id) c,
-            category,
-          ]),
-        ),
-      );
+    (s) => s.copyWith(
+      categories: _sorted([
+        for (final c in s.categories)
+          if (c.id != category.id) c,
+        category,
+      ]),
+    ),
+  );
 
   /// Zwraca, czy zmiana się udała (dialog zamyka się tylko przy sukcesie).
   Future<bool> rename(Category category, String name) async {

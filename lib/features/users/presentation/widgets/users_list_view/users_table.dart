@@ -41,12 +41,11 @@ class UsersTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     Widget header(String label, UserSortKey key) => SortableColumnHeader(
-          label: label,
-          sorted: sortKey == key,
-          ascending: ascending,
-          onSort: ({required bool ascending}) =>
-              onSort(key, ascending: ascending),
-        );
+      label: label,
+      sorted: sortKey == key,
+      ascending: ascending,
+      onSort: ({required bool ascending}) => onSort(key, ascending: ascending),
+    );
     return AppDataTable<ManagedUser>(
       rows: users,
       height: 500,

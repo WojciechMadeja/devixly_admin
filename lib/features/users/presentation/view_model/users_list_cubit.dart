@@ -13,7 +13,7 @@ import 'users_list_state.dart';
 /// przy sukcesie).
 class UsersListCubit extends Cubit<UsersListState> {
   UsersListCubit(this._users, this._companies, this._admin)
-      : super(const UsersListState.loading());
+    : super(const UsersListState.loading());
 
   final UsersRepository _users;
   final CompaniesRepository _companies;
@@ -21,8 +21,10 @@ class UsersListCubit extends Cubit<UsersListState> {
 
   Future<void> load() async {
     emit(const UsersListState.loading());
-    final (usersResult, companiesResult) =
-        await (_users.getUsers(), _companies.getCompanies()).wait;
+    final (usersResult, companiesResult) = await (
+      _users.getUsers(),
+      _companies.getCompanies(),
+    ).wait;
     if (isClosed) return;
     emit(
       usersResult.match(
@@ -43,12 +45,12 @@ class UsersListCubit extends Cubit<UsersListState> {
   }
 
   void sort(UserSortKey key, {required bool ascending}) => _updateLoaded(
-        (state) => state.copyWith(
-          users: sortUsers(state.users, key: key, ascending: ascending),
-          sortKey: key,
-          ascending: ascending,
-        ),
-      );
+    (state) => state.copyWith(
+      users: sortUsers(state.users, key: key, ascending: ascending),
+      sortKey: key,
+      ascending: ascending,
+    ),
+  );
 
   Future<bool> update(ManagedUser user, UserUpdate update) async {
     final result = await _users.updateUser(user, update);
@@ -82,13 +84,12 @@ class UsersListCubit extends Cubit<UsersListState> {
   }
 
   void _replace(ManagedUser updated) => _updateLoaded(
-        (state) => state.copyWith(
-          users: [
-            for (final user in state.users)
-              user.id == updated.id ? updated : user,
-          ],
-        ),
-      );
+    (state) => state.copyWith(
+      users: [
+        for (final user in state.users) user.id == updated.id ? updated : user,
+      ],
+    ),
+  );
 
   void _updateLoaded(UsersListLoaded Function(UsersListLoaded) update) {
     final current = state;

@@ -28,8 +28,9 @@ void main() {
   blocTest<CategoriesCubit, CategoriesState>(
     'load emituje kategorie posortowane po nazwie',
     build: () => CategoriesCubit(repository),
-    setUp: () => when(repository.getCategories)
-        .thenAnswer((_) async => const Right([events, investments, owner])),
+    setUp: () => when(
+      repository.getCategories,
+    ).thenAnswer((_) async => const Right([events, investments, owner])),
     act: (cubit) => cubit.load(),
     expect: () => [
       const CategoriesState.loading(),
@@ -40,8 +41,9 @@ void main() {
   blocTest<CategoriesCubit, CategoriesState>(
     'load emituje błąd, gdy nie da się pobrać kategorii',
     build: () => CategoriesCubit(repository),
-    setUp: () => when(repository.getCategories)
-        .thenAnswer((_) async => const Left(NetworkFailure())),
+    setUp: () => when(
+      repository.getCategories,
+    ).thenAnswer((_) async => const Left(NetworkFailure())),
     act: (cubit) => cubit.load(),
     expect: () => [
       const CategoriesState.loading(),
@@ -67,13 +69,18 @@ void main() {
   blocTest<CategoriesCubit, CategoriesState>(
     'zmiana nazwy podmienia kategorię i zachowuje sortowanie',
     build: loadedCubit,
-    setUp: () => when(() => repository.renameCategory(any(), 'Zakupy'))
-        .thenAnswer((_) async => Right(investments.copyWith(name: 'Zakupy'))),
+    setUp: () => when(
+      () => repository.renameCategory(any(), 'Zakupy'),
+    ).thenAnswer((_) async => Right(investments.copyWith(name: 'Zakupy'))),
     act: (cubit) async =>
         expect(await cubit.rename(investments, 'Zakupy'), isTrue),
     expect: () => [
       CategoriesState.loaded(
-        categories: [owner, events, investments.copyWith(name: 'Zakupy')],
+        categories: [
+          owner,
+          events,
+          investments.copyWith(name: 'Zakupy'),
+        ],
       ),
     ],
   );
@@ -81,8 +88,9 @@ void main() {
   blocTest<CategoriesCubit, CategoriesState>(
     'nieudane usunięcie zwraca false i nie zmienia listy',
     build: loadedCubit,
-    setUp: () => when(() => repository.deleteCategory(2))
-        .thenAnswer((_) async => const Left(ServerFailure(statusCode: 500))),
+    setUp: () => when(
+      () => repository.deleteCategory(2),
+    ).thenAnswer((_) async => const Left(ServerFailure(statusCode: 500))),
     act: (cubit) async => expect(await cubit.delete(investments), isFalse),
     expect: () => <CategoriesState>[],
   );
@@ -90,8 +98,9 @@ void main() {
   blocTest<CategoriesCubit, CategoriesState>(
     'usunięcie usuwa kategorię z listy i zaznaczenie',
     build: loadedCubit,
-    setUp: () => when(() => repository.deleteCategory(2))
-        .thenAnswer((_) async => const Right(unit)),
+    setUp: () => when(
+      () => repository.deleteCategory(2),
+    ).thenAnswer((_) async => const Right(unit)),
     act: (cubit) async {
       cubit.select(2);
       await cubit.delete(investments);

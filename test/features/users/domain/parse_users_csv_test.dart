@@ -52,10 +52,10 @@ void main() {
       ),
     );
 
-    expect(
-      (result as CsvInvalidEmails).errors,
-      ['linia 2: "jan.kowalski@"', 'linia 4: "zofia@@example.com"'],
-    );
+    expect((result as CsvInvalidEmails).errors, [
+      'linia 2: "jan.kowalski@"',
+      'linia 4: "zofia@@example.com"',
+    ]);
   });
 
   test('zgłasza brak wymaganych kolumn', () {
@@ -64,10 +64,12 @@ void main() {
     );
 
     expect(result, isA<CsvMissingHeaders>());
-    expect(
-      (result as CsvMissingHeaders).required,
-      ['firstName', 'lastName', 'email', 'phoneNumber'],
-    );
+    expect((result as CsvMissingHeaders).required, [
+      'firstName',
+      'lastName',
+      'email',
+      'phoneNumber',
+    ]);
   });
 
   test('odrzuca plik, który nie jest CSV', () {

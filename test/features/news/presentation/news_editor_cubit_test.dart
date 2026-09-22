@@ -45,24 +45,27 @@ void main() {
   late _MockAuth auth;
   late _MockPicker picker;
 
-  setUpAll(() => registerFallbackValue(
-        const NewsDraft(
-          title: '',
-          content: '',
-          author: '',
-          ratio: NewsRatio.horizontal,
-          categoryIds: [],
-          date: '',
-        ),
-      ));
+  setUpAll(
+    () => registerFallbackValue(
+      const NewsDraft(
+        title: '',
+        content: '',
+        author: '',
+        ratio: NewsRatio.horizontal,
+        categoryIds: [],
+        date: '',
+      ),
+    ),
+  );
 
   setUp(() {
     news = _MockNews();
     categoriesRepository = _MockCategories();
     auth = _MockAuth();
     picker = _MockPicker();
-    when(categoriesRepository.getCategories)
-        .thenAnswer((_) async => const Right(categories));
+    when(
+      categoriesRepository.getCategories,
+    ).thenAnswer((_) async => const Right(categories));
     when(() => auth.currentSession).thenReturn(
       const AuthSession(
         accessToken: 't',
@@ -84,8 +87,9 @@ void main() {
   blocTest<NewsEditorCubit, NewsEditorState>(
     'dodawanie: autor to zalogowany admin, data w formacie API',
     build: build,
-    setUp: () => when(() => news.addNews(any()))
-        .thenAnswer((_) async => const Right(unit)),
+    setUp: () => when(
+      () => news.addNews(any()),
+    ).thenAnswer((_) async => const Right(unit)),
     act: (cubit) async {
       await cubit.startAdding();
       cubit
@@ -128,8 +132,9 @@ void main() {
     build: build,
     setUp: () {
       when(picker.pickImage).thenAnswer((_) async => ImagePicked(image));
-      when(() => news.editNews(11, any()))
-          .thenAnswer((_) async => const Right(unit));
+      when(
+        () => news.editNews(11, any()),
+      ).thenAnswer((_) async => const Right(unit));
     },
     act: (cubit) async {
       await cubit.startEditing(11, news: original);
@@ -137,9 +142,9 @@ void main() {
       await cubit.submit(title: 'Nowy tytuł', content: 'Treść');
     },
     verify: (cubit) {
-      final draft = verify(() => news.editNews(11, captureAny()))
-          .captured
-          .single as NewsDraft;
+      final draft =
+          verify(() => news.editNews(11, captureAny())).captured.single
+              as NewsDraft;
       expect(draft.author, 'Anna Nowak');
       expect(draft.date, '2026-09-5');
       expect(draft.ratio, NewsRatio.square);
@@ -162,8 +167,9 @@ void main() {
   blocTest<NewsEditorCubit, NewsEditorState>(
     'nieobsługiwany plik nie zmienia obrazka i zwraca false',
     build: build,
-    setUp: () => when(picker.pickImage)
-        .thenAnswer((_) async => const ImagePickUnsupported()),
+    setUp: () => when(
+      picker.pickImage,
+    ).thenAnswer((_) async => const ImagePickUnsupported()),
     act: (cubit) async => expect(await cubit.pickImage(), isFalse),
     expect: () => <NewsEditorState>[],
   );

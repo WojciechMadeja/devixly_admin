@@ -60,8 +60,8 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
       fields: {
         ..._fields(draft),
         // Bez nowego obrazka wersja FlutterFlow wysyłała pole tekstowe
-        // "null" zamiast pliku — zachowane do czasu weryfikacji z backendem
-        // (MIGRATION_PLAN.md, „Do weryfikacji na żywym API”).
+        // "null" zamiast pliku — zachowane, dopóki nie potwierdzimy
+        // zachowania backendu (patrz CLAUDE.md, „Backend (Xano)”).
         if (image == null) _imageField: 'null',
       },
       files: [
@@ -79,11 +79,11 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   Future<void> deleteNews(int id) => _client.delete('$_news/$id');
 
   static Map<String, String> _fields(NewsDraft draft) => {
-        'title': draft.title,
-        'content': draft.content,
-        'author': draft.author,
-        'ratio': draft.ratio.name,
-        'categories': jsonEncode(draft.categoryIds),
-        'date': draft.date,
-      };
+    'title': draft.title,
+    'content': draft.content,
+    'author': draft.author,
+    'ratio': draft.ratio.name,
+    'categories': jsonEncode(draft.categoryIds),
+    'date': draft.date,
+  };
 }

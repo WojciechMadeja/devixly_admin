@@ -47,13 +47,9 @@ Directory? _materialFontsDirectory() {
   final candidates = <String>[
     if (flutterRoot != null) '$flutterRoot/bin/cache/artifacts/material_fonts',
     // flutter_tester leży w <FLUTTER_ROOT>/bin/cache/artifacts/engine/<platforma>/
-    File(Platform.resolvedExecutable)
-        .parent
-        .parent
-        .parent
-        .uri
-        .resolve('material_fonts')
-        .toFilePath(),
+    File(
+      Platform.resolvedExecutable,
+    ).parent.parent.parent.uri.resolve('material_fonts').toFilePath(),
   ];
   for (final path in candidates) {
     final dir = Directory(path);

@@ -28,8 +28,10 @@ class EditProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<EditProfileCubit>()..load(),
-      child:
-          const AdminPageScaffold(title: pageTitle, body: _EditProfileBody()),
+      child: const AdminPageScaffold(
+        title: pageTitle,
+        body: _EditProfileBody(),
+      ),
     );
   }
 }
@@ -102,11 +104,11 @@ class _EditProfileBodyState extends State<_EditProfileBody> {
   }
 
   void _submit(BuildContext context) => context.read<EditProfileCubit>().submit(
-        email: _email.text,
-        firstName: _firstName.text,
-        lastName: _lastName.text,
-        phoneNumber: _phoneNumber.text,
-      );
+    email: _email.text,
+    firstName: _firstName.text,
+    lastName: _lastName.text,
+    phoneNumber: _phoneNumber.text,
+  );
 
   @override
   Widget build(BuildContext context) {

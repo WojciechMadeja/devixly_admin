@@ -55,17 +55,26 @@ class _EditCompanyDialogState extends State<EditCompanyDialog> {
         Text(l10n.companyEditTitle, style: AppTextStyles.dialogTitle),
         CompanyTextField(controller: _fields.name, hint: l10n.companyNameHint),
         CompanyTextField(
-            controller: _fields.email, hint: l10n.companyEditEmailHint),
+          controller: _fields.email,
+          hint: l10n.companyEditEmailHint,
+        ),
         CompanyTextField(
-            controller: _fields.address, hint: l10n.companyAddressHint),
+          controller: _fields.address,
+          hint: l10n.companyAddressHint,
+        ),
         CompanyTextField(
-            controller: _fields.postCode, hint: l10n.companyPostCodeHint),
+          controller: _fields.postCode,
+          hint: l10n.companyPostCodeHint,
+        ),
         CompanyTextField(controller: _fields.city, hint: l10n.companyCityHint),
         CompanyTextField(
-            controller: _fields.phoneNumber, hint: l10n.companyPhoneHint),
+          controller: _fields.phoneNumber,
+          hint: l10n.companyPhoneHint,
+        ),
         CompanyTextField(
-            controller: _fields.representative,
-            hint: l10n.companyRepresentativeHint),
+          controller: _fields.representative,
+          hint: l10n.companyRepresentativeHint,
+        ),
         DialogActions(
           children: [
             AppButton(

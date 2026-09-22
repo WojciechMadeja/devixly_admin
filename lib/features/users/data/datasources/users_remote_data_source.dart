@@ -39,17 +39,17 @@ class UsersRemoteDataSourceImpl implements UsersRemoteDataSource {
 
   @override
   Future<void> addUser(NewUser user) => _client.post(
-        '$_auth/signup',
-        body: {
-          'email': user.email,
-          'first_name': user.firstName,
-          'last_name': user.lastName,
-          'company_id': user.companyId,
-          'phone_number': user.phoneNumber,
-          'admin_email': _admin.email,
-          'password': user.password,
-        },
-      );
+    '$_auth/signup',
+    body: {
+      'email': user.email,
+      'first_name': user.firstName,
+      'last_name': user.lastName,
+      'company_id': user.companyId,
+      'phone_number': user.phoneNumber,
+      'admin_email': _admin.email,
+      'password': user.password,
+    },
+  );
 
   @override
   Future<ManagedUserModel> updateUser(int id, UserUpdate update) async {
@@ -69,35 +69,32 @@ class UsersRemoteDataSourceImpl implements UsersRemoteDataSource {
 
   @override
   Future<void> setBlocked(int id, bool blocked) => _client.patch(
-        '$_users/block/$id',
-        body: {'admin_email': _admin.email, 'is_blocked': blocked},
-      );
+    '$_users/block/$id',
+    body: {'admin_email': _admin.email, 'is_blocked': blocked},
+  );
 
   @override
-  Future<void> deleteUser(int id) => _client.delete(
-        '$_users/admin/$id',
-        query: {'admin_email': _admin.email},
-      );
+  Future<void> deleteUser(int id) =>
+      _client.delete('$_users/admin/$id', query: {'admin_email': _admin.email});
 
   @override
   Future<void> importUsers({
     required List<CsvUser> users,
     required int companyId,
-  }) =>
-      _client.post(
-        '$_auth/series/signup',
-        body: {
-          'users': [
-            for (final user in users)
-              {
-                'email': user.email,
-                'firstName': user.firstName,
-                'lastName': user.lastName,
-                'company': companyId,
-                'phoneNumber': user.phoneNumber,
-              },
-          ],
-          'admin_email': _admin.email,
-        },
-      );
+  }) => _client.post(
+    '$_auth/series/signup',
+    body: {
+      'users': [
+        for (final user in users)
+          {
+            'email': user.email,
+            'firstName': user.firstName,
+            'lastName': user.lastName,
+            'company': companyId,
+            'phoneNumber': user.phoneNumber,
+          },
+      ],
+      'admin_email': _admin.email,
+    },
+  );
 }

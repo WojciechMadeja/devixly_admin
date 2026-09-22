@@ -30,7 +30,7 @@ class _AddCategoryFormState extends State<AddCategoryForm> {
     final l10n = context.l10n;
     return BlocListener<CategoryFormCubit, CategoryFormState>(
       listenWhen: (_, state) => state is CategoryFormSuccess,
-      listener: (_, __) => _nameController.clear(),
+      listener: (_, _) => _nameController.clear(),
       child: Column(
         spacing: 20,
         children: [
@@ -49,9 +49,9 @@ class _AddCategoryFormState extends State<AddCategoryForm> {
                 label: l10n.commonSave,
                 width: 200,
                 isLoading: isSubmitting,
-                onPressed: () => context
-                    .read<CategoryFormCubit>()
-                    .submit(_nameController.text),
+                onPressed: () => context.read<CategoryFormCubit>().submit(
+                  _nameController.text,
+                ),
               ),
             ),
           ),

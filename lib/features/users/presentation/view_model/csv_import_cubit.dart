@@ -15,7 +15,7 @@ import 'csv_import_state.dart';
 /// wybór firmy i zbiorcze zakładanie kont.
 class CsvImportCubit extends Cubit<CsvImportState> {
   CsvImportCubit(this._users, this._companies, this._picker, this._parseCsv)
-      : super(const CsvImportState());
+    : super(const CsvImportState());
 
   final UsersRepository _users;
   final CompaniesRepository _companies;
@@ -26,9 +26,7 @@ class CsvImportCubit extends Cubit<CsvImportState> {
     final result = await _companies.getCompanies();
     if (isClosed) return;
     emit(
-      state.copyWith(
-        companies: result.match(Loadable.error, Loadable.loaded),
-      ),
+      state.copyWith(companies: result.match(Loadable.error, Loadable.loaded)),
     );
   }
 
@@ -51,33 +49,34 @@ class CsvImportCubit extends Cubit<CsvImportState> {
       emit(state.copyWith(selectedCompany: company));
 
   void updateUser(int index, CsvUser user) => emit(
-        state.copyWith(
-          users: [
-            for (var i = 0; i < state.users.length; i++)
-              i == index ? user : state.users[i],
-          ],
-        ),
-      );
+    state.copyWith(
+      users: [
+        for (var i = 0; i < state.users.length; i++)
+          i == index ? user : state.users[i],
+      ],
+    ),
+  );
 
   void removeUser(int index) => emit(
-        state.copyWith(
-          users: [
-            for (var i = 0; i < state.users.length; i++)
-              if (i != index) state.users[i],
-          ],
-        ),
-      );
+    state.copyWith(
+      users: [
+        for (var i = 0; i < state.users.length; i++)
+          if (i != index) state.users[i],
+      ],
+    ),
+  );
 
   /// Sortuje wczytane wiersze po nazwisku (usunięte nie wracają na listę).
   void sortByName({required bool ascending}) => emit(
-        state.copyWith(
-          users: [...state.users]..sort(
-              (a, b) => ascending
-                  ? a.lastName.compareTo(b.lastName)
-                  : b.lastName.compareTo(a.lastName),
-            ),
+    state.copyWith(
+      users: [...state.users]
+        ..sort(
+          (a, b) => ascending
+              ? a.lastName.compareTo(b.lastName)
+              : b.lastName.compareTo(a.lastName),
         ),
-      );
+    ),
+  );
 
   Future<void> submit() async {
     if (state.submission is Submitting) return;
@@ -92,13 +91,10 @@ class CsvImportCubit extends Cubit<CsvImportState> {
       companyId: company.id,
     );
     if (isClosed) return;
-    result.match(
-      (failure) => _finish(SubmissionStatus.failure(failure)),
-      (_) {
-        emit(state.copyWith(users: const [], selectedCompany: null));
-        _finish(const SubmissionStatus.success());
-      },
-    );
+    result.match((failure) => _finish(SubmissionStatus.failure(failure)), (_) {
+      emit(state.copyWith(users: const [], selectedCompany: null));
+      _finish(const SubmissionStatus.success());
+    });
   }
 
   void _reportFile(CsvFileStatus status) {

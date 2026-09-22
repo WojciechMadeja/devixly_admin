@@ -9,7 +9,9 @@ abstract interface class CategoriesRepository {
   Future<Either<Failure, Category>> addCategory(String name);
 
   Future<Either<Failure, Category>> renameCategory(
-      Category category, String name);
+    Category category,
+    String name,
+  );
 
   Future<Either<Failure, Unit>> deleteCategory(int id);
 }

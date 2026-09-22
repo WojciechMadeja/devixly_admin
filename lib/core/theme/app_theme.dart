@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 /// Kolory i style panelu nadają jawnie wspólne widgety z `core/widgets`.
 abstract final class AppTheme {
   static ThemeData get light => ThemeData(
-        brightness: Brightness.light,
-        useMaterial3: false,
-        scrollbarTheme: const ScrollbarThemeData(
-          thumbColor: WidgetStatePropertyAll(Color(0x00000000)),
-        ),
-      );
+    brightness: Brightness.light,
+    useMaterial3: false,
+    scrollbarTheme: const ScrollbarThemeData(
+      thumbColor: WidgetStatePropertyAll(Color(0x00000000)),
+    ),
+  );
 }
 
 /// Przewijanie przeciąganiem także myszą i touchpadem (jak w FlutterFlow).
@@ -21,8 +21,8 @@ class AppScrollBehavior extends MaterialScrollBehavior {
 
   @override
   Set<PointerDeviceKind> get dragDevices => const {
-        PointerDeviceKind.touch,
-        PointerDeviceKind.mouse,
-        PointerDeviceKind.trackpad,
-      };
+    PointerDeviceKind.touch,
+    PointerDeviceKind.mouse,
+    PointerDeviceKind.trackpad,
+  };
 }

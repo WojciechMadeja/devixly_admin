@@ -30,17 +30,24 @@ void main() {
   });
   setUp(() => repository = _MockRepository());
 
-  CompaniesCubit loadedCubit() => CompaniesCubit(repository)
-    ..emit(const CompaniesState.loaded(companies: [devixly, lodz]));
+  CompaniesCubit loadedCubit() =>
+      CompaniesCubit(repository)
+        ..emit(const CompaniesState.loaded(companies: [devixly, lodz]));
 
   blocTest<CompaniesCubit, CompaniesState>(
     'edycja podmienia firmę w miejscu, zachowując pozostałe dane',
     build: loadedCubit,
-    setUp: () => when(() => repository.updateCompany(devixly, draft))
-        .thenAnswer((_) async => Right(devixly.copyWith(draft: draft))),
+    setUp: () => when(
+      () => repository.updateCompany(devixly, draft),
+    ).thenAnswer((_) async => Right(devixly.copyWith(draft: draft))),
     act: (cubit) async => expect(await cubit.update(devixly, draft), isTrue),
     expect: () => [
-      CompaniesState.loaded(companies: [devixly.copyWith(draft: draft), lodz]),
+      CompaniesState.loaded(
+        companies: [
+          devixly.copyWith(draft: draft),
+          lodz,
+        ],
+      ),
     ],
     verify: (cubit) {
       final updated = (cubit.state as CompaniesLoaded).companies.first;
@@ -52,8 +59,9 @@ void main() {
   blocTest<CompaniesCubit, CompaniesState>(
     'odblokowanie zmienia tylko flagę blokady',
     build: loadedCubit,
-    setUp: () => when(() => repository.setBlocked(lodz, false))
-        .thenAnswer((_) async => Right(lodz.copyWith(isBlocked: false))),
+    setUp: () => when(
+      () => repository.setBlocked(lodz, false),
+    ).thenAnswer((_) async => Right(lodz.copyWith(isBlocked: false))),
     act: (cubit) => cubit.setBlocked(lodz, false),
     expect: () => [
       CompaniesState.loaded(
@@ -65,8 +73,9 @@ void main() {
   blocTest<CompaniesCubit, CompaniesState>(
     'nieudana blokada zwraca false i nie zmienia listy',
     build: loadedCubit,
-    setUp: () => when(() => repository.setBlocked(any(), any()))
-        .thenAnswer((_) async => const Left(NetworkFailure())),
+    setUp: () => when(
+      () => repository.setBlocked(any(), any()),
+    ).thenAnswer((_) async => const Left(NetworkFailure())),
     act: (cubit) async =>
         expect(await cubit.setBlocked(devixly, true), isFalse),
     expect: () => <CompaniesState>[],
@@ -78,7 +87,11 @@ void main() {
     act: (cubit) => cubit.add(const Company(id: 4, name: 'Nowa')),
     expect: () => [
       const CompaniesState.loaded(
-        companies: [devixly, lodz, Company(id: 4, name: 'Nowa')],
+        companies: [
+          devixly,
+          lodz,
+          Company(id: 4, name: 'Nowa'),
+        ],
       ),
     ],
   );

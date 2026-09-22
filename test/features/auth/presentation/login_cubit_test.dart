@@ -67,7 +67,9 @@ void main() {
     build: () => LoginCubit(auth),
     setUp: () => when(
       () => auth.login(
-          email: any(named: 'email'), password: any(named: 'password')),
+        email: any(named: 'email'),
+        password: any(named: 'password'),
+      ),
     ).thenAnswer((_) async => const Left(ServerFailure(statusCode: 403))),
     act: (cubit) => cubit.submit(email: 'a@b.pl', password: 'x'),
     expect: () => [

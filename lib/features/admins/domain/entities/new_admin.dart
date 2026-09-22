@@ -17,6 +17,11 @@ class NewAdmin extends Equatable {
   final String password;
 
   @override
-  List<Object?> get props =>
-      [email, firstName, lastName, phoneNumber, password];
+  List<Object?> get props => [
+    email,
+    firstName,
+    lastName,
+    phoneNumber,
+    password,
+  ];
 }

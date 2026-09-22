@@ -31,16 +31,16 @@ abstract class NewsModel with _$NewsModel {
       _$NewsModelFromJson(json);
 
   News toEntity() => News(
-        id: id,
-        createdAt: createdAt,
-        title: title,
-        content: content,
-        imageUrl: imageUrl,
-        author: author,
-        ratio: NewsRatio.fromApi(ratio),
-        categoryIds: categoryIds,
-        date: date,
-      );
+    id: id,
+    createdAt: createdAt,
+    title: title,
+    content: content,
+    imageUrl: imageUrl,
+    author: author,
+    ratio: NewsRatio.fromApi(ratio),
+    categoryIds: categoryIds,
+    date: date,
+  );
 }
 
 /// Obrazek przychodzi jako obiekt pliku Xano (`{url, ...}`).
@@ -49,10 +49,10 @@ String _readImageUrl(Object? value) =>
 
 /// Kategorie przychodzą jako lista id albo lista obiektów `{id, name}`.
 List<int> _readCategoryIds(Object? value) => [
-      if (value is List)
-        for (final item in value)
-          if (item is num)
-            item.toInt()
-          else if (item is Map && item['id'] is num)
-            (item['id'] as num).toInt(),
-    ];
+  if (value is List)
+    for (final item in value)
+      if (item is num)
+        item.toInt()
+      else if (item is Map && item['id'] is num)
+        (item['id'] as num).toInt(),
+];

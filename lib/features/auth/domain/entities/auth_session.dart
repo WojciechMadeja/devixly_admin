@@ -37,11 +37,11 @@ class AuthSession extends Equatable {
 
   @override
   List<Object?> get props => [
-        accessToken,
-        refreshToken,
-        refreshTokenId,
-        user,
-        accessTokenExpiresAt,
-        sessionExpiresAt,
-      ];
+    accessToken,
+    refreshToken,
+    refreshTokenId,
+    user,
+    accessTokenExpiresAt,
+    sessionExpiresAt,
+  ];
 }

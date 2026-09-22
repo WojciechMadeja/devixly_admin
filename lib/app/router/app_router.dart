@@ -107,8 +107,8 @@ GoRouter createAppRouter(SessionCubit session) {
         path: AppRoutes.editNews,
         redirect: (context, state) =>
             int.tryParse(state.uri.queryParameters['id'] ?? '') == null
-                ? AppRoutes.newsList
-                : null,
+            ? AppRoutes.newsList
+            : null,
         builder: (context, state) => EditNewsView(
           newsId: int.parse(state.uri.queryParameters['id']!),
           news: state.extra is News ? state.extra! as News : null,

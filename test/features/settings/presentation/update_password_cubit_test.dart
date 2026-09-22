@@ -19,16 +19,17 @@ void main() {
   setUp(() => repository = _MockRepository());
 
   Future<void> submit(UpdatePasswordCubit cubit) => cubit.submit(
-        oldPassword: 'stare',
-        newPassword: 'nowe',
-        repeatedPassword: 'nowe',
-      );
+    oldPassword: 'stare',
+    newPassword: 'nowe',
+    repeatedPassword: 'nowe',
+  );
 
   blocTest<UpdatePasswordCubit, UpdatePasswordState>(
     'zapisuje nowe hasło',
     build: () => UpdatePasswordCubit(repository),
-    setUp: () => when(() => repository.updatePassword(any()))
-        .thenAnswer((_) async => const Right(unit)),
+    setUp: () => when(
+      () => repository.updatePassword(any()),
+    ).thenAnswer((_) async => const Right(unit)),
     act: submit,
     expect: () => const [
       UpdatePasswordState.submitting(),
@@ -71,9 +72,9 @@ void main() {
   blocTest<UpdatePasswordCubit, UpdatePasswordState>(
     'błąd backendu trafia do stanu',
     build: () => UpdatePasswordCubit(repository),
-    setUp: () => when(() => repository.updatePassword(any())).thenAnswer(
-      (_) async => const Left(ServerFailure(statusCode: 403)),
-    ),
+    setUp: () => when(
+      () => repository.updatePassword(any()),
+    ).thenAnswer((_) async => const Left(ServerFailure(statusCode: 403))),
     act: submit,
     expect: () => const [
       UpdatePasswordState.submitting(),

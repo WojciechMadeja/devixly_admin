@@ -59,10 +59,12 @@ class _EditNewsBody extends StatefulWidget {
 }
 
 class _EditNewsBodyState extends State<_EditNewsBody> {
-  late final _titleController =
-      TextEditingController(text: widget.original.title);
-  late final _contentController =
-      TextEditingController(text: widget.original.content);
+  late final _titleController = TextEditingController(
+    text: widget.original.title,
+  );
+  late final _contentController = TextEditingController(
+    text: widget.original.content,
+  );
 
   @override
   void dispose() {
@@ -135,9 +137,9 @@ class _EditNewsBodyState extends State<_EditNewsBody> {
                       color: AppColors.accent1,
                       isLoading: isSubmitting,
                       onPressed: () => context.read<NewsEditorCubit>().submit(
-                            title: _titleController.text,
-                            content: _contentController.text,
-                          ),
+                        title: _titleController.text,
+                        content: _contentController.text,
+                      ),
                     ),
                   ),
                 ),

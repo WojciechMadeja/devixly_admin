@@ -11,8 +11,13 @@ class UserFieldControllers {
   final phoneNumber = TextEditingController();
   final password = TextEditingController();
 
-  List<TextEditingController> get _all =>
-      [email, firstName, lastName, phoneNumber, password];
+  List<TextEditingController> get _all => [
+    email,
+    firstName,
+    lastName,
+    phoneNumber,
+    password,
+  ];
 
   void clear() {
     for (final controller in _all) {
@@ -52,7 +57,7 @@ class UserFormFields extends StatelessWidget {
           hint: l10n.userPasswordHint,
           obscure: true,
         ),
-        if (trailing != null) trailing,
+        ?trailing,
       ],
     );
   }

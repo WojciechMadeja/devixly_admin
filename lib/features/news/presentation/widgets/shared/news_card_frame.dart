@@ -45,20 +45,16 @@ class NewsCardFrame extends StatelessWidget {
           maxHeight: isWide ? 120 : double.infinity,
         ),
         decoration: _decoration,
-        padding:
-            EdgeInsets.symmetric(horizontal: 20, vertical: isWide ? 0 : 12),
+        padding: EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: isWide ? 0 : 12,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           spacing: 15,
           children: isWide
-              ? [
-                  Flexible(flex: 4, child: leading),
-                  Flexible(child: actionsRow),
-                ]
-              : [
-                  Expanded(child: leading),
-                  if (actions.isNotEmpty) actionsRow,
-                ],
+              ? [Flexible(flex: 4, child: leading), Flexible(child: actionsRow)]
+              : [Expanded(child: leading), if (actions.isNotEmpty) actionsRow],
         ),
       ),
     );

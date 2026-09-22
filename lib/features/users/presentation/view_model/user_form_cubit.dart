@@ -20,9 +20,7 @@ class UserFormCubit extends Cubit<UserFormState> {
     final result = await _companies.getCompanies();
     if (isClosed) return;
     emit(
-      state.copyWith(
-        companies: result.match(Loadable.error, Loadable.loaded),
-      ),
+      state.copyWith(companies: result.match(Loadable.error, Loadable.loaded)),
     );
   }
 
@@ -59,13 +57,10 @@ class UserFormCubit extends Cubit<UserFormState> {
       ),
     );
     if (isClosed) return;
-    result.match(
-      (failure) => _finish(SubmissionStatus.failure(failure)),
-      (_) {
-        emit(state.copyWith(selectedCompany: null));
-        _finish(const SubmissionStatus.success());
-      },
-    );
+    result.match((failure) => _finish(SubmissionStatus.failure(failure)), (_) {
+      emit(state.copyWith(selectedCompany: null));
+      _finish(const SubmissionStatus.success());
+    });
   }
 
   /// Zgłasza wynik zapisu i wraca do stanu `idle`, żeby ten sam komunikat

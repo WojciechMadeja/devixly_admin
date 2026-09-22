@@ -14,16 +14,16 @@ class UsersRepositoryImpl implements UsersRepository {
 
   @override
   Future<Either<Failure, List<ManagedUser>>> getUsers() => guard(
-        () async => [
-          for (final model in await _remote.getUsers()) model.toEntity(),
-        ],
-      );
+    () async => [
+      for (final model in await _remote.getUsers()) model.toEntity(),
+    ],
+  );
 
   @override
   Future<Either<Failure, Unit>> addUser(NewUser user) => guard(() async {
-        await _remote.addUser(user);
-        return unit;
-      });
+    await _remote.addUser(user);
+    return unit;
+  });
 
   @override
   Future<Either<Failure, ManagedUser>> updateUser(
@@ -36,25 +36,23 @@ class UsersRepositoryImpl implements UsersRepository {
   Future<Either<Failure, ManagedUser>> setBlocked(
     ManagedUser user,
     bool blocked,
-  ) =>
-      guard(() async {
-        await _remote.setBlocked(user.id, blocked);
-        return user.copyWith(isBlocked: blocked);
-      });
+  ) => guard(() async {
+    await _remote.setBlocked(user.id, blocked);
+    return user.copyWith(isBlocked: blocked);
+  });
 
   @override
   Future<Either<Failure, Unit>> deleteUser(int id) => guard(() async {
-        await _remote.deleteUser(id);
-        return unit;
-      });
+    await _remote.deleteUser(id);
+    return unit;
+  });
 
   @override
   Future<Either<Failure, Unit>> importUsers({
     required List<CsvUser> users,
     required int companyId,
-  }) =>
-      guard(() async {
-        await _remote.importUsers(users: users, companyId: companyId);
-        return unit;
-      });
+  }) => guard(() async {
+    await _remote.importUsers(users: users, companyId: companyId);
+    return unit;
+  });
 }

@@ -74,15 +74,16 @@ class NewsPreviewDialog extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Row(children: [
-                            Text(news.author, style: _authorStyle)
-                          ]),
+                          Row(
+                            children: [Text(news.author, style: _authorStyle)],
+                          ),
                           Row(
                             children: [
                               Flexible(
                                 child: Text(
-                                  context.l10n
-                                      .newsCategories(categoryNames.join(', ')),
+                                  context.l10n.newsCategories(
+                                    categoryNames.join(', '),
+                                  ),
                                   style: AppTextStyles.bodySmall,
                                 ),
                               ),

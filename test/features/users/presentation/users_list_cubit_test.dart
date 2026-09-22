@@ -65,10 +65,12 @@ void main() {
   setUp(() {
     users = _MockUsers();
     companies = _MockCompanies();
-    when(companies.getCompanies)
-        .thenAnswer((_) async => const Right(<Company>[]));
-    when(users.getUsers)
-        .thenAnswer((_) async => const Right([me, anna, piotr, ewa]));
+    when(
+      companies.getCompanies,
+    ).thenAnswer((_) async => const Right(<Company>[]));
+    when(
+      users.getUsers,
+    ).thenAnswer((_) async => const Right([me, anna, piotr, ewa]));
   });
 
   UsersListCubit build() => UsersListCubit(users, companies, _FakeAdmin());
@@ -118,24 +120,24 @@ void main() {
   blocTest<UsersListCubit, UsersListState>(
     'blokada podmienia użytkownika na liście',
     build: build,
-    setUp: () => when(() => users.setBlocked(piotr, true))
-        .thenAnswer((_) async => Right(piotr.copyWith(isBlocked: true))),
+    setUp: () => when(
+      () => users.setBlocked(piotr, true),
+    ).thenAnswer((_) async => Right(piotr.copyWith(isBlocked: true))),
     act: (cubit) async {
       await cubit.load();
       expect(await cubit.setBlocked(piotr, true), isTrue);
     },
     skip: 2,
-    verify: (cubit) => expect(
-      (cubit.state as UsersListLoaded).users[1].isBlocked,
-      isTrue,
-    ),
+    verify: (cubit) =>
+        expect((cubit.state as UsersListLoaded).users[1].isBlocked, isTrue),
   );
 
   blocTest<UsersListCubit, UsersListState>(
     'usunięcie usuwa użytkownika z listy',
     build: build,
-    setUp: () => when(() => users.deleteUser(3))
-        .thenAnswer((_) async => const Right(unit)),
+    setUp: () => when(
+      () => users.deleteUser(3),
+    ).thenAnswer((_) async => const Right(unit)),
     act: (cubit) async {
       await cubit.load();
       await cubit.delete(piotr);

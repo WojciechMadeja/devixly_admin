@@ -26,10 +26,10 @@ class NewsImage extends StatelessWidget {
   final double borderRadius;
 
   static Size sizeOf(NewsRatio ratio) => switch (ratio) {
-        NewsRatio.horizontal => const Size(304, 171),
-        NewsRatio.vertical => const Size(171, 304),
-        NewsRatio.square => const Size(304, 304),
-      };
+    NewsRatio.horizontal => const Size(304, 171),
+    NewsRatio.vertical => const Size(171, 304),
+    NewsRatio.square => const Size(304, 304),
+  };
 
   @override
   Widget build(BuildContext context) {

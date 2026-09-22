@@ -96,9 +96,9 @@ class _AddNewsBodyState extends State<_AddNewsBody> {
                   width: 200,
                   isLoading: isSubmitting,
                   onPressed: () => context.read<NewsEditorCubit>().submit(
-                        title: _titleController.text,
-                        content: _contentController.text,
-                      ),
+                    title: _titleController.text,
+                    content: _contentController.text,
+                  ),
                 ),
               ),
             ),

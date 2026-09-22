@@ -38,8 +38,9 @@ HttpClient _createClient(Uint8List imageBytes) {
   when(() => client.openUrl(any(), any())).thenAnswer((_) async => request);
   when(() => request.headers).thenReturn(headers);
   when(request.close).thenAnswer((_) async => response);
-  when(() => response.compressionState)
-      .thenReturn(HttpClientResponseCompressionState.notCompressed);
+  when(
+    () => response.compressionState,
+  ).thenReturn(HttpClientResponseCompressionState.notCompressed);
   when(() => response.contentLength).thenReturn(imageBytes.length);
   when(() => response.statusCode).thenReturn(HttpStatus.ok);
   when(

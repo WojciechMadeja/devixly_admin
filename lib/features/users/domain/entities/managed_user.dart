@@ -28,25 +28,25 @@ class ManagedUser extends Equatable {
   String get displayName => '$lastName $firstName';
 
   ManagedUser copyWith({bool? isBlocked}) => ManagedUser(
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phoneNumber: phoneNumber,
-        isAdministrator: isAdministrator,
-        isBlocked: isBlocked ?? this.isBlocked,
-        company: company,
-      );
+    id: id,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    phoneNumber: phoneNumber,
+    isAdministrator: isAdministrator,
+    isBlocked: isBlocked ?? this.isBlocked,
+    company: company,
+  );
 
   @override
   List<Object?> get props => [
-        id,
-        firstName,
-        lastName,
-        email,
-        phoneNumber,
-        isAdministrator,
-        isBlocked,
-        company,
-      ];
+    id,
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    isAdministrator,
+    isBlocked,
+    company,
+  ];
 }

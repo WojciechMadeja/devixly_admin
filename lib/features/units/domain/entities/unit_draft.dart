@@ -15,6 +15,10 @@ class UnitDraft extends Equatable {
   final String phoneNumber;
 
   @override
-  List<Object?> get props =>
-      [apartmentNumber, price, ownerLastName, phoneNumber];
+  List<Object?> get props => [
+    apartmentNumber,
+    price,
+    ownerLastName,
+    phoneNumber,
+  ];
 }

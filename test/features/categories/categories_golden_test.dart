@@ -34,7 +34,8 @@ void main() {
       await expectLater(
         find.byType(MaterialApp),
         matchesGoldenFile(
-            baselineGolden('pages/add_category_desktop', depth: 2)),
+          baselineGolden('pages/add_category_desktop', depth: 2),
+        ),
       );
     });
 
@@ -105,8 +106,9 @@ void main() {
       );
     });
 
-    testWidgets('dialog zmiany nazwy wygląda jak w FlutterFlow',
-        (tester) async {
+    testWidgets('dialog zmiany nazwy wygląda jak w FlutterFlow', (
+      tester,
+    ) async {
       await pumpComponent(
         tester,
         RenameCategoryDialog(
@@ -122,8 +124,9 @@ void main() {
       );
     });
 
-    testWidgets('potwierdzenie usunięcia wygląda jak w FlutterFlow',
-        (tester) async {
+    testWidgets('potwierdzenie usunięcia wygląda jak w FlutterFlow', (
+      tester,
+    ) async {
       await pumpComponent(
         tester,
         Builder(

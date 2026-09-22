@@ -23,7 +23,8 @@ const _news = News(
   id: 11,
   createdAt: 1757500000000,
   title: 'Nowa inwestycja w Dubaju',
-  content: 'Rozpoczynamy sprzedaż apartamentów w nowym projekcie. '
+  content:
+      'Rozpoczynamy sprzedaż apartamentów w nowym projekcie. '
       'Szczegóły oferty znajdziesz w panelu.',
   imageUrl: 'https://example.com/news-11.png',
   author: 'Jan Kowalski',
@@ -44,9 +45,9 @@ const _verticalNews = News(
 const _card = Size(800, 240);
 
 Future<void> _expectBaseline(String name) => expectLater(
-      find.byType(MaterialApp),
-      matchesGoldenFile(baselineGolden(name, depth: 2)),
-    );
+  find.byType(MaterialApp),
+  matchesGoldenFile(baselineGolden(name, depth: 2)),
+);
 
 Future<void> _pumpPage(
   WidgetTester tester,
@@ -60,8 +61,9 @@ Future<void> _pumpPage(
 
 void main() {
   setUpAll(() {
-    HttpOverrides.global =
-        FakeNetworkImagesOverrides(readFixtureBytes('images/news.png'));
+    HttpOverrides.global = FakeNetworkImagesOverrides(
+      readFixtureBytes('images/news.png'),
+    );
   });
   tearDown(getIt.reset);
 
@@ -109,8 +111,9 @@ void main() {
       await _expectBaseline('pages/add_news_mobile');
     });
 
-    testWidgets('ładowanie kategorii wygląda jak w FlutterFlow',
-        (tester) async {
+    testWidgets('ładowanie kategorii wygląda jak w FlutterFlow', (
+      tester,
+    ) async {
       await _pumpPage(
         tester,
         const AddNewsView(),

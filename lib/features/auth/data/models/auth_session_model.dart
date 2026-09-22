@@ -26,13 +26,13 @@ abstract class AuthSessionModel with _$AuthSessionModel {
       _$AuthSessionModelFromJson(json);
 
   AuthSession toEntity() => AuthSession(
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-        refreshTokenId: refreshTokenId,
-        user: user.toEntity(),
-        accessTokenExpiresAt: _date(accessTokenExpiresAt),
-        sessionExpiresAt: _date(sessionExpiresAt),
-      );
+    accessToken: accessToken,
+    refreshToken: refreshToken,
+    refreshTokenId: refreshTokenId,
+    user: user.toEntity(),
+    accessTokenExpiresAt: _date(accessTokenExpiresAt),
+    sessionExpiresAt: _date(sessionExpiresAt),
+  );
 
   static DateTime? _date(int? millis) =>
       millis == null ? null : DateFormatters.fromEpochMillis(millis);

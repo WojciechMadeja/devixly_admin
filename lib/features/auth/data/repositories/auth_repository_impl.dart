@@ -119,10 +119,8 @@ class AuthRepositoryImpl
   AuthSessionModel _requireSession() =>
       _session ?? (throw const UnauthorizedException());
 
-  Future<AuthSessionModel?> _refreshOnce() =>
-      _refreshInProgress ??= _refresh().whenComplete(
-        () => _refreshInProgress = null,
-      );
+  Future<AuthSessionModel?> _refreshOnce() => _refreshInProgress ??= _refresh()
+      .whenComplete(() => _refreshInProgress = null);
 
   Future<AuthSessionModel?> _refresh() async {
     final current = _session;

@@ -32,9 +32,9 @@ class _LoginFormState extends State<LoginForm> {
 
   void _submit() {
     context.read<LoginCubit>().submit(
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
   }
 
   @override

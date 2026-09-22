@@ -69,11 +69,11 @@ void main() {
   });
 
   Future<void> submit(EditProfileCubit cubit) => cubit.submit(
-        email: profile.email,
-        firstName: update.firstName,
-        lastName: update.lastName,
-        phoneNumber: update.phoneNumber,
-      );
+    email: profile.email,
+    firstName: update.firstName,
+    lastName: update.lastName,
+    phoneNumber: update.phoneNumber,
+  );
 
   EditProfileCubit loadedCubit() => EditProfileCubit(repository, auth)
     ..emit(
@@ -83,8 +83,9 @@ void main() {
   blocTest<EditProfileCubit, EditProfileState>(
     'load pobiera dane konta',
     build: () => EditProfileCubit(repository, auth),
-    setUp: () => when(repository.getProfile)
-        .thenAnswer((_) async => const Right(profile)),
+    setUp: () => when(
+      repository.getProfile,
+    ).thenAnswer((_) async => const Right(profile)),
     act: (cubit) => cubit.load(),
     expect: () => const [
       EditProfileState(user: account, profile: Loadable.loaded(profile)),
@@ -94,8 +95,9 @@ void main() {
   blocTest<EditProfileCubit, EditProfileState>(
     'zapis wysyła zmienione dane i zapamiętuje zwrócony profil',
     build: loadedCubit,
-    setUp: () => when(() => repository.updateProfile(any(), any()))
-        .thenAnswer((_) async => Right(saved)),
+    setUp: () => when(
+      () => repository.updateProfile(any(), any()),
+    ).thenAnswer((_) async => Right(saved)),
     act: submit,
     expect: () => [
       const EditProfileState(
@@ -151,8 +153,9 @@ void main() {
   blocTest<EditProfileCubit, EditProfileState>(
     'błąd zapisu trafia do stanu',
     build: loadedCubit,
-    setUp: () => when(() => repository.updateProfile(any(), any()))
-        .thenAnswer((_) async => const Left(NetworkFailure())),
+    setUp: () => when(
+      () => repository.updateProfile(any(), any()),
+    ).thenAnswer((_) async => const Left(NetworkFailure())),
     act: submit,
     expect: () => const [
       EditProfileState(

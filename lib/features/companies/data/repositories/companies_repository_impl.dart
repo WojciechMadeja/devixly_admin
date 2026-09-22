@@ -14,10 +14,10 @@ class CompaniesRepositoryImpl implements CompaniesRepository {
 
   @override
   Future<Either<Failure, List<Company>>> getCompanies() => guard(
-        () async => [
-          for (final model in await _remote.getCompanies()) model.toEntity(),
-        ],
-      );
+    () async => [
+      for (final model in await _remote.getCompanies()) model.toEntity(),
+    ],
+  );
 
   @override
   Future<Either<Failure, Company>> addCompany(CompanyDraft draft) =>
@@ -27,11 +27,10 @@ class CompaniesRepositoryImpl implements CompaniesRepository {
   Future<Either<Failure, Company>> updateCompany(
     Company company,
     CompanyDraft draft,
-  ) =>
-      guard(() async {
-        await _remote.updateCompany(company.id, draft);
-        return company.copyWith(draft: draft);
-      });
+  ) => guard(() async {
+    await _remote.updateCompany(company.id, draft);
+    return company.copyWith(draft: draft);
+  });
 
   @override
   Future<Either<Failure, Company>> setBlocked(Company company, bool blocked) =>
@@ -42,7 +41,7 @@ class CompaniesRepositoryImpl implements CompaniesRepository {
 
   @override
   Future<Either<Failure, Unit>> deleteCompany(int id) => guard(() async {
-        await _remote.deleteCompany(id);
-        return unit;
-      });
+    await _remote.deleteCompany(id);
+    return unit;
+  });
 }

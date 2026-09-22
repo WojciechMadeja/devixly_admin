@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../../helpers/fake_xano_api.dart';
 
 /// Kontrakt z backendem Xano: te same metody, ścieżki i pola co w wersji
-/// FlutterFlow (lib/backend/api_requests/api_calls.dart).
+/// FlutterFlow (grupa api:Q_aNNNvL w Xano).
 void main() {
   const host = 'https://xxiz-mxuj-zpyz.n7e.xano.io';
   late FakeXanoApi api;
@@ -33,8 +33,10 @@ void main() {
   );
 
   test('login: POST auth/admin/login z e-mailem i hasłem', () async {
-    final result =
-        await dataSource.login(email: 'admin@devixly.com', password: 'tajne');
+    final result = await dataSource.login(
+      email: 'admin@devixly.com',
+      password: 'tajne',
+    );
 
     final request = api.requests.single;
     expect(request.method, 'POST');
@@ -49,23 +51,25 @@ void main() {
     expect(result.user, session.user);
   });
 
-  test('refresh: POST auth/refresh z refresh tokenem, jego id i id admina',
-      () async {
-    final result = await dataSource.refresh(session);
+  test(
+    'refresh: POST auth/refresh z refresh tokenem, jego id i id admina',
+    () async {
+      final result = await dataSource.refresh(session);
 
-    final request = api.requests.single;
-    expect(request.method, 'POST');
-    expect(request.url.toString(), '$host/api:Q_aNNNvL/auth/refresh');
-    expect(request.json, {
-      'refreshToken': 'refresh-token-1',
-      'refreshTokenId': 7,
-      'userId': 1,
-    });
-    expect(result.accessToken, 'auth-token-2');
-    expect(result.refreshToken, 'refresh-token-2');
-    expect(result.refreshTokenId, 8);
-    expect(result.user, session.user);
-  });
+      final request = api.requests.single;
+      expect(request.method, 'POST');
+      expect(request.url.toString(), '$host/api:Q_aNNNvL/auth/refresh');
+      expect(request.json, {
+        'refreshToken': 'refresh-token-1',
+        'refreshTokenId': 7,
+        'userId': 1,
+      });
+      expect(result.accessToken, 'auth-token-2');
+      expect(result.refreshToken, 'refresh-token-2');
+      expect(result.refreshTokenId, 8);
+      expect(result.user, session.user);
+    },
+  );
 
   test('revoke: POST auth/revoke_token z id refresh tokenu', () async {
     await dataSource.revoke(7);

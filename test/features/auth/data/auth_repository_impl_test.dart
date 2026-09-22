@@ -23,17 +23,18 @@ void main() {
     String token = 'token-1',
     DateTime? accessExpiresAt,
     DateTime? sessionExpiresAt,
-  }) =>
-      AuthSessionModel(
-        accessToken: token,
-        refreshToken: 'refresh-$token',
-        refreshTokenId: 7,
-        accessTokenExpiresAt:
-            millis(accessExpiresAt ?? now.add(const Duration(hours: 1))),
-        sessionExpiresAt:
-            millis(sessionExpiresAt ?? now.add(const Duration(days: 7))),
-        user: const AdminUserModel(id: 1, email: 'admin@devixly.com'),
-      );
+  }) => AuthSessionModel(
+    accessToken: token,
+    refreshToken: 'refresh-$token',
+    refreshTokenId: 7,
+    accessTokenExpiresAt: millis(
+      accessExpiresAt ?? now.add(const Duration(hours: 1)),
+    ),
+    sessionExpiresAt: millis(
+      sessionExpiresAt ?? now.add(const Duration(days: 7)),
+    ),
+    user: const AdminUserModel(id: 1, email: 'admin@devixly.com'),
+  );
 
   late _MockRemote remote;
   late _MockLocal local;
@@ -73,8 +74,9 @@ void main() {
 
   group('login', () {
     test('zapisuje sesję i powiadamia o zmianie', () async {
-      when(() => remote.login(email: 'a@b.pl', password: 'x'))
-          .thenAnswer((_) async => session());
+      when(
+        () => remote.login(email: 'a@b.pl', password: 'x'),
+      ).thenAnswer((_) async => session());
       final changes = <Object?>[];
       repository.sessionChanges.listen(changes.add);
 
@@ -87,9 +89,12 @@ void main() {
     });
 
     test('zwraca Failure, gdy backend odrzuci dane', () async {
-      when(() => remote.login(
-              email: any(named: 'email'), password: any(named: 'password')))
-          .thenThrow(const ServerException(403, 'Invalid credentials'));
+      when(
+        () => remote.login(
+          email: any(named: 'email'),
+          password: any(named: 'password'),
+        ),
+      ).thenThrow(const ServerException(403, 'Invalid credentials'));
 
       final result = await repository.login(email: 'a@b.pl', password: 'x');
 
@@ -113,40 +118,45 @@ void main() {
       verifyNever(() => remote.refresh(any()));
     });
 
-    test('odświeża wygasający token jednym żądaniem dla wielu wywołań',
-        () async {
-      when(local.read).thenReturn(
-        session(accessExpiresAt: now.add(const Duration(seconds: 10))),
-      );
-      await repository.restoreSession();
-      final completer = Completer<AuthSessionModel>();
-      when(() => remote.refresh(any())).thenAnswer((_) => completer.future);
+    test(
+      'odświeża wygasający token jednym żądaniem dla wielu wywołań',
+      () async {
+        when(local.read).thenReturn(
+          session(accessExpiresAt: now.add(const Duration(seconds: 10))),
+        );
+        await repository.restoreSession();
+        final completer = Completer<AuthSessionModel>();
+        when(() => remote.refresh(any())).thenAnswer((_) => completer.future);
 
-      final tokens = Future.wait([
-        repository.validAccessToken(),
-        repository.validAccessToken(),
-        repository.refreshAfterUnauthorized(),
-      ]);
-      completer.complete(session(token: 'token-2'));
+        final tokens = Future.wait([
+          repository.validAccessToken(),
+          repository.validAccessToken(),
+          repository.refreshAfterUnauthorized(),
+        ]);
+        completer.complete(session(token: 'token-2'));
 
-      expect(await tokens, ['token-2', 'token-2', 'token-2']);
-      verify(() => remote.refresh(any())).called(1);
-    });
+        expect(await tokens, ['token-2', 'token-2', 'token-2']);
+        verify(() => remote.refresh(any())).called(1);
+      },
+    );
 
-    test('gdy backend odrzuci odświeżenie, kończy sesję i unieważnia token',
-        () async {
-      when(local.read).thenReturn(
-        session(accessExpiresAt: now.subtract(const Duration(minutes: 1))),
-      );
-      await repository.restoreSession();
-      when(() => remote.refresh(any()))
-          .thenThrow(const UnauthorizedException());
+    test(
+      'gdy backend odrzuci odświeżenie, kończy sesję i unieważnia token',
+      () async {
+        when(local.read).thenReturn(
+          session(accessExpiresAt: now.subtract(const Duration(minutes: 1))),
+        );
+        await repository.restoreSession();
+        when(
+          () => remote.refresh(any()),
+        ).thenThrow(const UnauthorizedException());
 
-      expect(await repository.validAccessToken(), isNull);
-      expect(repository.currentSession, isNull);
-      verify(local.clear).called(1);
-      verify(() => remote.revoke(7)).called(1);
-    });
+        expect(await repository.validAccessToken(), isNull);
+        expect(repository.currentSession, isNull);
+        verify(local.clear).called(1);
+        verify(() => remote.revoke(7)).called(1);
+      },
+    );
 
     test('brak sieci przy odświeżaniu nie kończy sesji', () async {
       when(local.read).thenReturn(

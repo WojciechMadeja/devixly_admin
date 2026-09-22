@@ -1,17 +1,28 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:devixly_admin/app/app.dart';
+import 'package:devixly_admin/app/di/injection.dart';
+import 'package:devixly_admin/features/auth/presentation/view_model/session_cubit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:devixly_admin/main.dart';
+import 'helpers/golden_helpers.dart';
+import 'helpers/test_dependencies.dart';
 
+/// Test dymny całej aplikacji: zależności, router i ekran główny startują
+/// na atrapie backendu.
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  tearDown(getIt.reset);
+
+  testWidgets('aplikacja startuje na ekranie głównym zalogowanego admina', (
+    tester,
+  ) async {
+    await setUpTestDependencies();
+    setViewport(tester, GoldenViewport.desktop);
+    final session = getIt<SessionCubit>();
+    await session.restore();
+
+    await tester.pumpWidget(App(session: session));
+    await tester.pump(const Duration(seconds: 2));
+
+    expect(find.text('Lista aktualności'), findsOneWidget);
+    expect(find.text('Ustawienia'), findsOneWidget);
   });
 }

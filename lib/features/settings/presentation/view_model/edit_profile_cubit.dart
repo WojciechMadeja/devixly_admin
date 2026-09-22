@@ -12,14 +12,14 @@ import 'edit_profile_state.dart';
 /// Zapis danych osobowych administratora.
 class EditProfileCubit extends Cubit<EditProfileState> {
   EditProfileCubit(this._profiles, AuthRepository auth)
-      : super(EditProfileState(user: auth.currentSession?.user));
+    : super(EditProfileState(user: auth.currentSession?.user));
 
   final ProfileRepository _profiles;
 
   AdminProfile? get _profile => switch (state.profile) {
-        Loaded(:final value) => value,
-        _ => null,
-      };
+    Loaded(:final value) => value,
+    _ => null,
+  };
 
   Future<void> load() async {
     final result = await _profiles.getProfile();
@@ -60,18 +60,17 @@ class EditProfileCubit extends Cubit<EditProfileState> {
       ),
     );
     if (isClosed) return;
-    result.match(
-      (failure) => _finish(SubmissionStatus.failure(failure)),
-      (saved) {
-        emit(
-          state.copyWith(
-            profile: Loadable.loaded(saved),
-            submission: const SubmissionStatus.success(),
-          ),
-        );
-        emit(state.copyWith(submission: const SubmissionStatus.idle()));
-      },
-    );
+    result.match((failure) => _finish(SubmissionStatus.failure(failure)), (
+      saved,
+    ) {
+      emit(
+        state.copyWith(
+          profile: Loadable.loaded(saved),
+          submission: const SubmissionStatus.success(),
+        ),
+      );
+      emit(state.copyWith(submission: const SubmissionStatus.idle()));
+    });
   }
 
   /// Zgłasza wynik zapisu i wraca do stanu `idle`, żeby ten sam komunikat

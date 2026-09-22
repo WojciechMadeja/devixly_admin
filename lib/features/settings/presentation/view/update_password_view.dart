@@ -93,10 +93,10 @@ class _UpdatePasswordBodyState extends State<_UpdatePasswordBody> {
 
   void _submit(BuildContext context) =>
       context.read<UpdatePasswordCubit>().submit(
-            oldPassword: _oldPassword.text,
-            newPassword: _newPassword.text,
-            repeatedPassword: _repeatedPassword.text,
-          );
+        oldPassword: _oldPassword.text,
+        newPassword: _newPassword.text,
+        repeatedPassword: _repeatedPassword.text,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -145,8 +145,11 @@ class _UpdatePasswordBodyState extends State<_UpdatePasswordBody> {
                       width: 150,
                       onPressed: AdminShell.of(context).onBack,
                     ),
-                    BlocSelector<UpdatePasswordCubit, UpdatePasswordState,
-                        bool>(
+                    BlocSelector<
+                      UpdatePasswordCubit,
+                      UpdatePasswordState,
+                      bool
+                    >(
                       selector: (state) => state is UpdatePasswordSubmitting,
                       builder: (context, isSubmitting) => AppButton.large(
                         label: l10n.commonSave,

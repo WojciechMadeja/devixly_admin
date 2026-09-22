@@ -14,25 +14,34 @@ _AdminProfileModel _$AdminProfileModelFromJson(Map<String, dynamic> json) =>
         final val = _AdminProfileModel(
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           email: $checkedConvert(
-              'email', (v) => v == null ? '' : stringFromJson(v)),
+            'email',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           firstName: $checkedConvert(
-              'first_name', (v) => v == null ? '' : stringFromJson(v)),
+            'first_name',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           lastName: $checkedConvert(
-              'last_name', (v) => v == null ? '' : stringFromJson(v)),
+            'last_name',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           phoneNumber: $checkedConvert(
-              'phone_number', (v) => v == null ? '' : stringFromJson(v)),
+            'phone_number',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           company: $checkedConvert(
-              'company',
-              (v) => v == null
-                  ? null
-                  : ProfileCompanyModel.fromJson(v as Map<String, dynamic>)),
+            'company',
+            (v) => v == null
+                ? null
+                : ProfileCompanyModel.fromJson(v as Map<String, dynamic>),
+          ),
         );
         return val;
       },
       fieldKeyMap: const {
         'firstName': 'first_name',
         'lastName': 'last_name',
-        'phoneNumber': 'phone_number'
+        'phoneNumber': 'phone_number',
       },
     );
 
@@ -47,22 +56,17 @@ Map<String, dynamic> _$AdminProfileModelToJson(_AdminProfileModel instance) =>
     };
 
 _ProfileCompanyModel _$ProfileCompanyModelFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      '_ProfileCompanyModel',
-      json,
-      ($checkedConvert) {
-        final val = _ProfileCompanyModel(
-          id: $checkedConvert('id', (v) => (v as num).toInt()),
-          name: $checkedConvert(
-              'name', (v) => v == null ? '' : stringFromJson(v)),
-        );
-        return val;
-      },
-    );
+    $checkedCreate('_ProfileCompanyModel', json, ($checkedConvert) {
+      final val = _ProfileCompanyModel(
+        id: $checkedConvert('id', (v) => (v as num).toInt()),
+        name: $checkedConvert(
+          'name',
+          (v) => v == null ? '' : stringFromJson(v),
+        ),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$ProfileCompanyModelToJson(
-        _ProfileCompanyModel instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-    };
+  _ProfileCompanyModel instance,
+) => <String, dynamic>{'id': instance.id, 'name': instance.name};

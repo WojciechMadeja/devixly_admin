@@ -61,10 +61,7 @@ Future<void> showInfoDialog(
 }) {
   return showAppDialog<void>(
     context,
-    builder: (_) => InfoDialog(
-      title: title,
-      description: description,
-      isError: isError,
-    ),
+    builder: (_) =>
+        InfoDialog(title: title, description: description, isError: isError),
   );
 }

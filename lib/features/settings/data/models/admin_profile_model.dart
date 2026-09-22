@@ -30,14 +30,14 @@ abstract class AdminProfileModel with _$AdminProfileModel {
       _$AdminProfileModelFromJson(json);
 
   AdminProfile toEntity() => AdminProfile(
-        id: id,
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        phoneNumber: phoneNumber,
-        companyId: company?.id ?? 0,
-        companyName: company?.name ?? '',
-      );
+    id: id,
+    email: email,
+    firstName: firstName,
+    lastName: lastName,
+    phoneNumber: phoneNumber,
+    companyId: company?.id ?? 0,
+    companyName: company?.name ?? '',
+  );
 }
 
 /// Firma administratora w odpowiedzi o użytkowniku.

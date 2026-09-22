@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 /// Klikalny obszar bez efektów wizualnych (ripple, hover, focus) — tak
 /// działały klikalne elementy w wersji FlutterFlow.
 class TapArea extends StatelessWidget {
-  const TapArea({
-    super.key,
-    required this.child,
-    this.onTap,
-    this.onDoubleTap,
-  });
+  const TapArea({super.key, required this.child, this.onTap, this.onDoubleTap});
 
   final Widget child;
   final VoidCallback? onTap;

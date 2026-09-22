@@ -7,15 +7,17 @@ import 'news_list_state.dart';
 
 class NewsListCubit extends Cubit<NewsListState> {
   NewsListCubit(this._news, this._categories)
-      : super(const NewsListState.loading());
+    : super(const NewsListState.loading());
 
   final NewsRepository _news;
   final CategoriesRepository _categories;
 
   Future<void> load() async {
     emit(const NewsListState.loading());
-    final (newsResult, categoriesResult) =
-        await (_news.getNews(), _categories.getCategories()).wait;
+    final (newsResult, categoriesResult) = await (
+      _news.getNews(),
+      _categories.getCategories(),
+    ).wait;
     if (isClosed) return;
     emit(
       newsResult.match(

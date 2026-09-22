@@ -101,10 +101,10 @@ class NewsForm extends StatelessWidget {
           builder: (context, state) => switch (state.categories) {
             Loading() => const CategoryChipsSkeleton(),
             Loaded(:final value) => CategoryChips(
-                categories: value,
-                selectedIds: state.selectedCategoryIds,
-                onToggle: cubit.toggleCategory,
-              ),
+              categories: value,
+              selectedIds: state.selectedCategoryIds,
+              onToggle: cubit.toggleCategory,
+            ),
             LoadError() => const SizedBox.shrink(),
           },
         ),

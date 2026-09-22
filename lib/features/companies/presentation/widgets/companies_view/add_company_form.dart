@@ -31,17 +31,23 @@ class _AddCompanyFormState extends State<AddCompanyForm> {
     final l10n = context.l10n;
     return BlocListener<CompanyFormCubit, CompanyFormState>(
       listenWhen: (_, state) => state is CompanyFormSuccess,
-      listener: (_, __) => _fields.clear(),
+      listener: (_, _) => _fields.clear(),
       child: Column(
         spacing: 20,
         children: [
           CompanyTextField(
-              controller: _fields.name, hint: l10n.companyNameHint),
+            controller: _fields.name,
+            hint: l10n.companyNameHint,
+          ),
           _FieldPair(
             first: CompanyTextField(
-                controller: _fields.email, hint: l10n.companyEmailHint),
+              controller: _fields.email,
+              hint: l10n.companyEmailHint,
+            ),
             second: CompanyTextField(
-                controller: _fields.address, hint: l10n.companyAddressHint),
+              controller: _fields.address,
+              hint: l10n.companyAddressHint,
+            ),
           ),
           _FieldPair(
             first: CompanyTextField(
@@ -49,7 +55,9 @@ class _AddCompanyFormState extends State<AddCompanyForm> {
               hint: l10n.companyPostCodeHint,
             ),
             second: CompanyTextField(
-                controller: _fields.city, hint: l10n.companyCityHint),
+              controller: _fields.city,
+              hint: l10n.companyCityHint,
+            ),
           ),
           _FieldPair(
             first: CompanyTextField(

@@ -74,8 +74,9 @@ class CompaniesList extends StatelessWidget {
     return showAppDialog<void>(
       context,
       builder: (_) => TypedConfirmationDialog(
-        messagePrefix:
-            block ? l10n.companyBlockMessage : l10n.companyUnblockMessage,
+        messagePrefix: block
+            ? l10n.companyBlockMessage
+            : l10n.companyUnblockMessage,
         highlights: [company.name],
         messageSuffix: l10n.companyWithAgentsSuffix,
         phrase: block ? l10n.blockPhrase : l10n.unblockPhrase,

@@ -94,9 +94,9 @@ class _ResetPasswordCardState extends State<_ResetPasswordCard> {
                 label: l10n.resetPasswordSubmit,
                 color: AppColors.accent1,
                 isLoading: isSubmitting,
-                onPressed: () => context
-                    .read<ResetPasswordCubit>()
-                    .submit(_emailController.text),
+                onPressed: () => context.read<ResetPasswordCubit>().submit(
+                  _emailController.text,
+                ),
               ),
             ),
           ],

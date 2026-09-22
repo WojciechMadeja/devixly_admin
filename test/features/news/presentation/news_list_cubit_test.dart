@@ -15,8 +15,12 @@ class _MockNews extends Mock implements NewsRepository {}
 class _MockCategories extends Mock implements CategoriesRepository {}
 
 void main() {
-  const older =
-      News(id: 1, title: 'Starsza', createdAt: 100, categoryIds: [3, 9]);
+  const older = News(
+    id: 1,
+    title: 'Starsza',
+    createdAt: 100,
+    categoryIds: [3, 9],
+  );
   const newer = News(id: 2, title: 'Nowsza', createdAt: 200);
   const categories = [
     Category(id: 3, name: 'Wydarzenia'),
@@ -29,8 +33,9 @@ void main() {
   setUp(() {
     news = _MockNews();
     categoriesRepository = _MockCategories();
-    when(categoriesRepository.getCategories)
-        .thenAnswer((_) async => const Right(categories));
+    when(
+      categoriesRepository.getCategories,
+    ).thenAnswer((_) async => const Right(categories));
   });
 
   blocTest<NewsListCubit, NewsListState>(
@@ -54,8 +59,9 @@ void main() {
     build: () => NewsListCubit(news, categoriesRepository),
     setUp: () {
       when(news.getNews).thenAnswer((_) async => const Right([older]));
-      when(categoriesRepository.getCategories)
-          .thenAnswer((_) async => const Left(NetworkFailure()));
+      when(
+        categoriesRepository.getCategories,
+      ).thenAnswer((_) async => const Left(NetworkFailure()));
     },
     act: (cubit) => cubit.load(),
     expect: () => [
@@ -69,10 +75,13 @@ void main() {
     build: () => NewsListCubit(news, categoriesRepository)
       ..emit(
         const NewsListState.loaded(
-            news: [newer, older], categories: categories),
+          news: [newer, older],
+          categories: categories,
+        ),
       ),
-    setUp: () => when(() => news.deleteNews(2))
-        .thenAnswer((_) async => const Right(unit)),
+    setUp: () => when(
+      () => news.deleteNews(2),
+    ).thenAnswer((_) async => const Right(unit)),
     act: (cubit) async => expect(await cubit.delete(newer), isTrue),
     expect: () => [
       const NewsListState.loaded(news: [older], categories: categories),

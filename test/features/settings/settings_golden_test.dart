@@ -11,9 +11,9 @@ import '../../helpers/golden_helpers.dart';
 import '../../helpers/test_dependencies.dart';
 
 Future<void> _expectBaseline(String name) => expectLater(
-      find.byType(MaterialApp),
-      matchesGoldenFile(baselineGolden(name, depth: 2)),
-    );
+  find.byType(MaterialApp),
+  matchesGoldenFile(baselineGolden(name, depth: 2)),
+);
 
 void main() {
   tearDown(getIt.reset);
@@ -28,8 +28,9 @@ void main() {
     await _expectBaseline('pages/settings_desktop');
   });
 
-  testWidgets('SettingsView w trakcie pobierania danych pokazuje szkielet',
-      (tester) async {
+  testWidgets('SettingsView w trakcie pobierania danych pokazuje szkielet', (
+    tester,
+  ) async {
     await setUpTestDependencies(
       api: FakeXanoApi(responseDelay: const Duration(seconds: 10)),
     );

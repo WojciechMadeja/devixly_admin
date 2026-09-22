@@ -2,23 +2,10 @@ include: package:flutter_lints/flutter.yaml
 
 analyzer:
   exclude:
+    # Kod generowany (freezed, json_serializable, gen-l10n).
     - "**/*.g.dart"
     - "**/*.freezed.dart"
     - lib/l10n/app_localizations*.dart
-    # Kod FlutterFlow — usuwany w Fazie 7 migracji (MIGRATION_PLAN.md).
-    # Do tego czasu nie podlega regułom nowej architektury.
-    - lib/actions/**
-    - lib/auth/**
-    - lib/backend/**
-    - lib/components/**
-    - lib/custom_code/**
-    - lib/flutter_flow/**
-    - lib/pages/**
-    - lib/app_state.dart
-    - lib/index.dart
-    - lib/main.dart
-    - test/goldens/baseline_capture/**
-    - test/widget_test.dart
   errors:
     # @JsonKey na parametrach konstruktorów freezed.
     invalid_annotation_target: ignore

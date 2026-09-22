@@ -42,8 +42,8 @@ class NewsImageArea extends StatelessWidget {
     final image = picked != null
         ? NewsImage.memory(picked, ratio: ratio, borderRadius: 16)
         : currentImageUrl.isNotEmpty
-            ? NewsImage.network(currentImageUrl, ratio: ratio, borderRadius: 16)
-            : null;
+        ? NewsImage.network(currentImageUrl, ratio: ratio, borderRadius: 16)
+        : null;
     return TapArea(
       onTap: onTap,
       child: Container(

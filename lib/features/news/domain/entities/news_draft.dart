@@ -28,6 +28,13 @@ class NewsDraft extends Equatable {
   final PickedFile? image;
 
   @override
-  List<Object?> get props =>
-      [title, content, author, ratio, categoryIds, date, image];
+  List<Object?> get props => [
+    title,
+    content,
+    author,
+    ratio,
+    categoryIds,
+    date,
+    image,
+  ];
 }

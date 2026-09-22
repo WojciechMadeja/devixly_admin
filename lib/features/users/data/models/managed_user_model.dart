@@ -32,15 +32,15 @@ abstract class ManagedUserModel with _$ManagedUserModel {
       _$ManagedUserModelFromJson(json);
 
   ManagedUser toEntity() => ManagedUser(
-        id: id,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phoneNumber: phoneNumber,
-        isAdministrator: isAdministrator,
-        isBlocked: isBlocked,
-        company: company?.toEntity() ?? const UserCompany(id: 0, name: ''),
-      );
+    id: id,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    phoneNumber: phoneNumber,
+    isAdministrator: isAdministrator,
+    isBlocked: isBlocked,
+    company: company?.toEntity() ?? const UserCompany(id: 0, name: ''),
+  );
 }
 
 @freezed

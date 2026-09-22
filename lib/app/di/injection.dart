@@ -86,7 +86,8 @@ void _registerAuth() {
     ..registerLazySingleton(() => AuthRepositoryImpl(getIt(), getIt()))
     ..registerLazySingleton<AuthRepository>(() => getIt<AuthRepositoryImpl>())
     ..registerLazySingleton<AuthTokenProvider>(
-        () => getIt<AuthRepositoryImpl>())
+      () => getIt<AuthRepositoryImpl>(),
+    )
     ..registerLazySingleton<CurrentAdmin>(() => getIt<AuthRepositoryImpl>())
     // Sesja żyje przez cały czas działania aplikacji.
     ..registerLazySingleton(() => SessionCubit(getIt()))
@@ -139,9 +140,7 @@ void _registerUsers() {
     ..registerLazySingleton(() => const ParseUsersCsv())
     ..registerFactory(() => UsersListCubit(getIt(), getIt(), getIt()))
     ..registerFactory(() => UserFormCubit(getIt(), getIt()))
-    ..registerFactory(
-      () => CsvImportCubit(getIt(), getIt(), getIt(), getIt()),
-    );
+    ..registerFactory(() => CsvImportCubit(getIt(), getIt(), getIt(), getIt()));
 }
 
 /// Ekran „Dodaj jednostkę” (`features/units`) celowo nie jest tu

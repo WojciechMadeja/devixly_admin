@@ -28,20 +28,16 @@ const _devixly = Company(
   representative: 'Piotr Wiśniewski',
   agentsCount: 4,
 );
-const _blocked = Company(
-  id: 3,
-  name: 'Łódzkie Nieruchomości',
-  isBlocked: true,
-);
+const _blocked = Company(id: 3, name: 'Łódzkie Nieruchomości', isBlocked: true);
 const _card = Size(800, 240);
 const _tall = Size(800, 1100);
 
 Future<bool> _noop() async => true;
 
 Future<void> _expectBaseline(String name) => expectLater(
-      find.byType(MaterialApp),
-      matchesGoldenFile(baselineGolden(name, depth: 2)),
-    );
+  find.byType(MaterialApp),
+  matchesGoldenFile(baselineGolden(name, depth: 2)),
+);
 
 /// Dialogi z pogrubioną nazwą w `RichText`: prawdziwy Inter Bold zamiast
 /// sztucznego pogrubienia z FlutterFlow (świadoma różnica, ok. 0,5–0,8%).
@@ -145,8 +141,9 @@ void main() {
                 highlights: [company.name],
                 messageSuffix: l10n.companyWithAgentsSuffix,
                 phrase: block ? l10n.blockPhrase : l10n.unblockPhrase,
-                mismatchMessage:
-                    block ? l10n.blockMismatch : l10n.unblockMismatch,
+                mismatchMessage: block
+                    ? l10n.blockMismatch
+                    : l10n.unblockMismatch,
                 confirmLabel: block ? l10n.commonBlock : l10n.commonUnblock,
                 confirmColor: block ? AppColors.accent1 : AppColors.accent2,
                 onConfirm: _noop,

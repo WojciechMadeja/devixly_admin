@@ -71,8 +71,7 @@ class _UsersListBody extends StatelessWidget {
               builder: (context, state) => switch (state) {
                 UsersListLoaded() => _UsersTableSection(state: state),
                 UsersListLoading() ||
-                UsersListError() =>
-                  const SizedBox.shrink(),
+                UsersListError() => const SizedBox.shrink(),
               },
             ),
           ),
@@ -155,11 +154,13 @@ class _UsersTableSection extends StatelessWidget {
       builder: (_) => TypedConfirmationDialog(
         messagePrefix: l10n.userDeleteMessage,
         highlights: [user.lastName, user.firstName],
-        messageSuffix:
-            isAdmin ? l10n.userDeleteAdminSuffix : l10n.userQuestionMark,
+        messageSuffix: isAdmin
+            ? l10n.userDeleteAdminSuffix
+            : l10n.userQuestionMark,
         phrase: isAdmin ? l10n.deleteAdminPhrase : l10n.deletePhrase,
-        mismatchMessage:
-            isAdmin ? l10n.deleteAdminMismatch : l10n.deleteMismatch,
+        mismatchMessage: isAdmin
+            ? l10n.deleteAdminMismatch
+            : l10n.deleteMismatch,
         confirmLabel: l10n.commonDelete,
         confirmColor: AppColors.accent3,
         onConfirm: () => _reportFailure(context, cubit.delete(user)),

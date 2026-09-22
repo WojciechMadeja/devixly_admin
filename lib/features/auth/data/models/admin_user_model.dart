@@ -23,20 +23,20 @@ abstract class AdminUserModel with _$AdminUserModel {
       _$AdminUserModelFromJson(json);
 
   factory AdminUserModel.fromEntity(AdminUser user) => AdminUserModel(
-        id: user.id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        phoneNumber: user.phoneNumber,
-        company: user.company,
-      );
+    id: user.id,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    phoneNumber: user.phoneNumber,
+    company: user.company,
+  );
 
   AdminUser toEntity() => AdminUser(
-        id: id,
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        phoneNumber: phoneNumber,
-        company: company,
-      );
+    id: id,
+    email: email,
+    firstName: firstName,
+    lastName: lastName,
+    phoneNumber: phoneNumber,
+    company: company,
+  );
 }

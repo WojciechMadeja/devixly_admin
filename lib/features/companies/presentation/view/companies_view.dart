@@ -89,18 +89,19 @@ class _CompaniesBody extends StatelessWidget {
         BlocBuilder<CompaniesCubit, CompaniesState>(
           builder: (context, state) => switch (state) {
             CompaniesLoading() => const ListCardSkeletonGroup(),
-            CompaniesLoaded(:final companies, :final selectedId) => isWide
-                ? Expanded(
-                    child: CompaniesList(
+            CompaniesLoaded(:final companies, :final selectedId) =>
+              isWide
+                  ? Expanded(
+                      child: CompaniesList(
+                        companies: companies,
+                        selectedId: selectedId,
+                      ),
+                    )
+                  : CompaniesList(
                       companies: companies,
                       selectedId: selectedId,
+                      scrollable: false,
                     ),
-                  )
-                : CompaniesList(
-                    companies: companies,
-                    selectedId: selectedId,
-                    scrollable: false,
-                  ),
             CompaniesError() => const SizedBox.shrink(),
           },
         ),

@@ -15,19 +15,33 @@ _CompanyModel _$CompanyModelFromJson(Map<String, dynamic> json) =>
           id: $checkedConvert('id', (v) => (v as num).toInt()),
           name: $checkedConvert('name', (v) => v as String? ?? ''),
           email: $checkedConvert(
-              'email', (v) => v == null ? '' : stringFromJson(v)),
+            'email',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           address: $checkedConvert(
-              'address', (v) => v == null ? '' : stringFromJson(v)),
+            'address',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           postCode: $checkedConvert(
-              'post_code', (v) => v == null ? '' : stringFromJson(v)),
+            'post_code',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           city: $checkedConvert(
-              'city', (v) => v == null ? '' : stringFromJson(v)),
+            'city',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           phoneNumber: $checkedConvert(
-              'phone_number', (v) => v == null ? '' : stringFromJson(v)),
-          representative: $checkedConvert('company_representative',
-              (v) => v == null ? '' : stringFromJson(v)),
+            'phone_number',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
+          representative: $checkedConvert(
+            'company_representative',
+            (v) => v == null ? '' : stringFromJson(v),
+          ),
           agentsCount: $checkedConvert(
-              'number_of_agents', (v) => (v as num?)?.toInt() ?? 0),
+            'number_of_agents',
+            (v) => (v as num?)?.toInt() ?? 0,
+          ),
           isBlocked: $checkedConvert('is_blocked', (v) => v as bool? ?? false),
         );
         return val;
@@ -37,7 +51,7 @@ _CompanyModel _$CompanyModelFromJson(Map<String, dynamic> json) =>
         'phoneNumber': 'phone_number',
         'representative': 'company_representative',
         'agentsCount': 'number_of_agents',
-        'isBlocked': 'is_blocked'
+        'isBlocked': 'is_blocked',
       },
     );
 
