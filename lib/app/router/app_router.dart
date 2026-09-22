@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/view/login_view.dart';
 import '../../features/auth/presentation/view_model/session_cubit.dart';
 import '../../features/auth/presentation/view_model/session_state.dart';
+import '../../features/categories/presentation/view/categories_view.dart';
+import '../../features/companies/presentation/view/companies_view.dart';
 import '../../features/home/presentation/view/home_view.dart';
 import 'app_routes.dart';
 import 'stream_listenable.dart';
@@ -45,6 +47,14 @@ GoRouter createAppRouter(SessionCubit session) {
       GoRoute(
         path: AppRoutes.home,
         builder: (context, state) => const HomeView(),
+      ),
+      GoRoute(
+        path: AppRoutes.categories,
+        builder: (context, state) => const CategoriesView(),
+      ),
+      GoRoute(
+        path: AppRoutes.companies,
+        builder: (context, state) => const CompaniesView(),
       ),
     ],
   );

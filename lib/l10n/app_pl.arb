@@ -38,5 +38,52 @@
   "homeUsersList": "Lista użytkowników",
   "homeAddAdmin": "Dodaj administratora",
   "homeOffers": "Oferty",
-  "homeSettings": "Ustawienia"
+  "homeSettings": "Ustawienia",
+  "loadError": "Nie udało się pobrać danych",
+  "categoriesTitle": "Zarządzaj kategoriami",
+  "categoryNameHint": "Nazwa kategorii",
+  "categoryNameRequired": "Wpisz nazwę kategorii",
+  "categoryNewsCount": "Aktualności:  {count}",
+  "@categoryNewsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "categoryRenameTitle": "Edytuj nazwę kategorii",
+  "categoryDeleteMessage": "Czy na pewno chcesz usunąć kategorię ",
+  "companiesTitle": "Zarządzaj firmami",
+  "companyNameHint": "Nazwa firmy",
+  "companyNameRequired": "Wpisz nazwę firmy",
+  "companyEmailHint": "E-mail",
+  "companyEditEmailHint": "Email",
+  "companyAddressHint": "Adres",
+  "companyPostCodeHint": "Kod pocztowy",
+  "companyCityHint": "Miasto",
+  "companyRepresentativeHint": "Przedstawiciel firmy",
+  "companyPhoneHint": "Numer telefonu",
+  "companyAgentsCount": "Agentów:  {count}",
+  "@companyAgentsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "companyEditTitle": "Edytuj nazwę firmy",
+  "companyBlockMessage": "Czy na pewno chcesz zablokować firmę ",
+  "companyUnblockMessage": "Czy na pewno chcesz odblokować firmę ",
+  "companyDeleteMessage": "Czy na pewno chcesz usunąć firmę ",
+  "companyWithAgentsSuffix": " ze wszystkim przypisanymi jej agentami?",
+  "blockPhrase": "BLOCK",
+  "unblockPhrase": "UNBLOCK",
+  "deletePhrase": "DELETE",
+  "blockMismatch": "Wpisz BLOCK, aby zablokować",
+  "unblockMismatch": "Wpisz UNBLOCK, aby odblokować",
+  "deleteMismatch": "Wpisz DELETE, aby usunąć",
+  "commonBlock": "Zablokuj",
+  "commonUnblock": "Odblokuj",
+  "companyPickerEmpty": "Nie masz  jeszcze dodanych firm",
+  "companyPickerAdd": "Dodaj firmę"
 }

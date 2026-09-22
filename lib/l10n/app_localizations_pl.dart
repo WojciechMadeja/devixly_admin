@@ -106,4 +106,108 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get homeSettings => 'Ustawienia';
+
+  @override
+  String get loadError => 'Nie udało się pobrać danych';
+
+  @override
+  String get categoriesTitle => 'Zarządzaj kategoriami';
+
+  @override
+  String get categoryNameHint => 'Nazwa kategorii';
+
+  @override
+  String get categoryNameRequired => 'Wpisz nazwę kategorii';
+
+  @override
+  String categoryNewsCount(int count) {
+    return 'Aktualności:  $count';
+  }
+
+  @override
+  String get categoryRenameTitle => 'Edytuj nazwę kategorii';
+
+  @override
+  String get categoryDeleteMessage => 'Czy na pewno chcesz usunąć kategorię ';
+
+  @override
+  String get companiesTitle => 'Zarządzaj firmami';
+
+  @override
+  String get companyNameHint => 'Nazwa firmy';
+
+  @override
+  String get companyNameRequired => 'Wpisz nazwę firmy';
+
+  @override
+  String get companyEmailHint => 'E-mail';
+
+  @override
+  String get companyEditEmailHint => 'Email';
+
+  @override
+  String get companyAddressHint => 'Adres';
+
+  @override
+  String get companyPostCodeHint => 'Kod pocztowy';
+
+  @override
+  String get companyCityHint => 'Miasto';
+
+  @override
+  String get companyRepresentativeHint => 'Przedstawiciel firmy';
+
+  @override
+  String get companyPhoneHint => 'Numer telefonu';
+
+  @override
+  String companyAgentsCount(int count) {
+    return 'Agentów:  $count';
+  }
+
+  @override
+  String get companyEditTitle => 'Edytuj nazwę firmy';
+
+  @override
+  String get companyBlockMessage => 'Czy na pewno chcesz zablokować firmę ';
+
+  @override
+  String get companyUnblockMessage => 'Czy na pewno chcesz odblokować firmę ';
+
+  @override
+  String get companyDeleteMessage => 'Czy na pewno chcesz usunąć firmę ';
+
+  @override
+  String get companyWithAgentsSuffix =>
+      ' ze wszystkim przypisanymi jej agentami?';
+
+  @override
+  String get blockPhrase => 'BLOCK';
+
+  @override
+  String get unblockPhrase => 'UNBLOCK';
+
+  @override
+  String get deletePhrase => 'DELETE';
+
+  @override
+  String get blockMismatch => 'Wpisz BLOCK, aby zablokować';
+
+  @override
+  String get unblockMismatch => 'Wpisz UNBLOCK, aby odblokować';
+
+  @override
+  String get deleteMismatch => 'Wpisz DELETE, aby usunąć';
+
+  @override
+  String get commonBlock => 'Zablokuj';
+
+  @override
+  String get commonUnblock => 'Odblokuj';
+
+  @override
+  String get companyPickerEmpty => 'Nie masz  jeszcze dodanych firm';
+
+  @override
+  String get companyPickerAdd => 'Dodaj firmę';
 }

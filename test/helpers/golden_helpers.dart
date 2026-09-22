@@ -92,3 +92,27 @@ void setViewport(WidgetTester tester, Size size) {
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
 }
+
+/// Porównanie z wzorcem przy większej tolerancji — dla widoków, w których
+/// świadomie różnimy się od FlutterFlow (np. prawdziwe pogrubienie Inter
+/// Bold zamiast sztucznie pogrubionego Inter Medium w `RichText`).
+Future<void> expectGoldenWithTolerance(
+  Finder finder,
+  String goldenPath, {
+  required double tolerance,
+}) async {
+  final previous = goldenFileComparator;
+  if (previous is! TolerantGoldenFileComparator) {
+    await expectLater(finder, matchesGoldenFile(goldenPath));
+    return;
+  }
+  goldenFileComparator = TolerantGoldenFileComparator(
+    previous.basedir.resolve('golden_helpers.dart'),
+    tolerance: tolerance,
+  );
+  try {
+    await expectLater(finder, matchesGoldenFile(goldenPath));
+  } finally {
+    goldenFileComparator = previous;
+  }
+}

@@ -31,4 +31,20 @@ abstract final class AppSnackBar {
       ),
     );
   }
+
+  /// Komunikat o powodzeniu (biały tekst na oliwkowym tle).
+  static void success(ScaffoldMessengerState messenger, String message) => show(
+        messenger,
+        message: message,
+        backgroundColor: AppColors.accent2,
+        textStyle: emphasizedText,
+      );
+
+  /// Komunikat o błędzie (biały tekst na bordowym tle).
+  static void error(ScaffoldMessengerState messenger, String message) => show(
+        messenger,
+        message: message,
+        backgroundColor: AppColors.accent3,
+        textStyle: emphasizedText,
+      );
 }

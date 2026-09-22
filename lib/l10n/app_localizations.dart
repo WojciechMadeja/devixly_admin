@@ -285,6 +285,204 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Ustawienia'**
   String get homeSettings;
+
+  /// No description provided for @loadError.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się pobrać danych'**
+  String get loadError;
+
+  /// No description provided for @categoriesTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zarządzaj kategoriami'**
+  String get categoriesTitle;
+
+  /// No description provided for @categoryNameHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nazwa kategorii'**
+  String get categoryNameHint;
+
+  /// No description provided for @categoryNameRequired.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz nazwę kategorii'**
+  String get categoryNameRequired;
+
+  /// No description provided for @categoryNewsCount.
+  ///
+  /// In pl, this message translates to:
+  /// **'Aktualności:  {count}'**
+  String categoryNewsCount(int count);
+
+  /// No description provided for @categoryRenameTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Edytuj nazwę kategorii'**
+  String get categoryRenameTitle;
+
+  /// No description provided for @categoryDeleteMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz usunąć kategorię '**
+  String get categoryDeleteMessage;
+
+  /// No description provided for @companiesTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zarządzaj firmami'**
+  String get companiesTitle;
+
+  /// No description provided for @companyNameHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nazwa firmy'**
+  String get companyNameHint;
+
+  /// No description provided for @companyNameRequired.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz nazwę firmy'**
+  String get companyNameRequired;
+
+  /// No description provided for @companyEmailHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'E-mail'**
+  String get companyEmailHint;
+
+  /// No description provided for @companyEditEmailHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Email'**
+  String get companyEditEmailHint;
+
+  /// No description provided for @companyAddressHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Adres'**
+  String get companyAddressHint;
+
+  /// No description provided for @companyPostCodeHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Kod pocztowy'**
+  String get companyPostCodeHint;
+
+  /// No description provided for @companyCityHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Miasto'**
+  String get companyCityHint;
+
+  /// No description provided for @companyRepresentativeHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Przedstawiciel firmy'**
+  String get companyRepresentativeHint;
+
+  /// No description provided for @companyPhoneHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Numer telefonu'**
+  String get companyPhoneHint;
+
+  /// No description provided for @companyAgentsCount.
+  ///
+  /// In pl, this message translates to:
+  /// **'Agentów:  {count}'**
+  String companyAgentsCount(int count);
+
+  /// No description provided for @companyEditTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Edytuj nazwę firmy'**
+  String get companyEditTitle;
+
+  /// No description provided for @companyBlockMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz zablokować firmę '**
+  String get companyBlockMessage;
+
+  /// No description provided for @companyUnblockMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz odblokować firmę '**
+  String get companyUnblockMessage;
+
+  /// No description provided for @companyDeleteMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz usunąć firmę '**
+  String get companyDeleteMessage;
+
+  /// No description provided for @companyWithAgentsSuffix.
+  ///
+  /// In pl, this message translates to:
+  /// **' ze wszystkim przypisanymi jej agentami?'**
+  String get companyWithAgentsSuffix;
+
+  /// No description provided for @blockPhrase.
+  ///
+  /// In pl, this message translates to:
+  /// **'BLOCK'**
+  String get blockPhrase;
+
+  /// No description provided for @unblockPhrase.
+  ///
+  /// In pl, this message translates to:
+  /// **'UNBLOCK'**
+  String get unblockPhrase;
+
+  /// No description provided for @deletePhrase.
+  ///
+  /// In pl, this message translates to:
+  /// **'DELETE'**
+  String get deletePhrase;
+
+  /// No description provided for @blockMismatch.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz BLOCK, aby zablokować'**
+  String get blockMismatch;
+
+  /// No description provided for @unblockMismatch.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz UNBLOCK, aby odblokować'**
+  String get unblockMismatch;
+
+  /// No description provided for @deleteMismatch.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz DELETE, aby usunąć'**
+  String get deleteMismatch;
+
+  /// No description provided for @commonBlock.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zablokuj'**
+  String get commonBlock;
+
+  /// No description provided for @commonUnblock.
+  ///
+  /// In pl, this message translates to:
+  /// **'Odblokuj'**
+  String get commonUnblock;
+
+  /// No description provided for @companyPickerEmpty.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie masz  jeszcze dodanych firm'**
+  String get companyPickerEmpty;
+
+  /// No description provided for @companyPickerAdd.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj firmę'**
+  String get companyPickerAdd;
 }
 
 class _AppLocalizationsDelegate
