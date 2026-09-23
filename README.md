@@ -15,6 +15,11 @@ Adres backendu można podmienić przy budowaniu:
 flutter build web --release --dart-define=XANO_BASE_URL=https://twoj-host.xano.io
 ```
 
+Wgrywamy zawartość `build/web` na hosting. Jest tam też `web/.htaccess`, który na
+Apache/LiteSpeed przekierowuje nieistniejące ścieżki do `index.html` — bez niego
+odświeżenie adresu w stylu `/newsListPage` kończy się błędem 404 serwera, bo
+aplikacja używa ścieżek URL (`usePathUrlStrategy()`), a nie hasha.
+
 ## Codzienna praca
 
 ```bash

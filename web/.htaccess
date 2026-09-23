@@ -1,0 +1,15 @@
+# Single-page app routing for LiteSpeed/Apache hosting.
+#
+# The panel uses path URLs (`usePathUrlStrategy()` in main.dart), e.g.
+# /newsListPage or /settingsPage. Reloading such a page asks the server for
+# a file that doesn't exist, so without this the server answers with its own
+# 404 page and the Flutter app never starts. Serve index.html instead and let
+# go_router resolve the path (including the login redirect with `?from=`).
+# Real files (JS, assets, icons) are still served as-is.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+</IfModule>
