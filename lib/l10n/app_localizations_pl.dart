@@ -85,6 +85,41 @@ class AppLocalizationsPl extends AppLocalizations {
       'Sprawdź kod z e-maila. Hasło musi mieć co najmniej 8 znaków.';
 
   @override
+  String get loginInvalidCredentialsTitle => 'Nie udało się zalogować';
+
+  @override
+  String get loginInvalidCredentialsDescription =>
+      'Nieprawidłowy e-mail lub hasło. Po pięciu nieudanych próbach logowanie jest chwilowo wstrzymane.';
+
+  @override
+  String get loginNotAdminTitle => 'Brak uprawnień';
+
+  @override
+  String get loginNotAdminDescription =>
+      'To konto nie ma uprawnień administratora, więc nie ma dostępu do panelu.';
+
+  @override
+  String get loginBlockedTitle => 'Konto zablokowane';
+
+  @override
+  String get loginBlockedDescription =>
+      'To konto zostało zablokowane. Skontaktuj się z innym administratorem.';
+
+  @override
+  String get loginNoConnectionTitle => 'Brak połączenia';
+
+  @override
+  String get loginNoConnectionDescription =>
+      'Nie udało się połączyć z serwerem. Sprawdź połączenie z internetem i spróbuj ponownie.';
+
+  @override
+  String get passwordTooShortTitle => 'Hasło jest za słabe';
+
+  @override
+  String get passwordTooShortDescription =>
+      'Hasło musi mieć co najmniej 8 znaków i nie może zaczynać się ani kończyć spacją.';
+
+  @override
   String get resetPasswordFailedTitle => 'Poszło coś nie tak';
 
   @override
@@ -416,6 +451,13 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get csvImportFailed => 'Nie udało się dodać użytkowników';
+
+  @override
+  String get csvPasswordEmailFailedTitle => 'Konta utworzone, ale bez haseł';
+
+  @override
+  String get csvPasswordEmailFailedDescription =>
+      'Nie udało się wysłać hasła na poniższe adresy. Poproś te osoby o użycie opcji „Zapomniałeś hasła”:';
 
   @override
   String get csvNothingToImport => 'Wczytaj plik CSV i wybierz firmę';

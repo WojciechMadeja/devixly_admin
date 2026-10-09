@@ -30,5 +30,8 @@ abstract class CsvImportState with _$CsvImportState {
     @Default(<CsvUser>[]) List<CsvUser> users,
     @Default(CsvFileStatus.idle()) CsvFileStatus fileStatus,
     @Default(SubmissionStatus.idle()) SubmissionStatus submission,
+
+    /// Adresy z ostatniego importu, na które backend nie wysłał hasła.
+    @Default(<String>[]) List<String> passwordEmailFailed,
   }) = _CsvImportState;
 }

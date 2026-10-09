@@ -11,7 +11,10 @@ import 'package:mocktail/mocktail.dart';
 class _MockRepository extends Mock implements ProfileRepository {}
 
 void main() {
-  const change = PasswordChange(oldPassword: 'stare', newPassword: 'nowe');
+  const change = PasswordChange(
+    oldPassword: 'stare',
+    newPassword: 'noweHaslo1',
+  );
 
   late _MockRepository repository;
 
@@ -20,8 +23,8 @@ void main() {
 
   Future<void> submit(UpdatePasswordCubit cubit) => cubit.submit(
     oldPassword: 'stare',
-    newPassword: 'nowe',
-    repeatedPassword: 'nowe',
+    newPassword: 'noweHaslo1',
+    repeatedPassword: 'noweHaslo1',
   );
 
   blocTest<UpdatePasswordCubit, UpdatePasswordState>(
@@ -44,8 +47,8 @@ void main() {
     build: () => UpdatePasswordCubit(repository),
     act: (cubit) => cubit.submit(
       oldPassword: '',
-      newPassword: 'nowe',
-      repeatedPassword: 'nowe',
+      newPassword: 'noweHaslo1',
+      repeatedPassword: 'noweHaslo1',
     ),
     expect: () => const [
       UpdatePasswordState.emptyFields(),
@@ -55,11 +58,40 @@ void main() {
   );
 
   blocTest<UpdatePasswordCubit, UpdatePasswordState>(
+    'za krótkie hasło przerywa zapis',
+    build: () => UpdatePasswordCubit(repository),
+    act: (cubit) => cubit.submit(
+      oldPassword: 'stare',
+      newPassword: 'krotkie',
+      repeatedPassword: 'krotkie',
+    ),
+    expect: () => const [
+      UpdatePasswordState.weakPassword(),
+      UpdatePasswordState.initial(),
+    ],
+    verify: (_) => verifyNever(() => repository.updatePassword(any())),
+  );
+
+  blocTest<UpdatePasswordCubit, UpdatePasswordState>(
+    'hasło odrzucone przez backend pokazuje wymagania, nie ogólny błąd',
+    build: () => UpdatePasswordCubit(repository),
+    setUp: () => when(
+      () => repository.updatePassword(any()),
+    ).thenAnswer((_) async => const Left(WeakPasswordFailure())),
+    act: submit,
+    expect: () => const [
+      UpdatePasswordState.submitting(),
+      UpdatePasswordState.weakPassword(),
+      UpdatePasswordState.initial(),
+    ],
+  );
+
+  blocTest<UpdatePasswordCubit, UpdatePasswordState>(
     'różne hasła przerywają zapis',
     build: () => UpdatePasswordCubit(repository),
     act: (cubit) => cubit.submit(
       oldPassword: 'stare',
-      newPassword: 'nowe',
+      newPassword: 'noweHaslo1',
       repeatedPassword: 'inne',
     ),
     expect: () => const [

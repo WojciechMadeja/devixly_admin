@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/state/submission_status.dart';
+import '../../../../core/utils/validators.dart';
 import '../../domain/entities/new_admin.dart';
 import '../../domain/repositories/admins_repository.dart';
 import 'admin_form_state.dart';
@@ -26,6 +27,10 @@ class AdminFormCubit extends Cubit<AdminFormState> {
         phoneNumber.trim().isEmpty ||
         password.isEmpty) {
       _finish(const SubmissionStatus.failure(ValidationFailure()));
+      return;
+    }
+    if (!Validators.isValidPassword(password)) {
+      _finish(const SubmissionStatus.failure(WeakPasswordFailure()));
       return;
     }
     emit(state.copyWith(submission: const SubmissionStatus.submitting()));

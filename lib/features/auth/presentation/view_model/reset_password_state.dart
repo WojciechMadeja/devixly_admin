@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'reset_password_state.freezed.dart';
 
 /// Dlaczego nie udało się ustawić nowego hasła w drugim kroku.
-enum ResetCodeError { emptyFields, mismatch, rejected }
+enum ResetCodeError { emptyFields, mismatch, weakPassword, rejected }
 
 @freezed
 sealed class ResetPasswordState with _$ResetPasswordState {

@@ -13,7 +13,7 @@ import 'package:devixly_admin/features/users/presentation/view/add_user_view.dar
 import 'package:devixly_admin/features/users/presentation/view/csv_import_view.dart';
 import 'package:devixly_admin/features/users/presentation/view/users_list_view.dart';
 import 'package:devixly_admin/features/users/presentation/widgets/csv_import_view/edit_csv_user_dialog.dart';
-import 'package:devixly_admin/features/users/presentation/widgets/csv_import_view/invalid_emails_dialog.dart';
+import 'package:devixly_admin/features/users/presentation/widgets/csv_import_view/email_list_dialog.dart';
 import 'package:devixly_admin/features/users/presentation/widgets/users_list_view/edit_user_dialog.dart';
 import 'package:devixly_admin/features/users/presentation/widgets/users_list_view/user_preview_dialog.dart';
 import 'package:devixly_admin/features/users/presentation/view_model/csv_import_cubit.dart';
@@ -264,10 +264,10 @@ void main() {
       await pumpComponent(
         tester,
         Builder(
-          builder: (context) => InvalidEmailsDialog(
+          builder: (context) => EmailListDialog(
             title: context.l10n.csvInvalidEmailsTitle,
             description: context.l10n.csvInvalidEmailsDescription,
-            errors: const [
+            emails: const [
               'linia 3: "jan.kowalski@"',
               'linia 7: "zofia@@example.com"',
             ],

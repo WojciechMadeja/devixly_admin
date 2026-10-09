@@ -83,7 +83,7 @@ void main() {
     build: build,
     setUp: () => when(
       () => users.importUsers(users: any(named: 'users'), companyId: 2),
-    ).thenAnswer((_) async => const Right(unit)),
+    ).thenAnswer((_) async => const Right(<String>[])),
     act: (cubit) async {
       await cubit.pickFile();
       cubit.selectCompany(company);
@@ -94,6 +94,21 @@ void main() {
       expect(cubit.state.selectedCompany, isNull);
       expect(cubit.state.submission, const SubmissionStatus.idle());
     },
+  );
+
+  blocTest<CsvImportCubit, CsvImportState>(
+    'adresy bez wysłanego hasła trafiają do stanu po imporcie',
+    build: build,
+    setUp: () => when(
+      () => users.importUsers(users: any(named: 'users'), companyId: 2),
+    ).thenAnswer((_) async => const Right(['marek@example.com'])),
+    act: (cubit) async {
+      await cubit.pickFile();
+      cubit.selectCompany(company);
+      await cubit.submit();
+    },
+    verify: (cubit) =>
+        expect(cubit.state.passwordEmailFailed, ['marek@example.com']),
   );
 
   blocTest<CsvImportCubit, CsvImportState>(

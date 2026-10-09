@@ -14,6 +14,9 @@ sealed class UpdatePasswordState with _$UpdatePasswordState {
   /// Nowe hasło i jego powtórzenie różnią się.
   const factory UpdatePasswordState.mismatch() = UpdatePasswordMismatch;
 
+  /// Nowe hasło nie spełnia wymagań backendu.
+  const factory UpdatePasswordState.weakPassword() = UpdatePasswordWeakPassword;
+
   const factory UpdatePasswordState.submitting() = UpdatePasswordSubmitting;
 
   const factory UpdatePasswordState.success() = UpdatePasswordSuccess;

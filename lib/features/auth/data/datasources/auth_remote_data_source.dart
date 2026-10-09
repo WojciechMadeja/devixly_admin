@@ -1,6 +1,7 @@
 import 'package:background_devixly_client/background_devixly_client.dart';
 import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart';
 
+import '../../../../core/errors/exceptions.dart';
 import '../../../../core/network/backend_call.dart';
 import '../models/admin_user_model.dart';
 
@@ -57,7 +58,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String email,
     required String password,
   }) => backendCall(() async {
-    final authSuccess = await _client.emailIdp.loginAsAdministrator(
+    final authSuccess = await _loginAsAdministrator(
       email: email,
       password: password,
     );
@@ -70,6 +71,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       rethrow;
     }
   });
+
+  /// Backend odrzuca tu konta bez praw administratora — zgłaszamy to jako
+  /// osobny powód, bo w jego komunikacie nie ma nic po polsku.
+  Future<AuthSuccess> _loginAsAdministrator({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      return await _client.emailIdp.loginAsAdministrator(
+        email: email,
+        password: password,
+      );
+    } on ForbiddenException {
+      throw const NotAnAdministratorException();
+    }
+  }
 
   @override
   Future<AdminUserModel> currentUser() => backendCall(

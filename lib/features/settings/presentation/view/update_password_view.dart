@@ -72,6 +72,13 @@ class _UpdatePasswordBodyState extends State<_UpdatePasswordBody> {
           description: l10n.formIncomplete,
           isError: true,
         );
+      case UpdatePasswordWeakPassword():
+        await showInfoDialog(
+          context,
+          title: l10n.passwordTooShortTitle,
+          description: l10n.passwordTooShortDescription,
+          isError: true,
+        );
       case UpdatePasswordMismatch():
         await showInfoDialog(
           context,

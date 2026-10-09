@@ -55,13 +55,14 @@ extension UpdatePasswordStatePatterns on UpdatePasswordState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( UpdatePasswordInitial value)?  initial,TResult Function( UpdatePasswordEmptyFields value)?  emptyFields,TResult Function( UpdatePasswordMismatch value)?  mismatch,TResult Function( UpdatePasswordSubmitting value)?  submitting,TResult Function( UpdatePasswordSuccess value)?  success,TResult Function( UpdatePasswordFailure value)?  failure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( UpdatePasswordInitial value)?  initial,TResult Function( UpdatePasswordEmptyFields value)?  emptyFields,TResult Function( UpdatePasswordMismatch value)?  mismatch,TResult Function( UpdatePasswordWeakPassword value)?  weakPassword,TResult Function( UpdatePasswordSubmitting value)?  submitting,TResult Function( UpdatePasswordSuccess value)?  success,TResult Function( UpdatePasswordFailure value)?  failure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case UpdatePasswordInitial() when initial != null:
 return initial(_that);case UpdatePasswordEmptyFields() when emptyFields != null:
 return emptyFields(_that);case UpdatePasswordMismatch() when mismatch != null:
-return mismatch(_that);case UpdatePasswordSubmitting() when submitting != null:
+return mismatch(_that);case UpdatePasswordWeakPassword() when weakPassword != null:
+return weakPassword(_that);case UpdatePasswordSubmitting() when submitting != null:
 return submitting(_that);case UpdatePasswordSuccess() when success != null:
 return success(_that);case UpdatePasswordFailure() when failure != null:
 return failure(_that);case _:
@@ -82,13 +83,14 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( UpdatePasswordInitial value)  initial,required TResult Function( UpdatePasswordEmptyFields value)  emptyFields,required TResult Function( UpdatePasswordMismatch value)  mismatch,required TResult Function( UpdatePasswordSubmitting value)  submitting,required TResult Function( UpdatePasswordSuccess value)  success,required TResult Function( UpdatePasswordFailure value)  failure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( UpdatePasswordInitial value)  initial,required TResult Function( UpdatePasswordEmptyFields value)  emptyFields,required TResult Function( UpdatePasswordMismatch value)  mismatch,required TResult Function( UpdatePasswordWeakPassword value)  weakPassword,required TResult Function( UpdatePasswordSubmitting value)  submitting,required TResult Function( UpdatePasswordSuccess value)  success,required TResult Function( UpdatePasswordFailure value)  failure,}){
 final _that = this;
 switch (_that) {
 case UpdatePasswordInitial():
 return initial(_that);case UpdatePasswordEmptyFields():
 return emptyFields(_that);case UpdatePasswordMismatch():
-return mismatch(_that);case UpdatePasswordSubmitting():
+return mismatch(_that);case UpdatePasswordWeakPassword():
+return weakPassword(_that);case UpdatePasswordSubmitting():
 return submitting(_that);case UpdatePasswordSuccess():
 return success(_that);case UpdatePasswordFailure():
 return failure(_that);}
@@ -105,13 +107,14 @@ return failure(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( UpdatePasswordInitial value)?  initial,TResult? Function( UpdatePasswordEmptyFields value)?  emptyFields,TResult? Function( UpdatePasswordMismatch value)?  mismatch,TResult? Function( UpdatePasswordSubmitting value)?  submitting,TResult? Function( UpdatePasswordSuccess value)?  success,TResult? Function( UpdatePasswordFailure value)?  failure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( UpdatePasswordInitial value)?  initial,TResult? Function( UpdatePasswordEmptyFields value)?  emptyFields,TResult? Function( UpdatePasswordMismatch value)?  mismatch,TResult? Function( UpdatePasswordWeakPassword value)?  weakPassword,TResult? Function( UpdatePasswordSubmitting value)?  submitting,TResult? Function( UpdatePasswordSuccess value)?  success,TResult? Function( UpdatePasswordFailure value)?  failure,}){
 final _that = this;
 switch (_that) {
 case UpdatePasswordInitial() when initial != null:
 return initial(_that);case UpdatePasswordEmptyFields() when emptyFields != null:
 return emptyFields(_that);case UpdatePasswordMismatch() when mismatch != null:
-return mismatch(_that);case UpdatePasswordSubmitting() when submitting != null:
+return mismatch(_that);case UpdatePasswordWeakPassword() when weakPassword != null:
+return weakPassword(_that);case UpdatePasswordSubmitting() when submitting != null:
 return submitting(_that);case UpdatePasswordSuccess() when success != null:
 return success(_that);case UpdatePasswordFailure() when failure != null:
 return failure(_that);case _:
@@ -131,12 +134,13 @@ return failure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  emptyFields,TResult Function()?  mismatch,TResult Function()?  submitting,TResult Function()?  success,TResult Function( Failure failure)?  failure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  emptyFields,TResult Function()?  mismatch,TResult Function()?  weakPassword,TResult Function()?  submitting,TResult Function()?  success,TResult Function( Failure failure)?  failure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case UpdatePasswordInitial() when initial != null:
 return initial();case UpdatePasswordEmptyFields() when emptyFields != null:
 return emptyFields();case UpdatePasswordMismatch() when mismatch != null:
-return mismatch();case UpdatePasswordSubmitting() when submitting != null:
+return mismatch();case UpdatePasswordWeakPassword() when weakPassword != null:
+return weakPassword();case UpdatePasswordSubmitting() when submitting != null:
 return submitting();case UpdatePasswordSuccess() when success != null:
 return success();case UpdatePasswordFailure() when failure != null:
 return failure(_that.failure);case _:
@@ -157,12 +161,13 @@ return failure(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  emptyFields,required TResult Function()  mismatch,required TResult Function()  submitting,required TResult Function()  success,required TResult Function( Failure failure)  failure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  emptyFields,required TResult Function()  mismatch,required TResult Function()  weakPassword,required TResult Function()  submitting,required TResult Function()  success,required TResult Function( Failure failure)  failure,}) {final _that = this;
 switch (_that) {
 case UpdatePasswordInitial():
 return initial();case UpdatePasswordEmptyFields():
 return emptyFields();case UpdatePasswordMismatch():
-return mismatch();case UpdatePasswordSubmitting():
+return mismatch();case UpdatePasswordWeakPassword():
+return weakPassword();case UpdatePasswordSubmitting():
 return submitting();case UpdatePasswordSuccess():
 return success();case UpdatePasswordFailure():
 return failure(_that.failure);}
@@ -179,12 +184,13 @@ return failure(_that.failure);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  emptyFields,TResult? Function()?  mismatch,TResult? Function()?  submitting,TResult? Function()?  success,TResult? Function( Failure failure)?  failure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  emptyFields,TResult? Function()?  mismatch,TResult? Function()?  weakPassword,TResult? Function()?  submitting,TResult? Function()?  success,TResult? Function( Failure failure)?  failure,}) {final _that = this;
 switch (_that) {
 case UpdatePasswordInitial() when initial != null:
 return initial();case UpdatePasswordEmptyFields() when emptyFields != null:
 return emptyFields();case UpdatePasswordMismatch() when mismatch != null:
-return mismatch();case UpdatePasswordSubmitting() when submitting != null:
+return mismatch();case UpdatePasswordWeakPassword() when weakPassword != null:
+return weakPassword();case UpdatePasswordSubmitting() when submitting != null:
 return submitting();case UpdatePasswordSuccess() when success != null:
 return success();case UpdatePasswordFailure() when failure != null:
 return failure(_that.failure);case _:
@@ -283,6 +289,38 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'UpdatePasswordState.mismatch()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class UpdatePasswordWeakPassword implements UpdatePasswordState {
+  const UpdatePasswordWeakPassword();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdatePasswordWeakPassword);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'UpdatePasswordState.weakPassword()';
 }
 
 

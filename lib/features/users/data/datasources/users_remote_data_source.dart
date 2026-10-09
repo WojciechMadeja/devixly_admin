@@ -14,7 +14,8 @@ abstract interface class UsersRemoteDataSource {
 
   Future<void> deleteUser(int id);
 
-  Future<void> importUsers({
+  /// Zwraca adresy, na które backendowi nie udało się wysłać hasła.
+  Future<List<String>> importUsers({
     required List<CsvUser> users,
     required int companyId,
   });
@@ -71,13 +72,14 @@ class UsersRemoteDataSourceImpl implements UsersRemoteDataSource {
       backendCall(() => _client.appUser.delete(id));
 
   /// Konta z importu CSV nie mają haseł: backend generuje je i wysyła
-  /// użytkownikom e-mailem. Tworzy wszystkie konta albo żadne.
+  /// użytkownikom e-mailem. Tworzy wszystkie konta albo żadne, a w wyniku
+  /// podaje adresy, na które wysyłka się nie powiodła.
   @override
-  Future<void> importUsers({
+  Future<List<String>> importUsers({
     required List<CsvUser> users,
     required int companyId,
-  }) => backendCall(
-    () => _client.appUser.createUsers([
+  }) => backendCall(() async {
+    final result = await _client.appUser.createUsers([
       for (final user in users)
         NewUserInput(
           email: user.email,
@@ -86,6 +88,7 @@ class UsersRemoteDataSourceImpl implements UsersRemoteDataSource {
           phoneNumber: user.phoneNumber,
           companyId: companyId,
         ),
-    ]),
-  );
+    ]);
+    return result.passwordEmailFailed;
+  });
 }

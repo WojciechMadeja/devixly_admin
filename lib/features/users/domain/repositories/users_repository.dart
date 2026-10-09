@@ -21,8 +21,9 @@ abstract interface class UsersRepository {
 
   Future<Either<Failure, Unit>> deleteUser(int id);
 
-  /// Zbiorcze zakładanie kont z pliku CSV.
-  Future<Either<Failure, Unit>> importUsers({
+  /// Zbiorcze zakładanie kont z pliku CSV. Zwraca adresy, na które backend
+  /// nie zdołał wysłać wygenerowanego hasła.
+  Future<Either<Failure, List<String>>> importUsers({
     required List<CsvUser> users,
     required int companyId,
   });

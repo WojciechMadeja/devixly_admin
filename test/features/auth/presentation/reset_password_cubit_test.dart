@@ -111,8 +111,11 @@ void main() {
     ).thenAnswer((_) async => const Left(failure)),
     build: () => ResetPasswordCubit(auth),
     seed: () => awaitingCode,
-    act: (cubit) =>
-        cubit.finish(code: '0', newPassword: 'x', repeatedPassword: 'x'),
+    act: (cubit) => cubit.finish(
+      code: '0',
+      newPassword: 'noweHaslo1',
+      repeatedPassword: 'noweHaslo1',
+    ),
     expect: () => [
       const ResetPasswordState.awaitingCode(
         requestId: 'request-1',

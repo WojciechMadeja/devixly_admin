@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../app/di/injection.dart';
 import '../../../../app/router/app_routes.dart';
+import '../../../../core/errors/failures.dart';
 import '../../../../core/l10n/l10n.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/dialogs/info_dialog.dart';
@@ -60,11 +61,30 @@ class LoginView extends StatelessWidget {
           description: l10n.invalidEmailDescription,
           isError: true,
         );
-      case LoginFailure():
+      case LoginFailure(:final failure):
+        final (title, description) = switch (failure) {
+          InvalidCredentialsFailure() => (
+            l10n.loginInvalidCredentialsTitle,
+            l10n.loginInvalidCredentialsDescription,
+          ),
+          NotAnAdministratorFailure() => (
+            l10n.loginNotAdminTitle,
+            l10n.loginNotAdminDescription,
+          ),
+          AccountBlockedFailure() => (
+            l10n.loginBlockedTitle,
+            l10n.loginBlockedDescription,
+          ),
+          NetworkFailure() => (
+            l10n.loginNoConnectionTitle,
+            l10n.loginNoConnectionDescription,
+          ),
+          _ => (l10n.errorGeneric, l10n.errorGeneric),
+        };
         showInfoDialog(
           context,
-          title: l10n.errorGeneric,
-          description: l10n.errorGeneric,
+          title: title,
+          description: description,
           isError: true,
         );
       case LoginInitial() || LoginSubmitting():

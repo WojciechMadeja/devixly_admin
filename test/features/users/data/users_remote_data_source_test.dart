@@ -176,6 +176,36 @@ void main() {
     });
   });
 
+  test('import zwraca adresy, na które backend nie wysłał hasła', () async {
+    // Backend podmieniony na taki, który zgłasza nieudaną wysyłkę hasła.
+    await getIt.reset();
+    api = await setUpTestDependencies(
+      api: FakeBackend(
+        overrides: {
+          'appUser.createUsers': const FakeResponse.value({
+            'users': <Object?>[],
+            'passwordEmailFailed': ['marek@example.com'],
+          }),
+        },
+      ),
+    );
+    dataSource = getIt<UsersRemoteDataSource>();
+
+    final failed = await dataSource.importUsers(
+      users: const [
+        CsvUser(
+          firstName: 'Marek',
+          lastName: 'Lewandowski',
+          email: 'marek@example.com',
+          phoneNumber: '+48 501 111 222',
+        ),
+      ],
+      companyId: 2,
+    );
+
+    expect(failed, ['marek@example.com']);
+  });
+
   test('appUser.createAdministrator bez firmy w żądaniu', () async {
     await getIt<AdminsRemoteDataSource>().addAdmin(
       const NewAdmin(

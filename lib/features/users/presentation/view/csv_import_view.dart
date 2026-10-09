@@ -23,7 +23,7 @@ import '../view_model/csv_import_cubit.dart';
 import '../view_model/csv_import_state.dart';
 import '../widgets/csv_import_view/csv_users_table.dart';
 import '../widgets/csv_import_view/edit_csv_user_dialog.dart';
-import '../widgets/csv_import_view/invalid_emails_dialog.dart';
+import '../widgets/csv_import_view/email_list_dialog.dart';
 
 /// Import użytkowników z pliku CSV.
 class CsvImportView extends StatelessWidget {
@@ -43,8 +43,7 @@ class CsvImportView extends StatelessWidget {
           ),
           BlocListener<CsvImportCubit, CsvImportState>(
             listenWhen: (a, b) => a.submission != b.submission,
-            listener: (context, state) =>
-                _onSubmission(context, state.submission),
+            listener: _onSubmission,
           ),
         ],
         child: const AdminPageScaffold(
@@ -61,10 +60,10 @@ class CsvImportView extends StatelessWidget {
       case CsvFileInvalidEmails(:final errors):
         showAppDialog<void>(
           context,
-          builder: (_) => InvalidEmailsDialog(
+          builder: (_) => EmailListDialog(
             title: l10n.csvInvalidEmailsTitle,
             description: l10n.csvInvalidEmailsDescription,
-            errors: errors,
+            emails: errors,
           ),
         );
       case CsvFileMissingHeaders():
@@ -86,20 +85,32 @@ class CsvImportView extends StatelessWidget {
     }
   }
 
-  void _onSubmission(BuildContext context, SubmissionStatus status) {
+  void _onSubmission(BuildContext context, CsvImportState state) {
     final messenger = ScaffoldMessenger.of(context);
     final l10n = context.l10n;
-    switch (status) {
+    switch (state.submission) {
       case SubmissionSuccess():
         AppSnackBar.show(
           messenger,
           message: l10n.csvImported,
           backgroundColor: AppColors.secondary,
         );
+        // Konta powstały, ale część osób nie dostała hasła e-mailem —
+        // bez tego nie zalogują się do aplikacji.
+        if (state.passwordEmailFailed.isNotEmpty) {
+          showAppDialog<void>(
+            context,
+            builder: (_) => EmailListDialog(
+              title: l10n.csvPasswordEmailFailedTitle,
+              description: l10n.csvPasswordEmailFailedDescription,
+              emails: state.passwordEmailFailed,
+            ),
+          );
+        }
       case SubmissionFailure(failure: ValidationFailure()):
         AppSnackBar.error(messenger, l10n.csvNothingToImport);
-      case SubmissionFailure():
-        AppSnackBar.error(messenger, l10n.csvImportFailed);
+      case SubmissionFailure(:final failure):
+        AppSnackBar.error(messenger, failure.message ?? l10n.csvImportFailed);
       case SubmissionIdle() || Submitting():
         break;
     }

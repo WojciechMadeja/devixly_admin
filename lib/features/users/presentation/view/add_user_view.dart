@@ -59,10 +59,14 @@ class _AddUserBodyState extends State<_AddUserBody> {
         AppSnackBar.success(messenger, l10n.userSaved);
       case SubmissionFailure(failure: ValidationFailure()):
         AppSnackBar.error(messenger, l10n.formIncomplete);
-      case SubmissionFailure():
+      case SubmissionFailure(failure: WeakPasswordFailure()):
+        AppSnackBar.error(messenger, l10n.passwordTooShortDescription);
+      case SubmissionFailure(:final failure):
+        // Backend potrafi powiedzieć, co konkretnie jest nie tak
+        // (np. zajęty adres e-mail) — pokazujemy to zamiast ogólnika.
         AppSnackBar.show(
           messenger,
-          message: l10n.userSaveFailed,
+          message: failure.message ?? l10n.userSaveFailed,
           backgroundColor: AppColors.accent3,
           textStyle: AppSnackBar.emphasizedText,
         );

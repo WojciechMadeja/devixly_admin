@@ -91,8 +91,16 @@ class CsvImportCubit extends Cubit<CsvImportState> {
       companyId: company.id,
     );
     if (isClosed) return;
-    result.match((failure) => _finish(SubmissionStatus.failure(failure)), (_) {
-      emit(state.copyWith(users: const [], selectedCompany: null));
+    result.match((failure) => _finish(SubmissionStatus.failure(failure)), (
+      passwordEmailFailed,
+    ) {
+      emit(
+        state.copyWith(
+          users: const [],
+          selectedCompany: null,
+          passwordEmailFailed: passwordEmailFailed,
+        ),
+      );
       _finish(const SubmissionStatus.success());
     });
   }

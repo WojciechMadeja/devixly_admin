@@ -5,42 +5,50 @@ import 'package:serverpod_auth_idp_client/serverpod_auth_idp_client.dart'
     show
         AuthUserBlockedException,
         EmailAccountLoginException,
-        EmailAccountPasswordResetException;
+        EmailAccountPasswordResetException,
+        EmailAccountPasswordResetExceptionReason;
 
 import '../errors/exceptions.dart';
 
 /// Wykonuje wywołanie backendu i zamienia wyjątki klienta Serverpod na
 /// wyjątki warstwy danych (`AppException`), które repozytoria mapują na
 /// `Failure`.
+///
+/// Komunikat trafia do wyjątku tylko wtedy, gdy backend podał coś, co ma
+/// sens dla użytkownika (np. zajęty adres e-mail). Opisy techniczne i
+/// angielskie zostają pominięte — widok pokazuje wtedy własny komunikat.
 Future<T> backendCall<T>(Future<T> Function() call) async {
   try {
     return await call();
   } on ServerpodClientUnauthorized {
     throw const UnauthorizedException();
-  } on ServerpodClientNetworkException catch (e) {
-    throw NetworkException(e.message);
+  } on ServerpodClientNetworkException {
+    throw const NetworkException();
   } on TimeoutException {
-    throw const NetworkException('Przekroczono czas oczekiwania.');
+    throw const NetworkException();
   } on ServerpodClientHttpException catch (e) {
-    throw ServerException(e.statusCode, e.message);
-  } on ServerpodClientException catch (e) {
-    throw NetworkException(e.message);
-  } on ForbiddenException catch (e) {
-    throw ServerException(403, e.message);
+    throw ServerException(e.statusCode);
+  } on ServerpodClientException {
+    throw const NetworkException();
+  } on ForbiddenException {
+    // Backend opisuje brak uprawnień po angielsku; przyczynę rozpoznaje
+    // źródło danych tam, gdzie da się ją nazwać (np. logowanie).
+    throw const ServerException(403);
   } on EmailAccountLoginException {
-    // Błędny e-mail lub hasło (albo zbyt wiele prób).
-    throw const ServerException(401, 'Nieprawidłowy e-mail lub hasło.');
+    throw const InvalidCredentialsException();
   } on AuthUserBlockedException {
-    throw const ServerException(403, 'Konto jest zablokowane.');
+    throw const AccountBlockedException();
   } on EmailAccountPasswordResetException catch (e) {
-    throw ServerException(400, 'Reset hasła: ${e.reason.name}.');
+    if (e.reason == EmailAccountPasswordResetExceptionReason.policyViolation) {
+      throw const WeakPasswordException();
+    }
+    throw const ServerException(400);
   } on UserCreationException catch (e) {
     throw ServerException(409, _userCreationMessage(e));
-  } on DbAdminException catch (e) {
-    throw ServerException(400, e.message);
-  } on SerializableException catch (e) {
-    // Pozostałe wyjątki endpointów, np. `...NotFoundException`.
-    throw ServerException(400, e.toString());
+  } on SerializableException {
+    // Pozostałe wyjątki endpointów, np. `...NotFoundException` — nie mają
+    // treści dla użytkownika.
+    throw const ServerException(400);
   }
 }
 
@@ -55,6 +63,6 @@ String _userCreationMessage(UserCreationException exception) {
       'Nieprawidłowy adres e-mail: $emails',
     UserCreationErrorReason.companyNotFound => 'Wybrana firma nie istnieje.',
     UserCreationErrorReason.passwordPolicy =>
-      'Hasło nie spełnia wymagań (co najmniej 8 znaków): $emails',
+      'Hasło musi mieć co najmniej 8 znaków: $emails',
   };
 }

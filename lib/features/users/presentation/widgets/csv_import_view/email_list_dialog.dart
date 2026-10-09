@@ -6,18 +6,19 @@ import '../../../../../core/theme/app_text_styles.dart';
 import '../../../../../core/widgets/app_button.dart';
 import '../../../../../core/widgets/dialogs/dialog_card.dart';
 
-/// Lista błędnych adresów e-mail znalezionych w pliku CSV.
-class InvalidEmailsDialog extends StatelessWidget {
-  const InvalidEmailsDialog({
+/// Dialog z listą adresów e-mail: błędnych w pliku CSV albo takich, na
+/// które nie udało się wysłać hasła po imporcie.
+class EmailListDialog extends StatelessWidget {
+  const EmailListDialog({
     super.key,
     required this.title,
     required this.description,
-    required this.errors,
+    required this.emails,
   });
 
   final String title;
   final String description;
-  final List<String> errors;
+  final List<String> emails;
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +40,8 @@ class InvalidEmailsDialog extends StatelessWidget {
           Column(
             spacing: 5,
             children: [
-              for (final error in errors)
-                Text(error, style: AppTextStyles.input),
+              for (final email in emails)
+                Text(email, style: AppTextStyles.input),
             ],
           ),
           DialogActions(

@@ -394,7 +394,8 @@ as List<String>,
 /// @nodoc
 mixin _$CsvImportState {
 
- Loadable<List<Company>> get companies; Company? get selectedCompany; List<CsvUser> get users; CsvFileStatus get fileStatus; SubmissionStatus get submission;
+ Loadable<List<Company>> get companies; Company? get selectedCompany; List<CsvUser> get users; CsvFileStatus get fileStatus; SubmissionStatus get submission;/// Adresy z ostatniego importu, na które backend nie wysłał hasła.
+ List<String> get passwordEmailFailed;
 /// Create a copy of CsvImportState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -405,16 +406,16 @@ $CsvImportStateCopyWith<CsvImportState> get copyWith => _$CsvImportStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CsvImportState&&(identical(other.companies, companies) || other.companies == companies)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&const DeepCollectionEquality().equals(other.users, users)&&(identical(other.fileStatus, fileStatus) || other.fileStatus == fileStatus)&&(identical(other.submission, submission) || other.submission == submission));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CsvImportState&&(identical(other.companies, companies) || other.companies == companies)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&const DeepCollectionEquality().equals(other.users, users)&&(identical(other.fileStatus, fileStatus) || other.fileStatus == fileStatus)&&(identical(other.submission, submission) || other.submission == submission)&&const DeepCollectionEquality().equals(other.passwordEmailFailed, passwordEmailFailed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,companies,selectedCompany,const DeepCollectionEquality().hash(users),fileStatus,submission);
+int get hashCode => Object.hash(runtimeType,companies,selectedCompany,const DeepCollectionEquality().hash(users),fileStatus,submission,const DeepCollectionEquality().hash(passwordEmailFailed));
 
 @override
 String toString() {
-  return 'CsvImportState(companies: $companies, selectedCompany: $selectedCompany, users: $users, fileStatus: $fileStatus, submission: $submission)';
+  return 'CsvImportState(companies: $companies, selectedCompany: $selectedCompany, users: $users, fileStatus: $fileStatus, submission: $submission, passwordEmailFailed: $passwordEmailFailed)';
 }
 
 
@@ -425,7 +426,7 @@ abstract mixin class $CsvImportStateCopyWith<$Res>  {
   factory $CsvImportStateCopyWith(CsvImportState value, $Res Function(CsvImportState) _then) = _$CsvImportStateCopyWithImpl;
 @useResult
 $Res call({
- Loadable<List<Company>> companies, Company? selectedCompany, List<CsvUser> users, CsvFileStatus fileStatus, SubmissionStatus submission
+ Loadable<List<Company>> companies, Company? selectedCompany, List<CsvUser> users, CsvFileStatus fileStatus, SubmissionStatus submission, List<String> passwordEmailFailed
 });
 
 
@@ -442,14 +443,15 @@ class _$CsvImportStateCopyWithImpl<$Res>
 
 /// Create a copy of CsvImportState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? companies = null,Object? selectedCompany = freezed,Object? users = null,Object? fileStatus = null,Object? submission = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? companies = null,Object? selectedCompany = freezed,Object? users = null,Object? fileStatus = null,Object? submission = null,Object? passwordEmailFailed = null,}) {
   return _then(_self.copyWith(
 companies: null == companies ? _self.companies : companies // ignore: cast_nullable_to_non_nullable
 as Loadable<List<Company>>,selectedCompany: freezed == selectedCompany ? _self.selectedCompany : selectedCompany // ignore: cast_nullable_to_non_nullable
 as Company?,users: null == users ? _self.users : users // ignore: cast_nullable_to_non_nullable
 as List<CsvUser>,fileStatus: null == fileStatus ? _self.fileStatus : fileStatus // ignore: cast_nullable_to_non_nullable
 as CsvFileStatus,submission: null == submission ? _self.submission : submission // ignore: cast_nullable_to_non_nullable
-as SubmissionStatus,
+as SubmissionStatus,passwordEmailFailed: null == passwordEmailFailed ? _self.passwordEmailFailed : passwordEmailFailed // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 /// Create a copy of CsvImportState
@@ -561,10 +563,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Loadable<List<Company>> companies,  Company? selectedCompany,  List<CsvUser> users,  CsvFileStatus fileStatus,  SubmissionStatus submission)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Loadable<List<Company>> companies,  Company? selectedCompany,  List<CsvUser> users,  CsvFileStatus fileStatus,  SubmissionStatus submission,  List<String> passwordEmailFailed)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CsvImportState() when $default != null:
-return $default(_that.companies,_that.selectedCompany,_that.users,_that.fileStatus,_that.submission);case _:
+return $default(_that.companies,_that.selectedCompany,_that.users,_that.fileStatus,_that.submission,_that.passwordEmailFailed);case _:
   return orElse();
 
 }
@@ -582,10 +584,10 @@ return $default(_that.companies,_that.selectedCompany,_that.users,_that.fileStat
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Loadable<List<Company>> companies,  Company? selectedCompany,  List<CsvUser> users,  CsvFileStatus fileStatus,  SubmissionStatus submission)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Loadable<List<Company>> companies,  Company? selectedCompany,  List<CsvUser> users,  CsvFileStatus fileStatus,  SubmissionStatus submission,  List<String> passwordEmailFailed)  $default,) {final _that = this;
 switch (_that) {
 case _CsvImportState():
-return $default(_that.companies,_that.selectedCompany,_that.users,_that.fileStatus,_that.submission);case _:
+return $default(_that.companies,_that.selectedCompany,_that.users,_that.fileStatus,_that.submission,_that.passwordEmailFailed);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -602,10 +604,10 @@ return $default(_that.companies,_that.selectedCompany,_that.users,_that.fileStat
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Loadable<List<Company>> companies,  Company? selectedCompany,  List<CsvUser> users,  CsvFileStatus fileStatus,  SubmissionStatus submission)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Loadable<List<Company>> companies,  Company? selectedCompany,  List<CsvUser> users,  CsvFileStatus fileStatus,  SubmissionStatus submission,  List<String> passwordEmailFailed)?  $default,) {final _that = this;
 switch (_that) {
 case _CsvImportState() when $default != null:
-return $default(_that.companies,_that.selectedCompany,_that.users,_that.fileStatus,_that.submission);case _:
+return $default(_that.companies,_that.selectedCompany,_that.users,_that.fileStatus,_that.submission,_that.passwordEmailFailed);case _:
   return null;
 
 }
@@ -617,7 +619,7 @@ return $default(_that.companies,_that.selectedCompany,_that.users,_that.fileStat
 
 
 class _CsvImportState implements CsvImportState {
-  const _CsvImportState({this.companies = const Loadable<List<Company>>.loading(), this.selectedCompany, final  List<CsvUser> users = const <CsvUser>[], this.fileStatus = const CsvFileStatus.idle(), this.submission = const SubmissionStatus.idle()}): _users = users;
+  const _CsvImportState({this.companies = const Loadable<List<Company>>.loading(), this.selectedCompany, final  List<CsvUser> users = const <CsvUser>[], this.fileStatus = const CsvFileStatus.idle(), this.submission = const SubmissionStatus.idle(), final  List<String> passwordEmailFailed = const <String>[]}): _users = users,_passwordEmailFailed = passwordEmailFailed;
   
 
 @override@JsonKey() final  Loadable<List<Company>> companies;
@@ -631,6 +633,15 @@ class _CsvImportState implements CsvImportState {
 
 @override@JsonKey() final  CsvFileStatus fileStatus;
 @override@JsonKey() final  SubmissionStatus submission;
+/// Adresy z ostatniego importu, na które backend nie wysłał hasła.
+ final  List<String> _passwordEmailFailed;
+/// Adresy z ostatniego importu, na które backend nie wysłał hasła.
+@override@JsonKey() List<String> get passwordEmailFailed {
+  if (_passwordEmailFailed is EqualUnmodifiableListView) return _passwordEmailFailed;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_passwordEmailFailed);
+}
+
 
 /// Create a copy of CsvImportState
 /// with the given fields replaced by the non-null parameter values.
@@ -642,16 +653,16 @@ _$CsvImportStateCopyWith<_CsvImportState> get copyWith => __$CsvImportStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CsvImportState&&(identical(other.companies, companies) || other.companies == companies)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&const DeepCollectionEquality().equals(other._users, _users)&&(identical(other.fileStatus, fileStatus) || other.fileStatus == fileStatus)&&(identical(other.submission, submission) || other.submission == submission));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CsvImportState&&(identical(other.companies, companies) || other.companies == companies)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&const DeepCollectionEquality().equals(other._users, _users)&&(identical(other.fileStatus, fileStatus) || other.fileStatus == fileStatus)&&(identical(other.submission, submission) || other.submission == submission)&&const DeepCollectionEquality().equals(other._passwordEmailFailed, _passwordEmailFailed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,companies,selectedCompany,const DeepCollectionEquality().hash(_users),fileStatus,submission);
+int get hashCode => Object.hash(runtimeType,companies,selectedCompany,const DeepCollectionEquality().hash(_users),fileStatus,submission,const DeepCollectionEquality().hash(_passwordEmailFailed));
 
 @override
 String toString() {
-  return 'CsvImportState(companies: $companies, selectedCompany: $selectedCompany, users: $users, fileStatus: $fileStatus, submission: $submission)';
+  return 'CsvImportState(companies: $companies, selectedCompany: $selectedCompany, users: $users, fileStatus: $fileStatus, submission: $submission, passwordEmailFailed: $passwordEmailFailed)';
 }
 
 
@@ -662,7 +673,7 @@ abstract mixin class _$CsvImportStateCopyWith<$Res> implements $CsvImportStateCo
   factory _$CsvImportStateCopyWith(_CsvImportState value, $Res Function(_CsvImportState) _then) = __$CsvImportStateCopyWithImpl;
 @override @useResult
 $Res call({
- Loadable<List<Company>> companies, Company? selectedCompany, List<CsvUser> users, CsvFileStatus fileStatus, SubmissionStatus submission
+ Loadable<List<Company>> companies, Company? selectedCompany, List<CsvUser> users, CsvFileStatus fileStatus, SubmissionStatus submission, List<String> passwordEmailFailed
 });
 
 
@@ -679,14 +690,15 @@ class __$CsvImportStateCopyWithImpl<$Res>
 
 /// Create a copy of CsvImportState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? companies = null,Object? selectedCompany = freezed,Object? users = null,Object? fileStatus = null,Object? submission = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? companies = null,Object? selectedCompany = freezed,Object? users = null,Object? fileStatus = null,Object? submission = null,Object? passwordEmailFailed = null,}) {
   return _then(_CsvImportState(
 companies: null == companies ? _self.companies : companies // ignore: cast_nullable_to_non_nullable
 as Loadable<List<Company>>,selectedCompany: freezed == selectedCompany ? _self.selectedCompany : selectedCompany // ignore: cast_nullable_to_non_nullable
 as Company?,users: null == users ? _self._users : users // ignore: cast_nullable_to_non_nullable
 as List<CsvUser>,fileStatus: null == fileStatus ? _self.fileStatus : fileStatus // ignore: cast_nullable_to_non_nullable
 as CsvFileStatus,submission: null == submission ? _self.submission : submission // ignore: cast_nullable_to_non_nullable
-as SubmissionStatus,
+as SubmissionStatus,passwordEmailFailed: null == passwordEmailFailed ? _self._passwordEmailFailed : passwordEmailFailed // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

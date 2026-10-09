@@ -3,7 +3,9 @@
 sealed class AppException implements Exception {
   const AppException([this.message]);
 
-  /// Komunikat z backendu, jeśli był.
+  /// Komunikat gotowy do pokazania użytkownikowi (po polsku), jeśli backend
+  /// podał coś konkretnego — np. który adres e-mail jest zajęty. Techniczne
+  /// opisy błędów zostają `null`, a widok pokazuje wtedy własny komunikat.
   final String? message;
 
   @override
@@ -30,4 +32,25 @@ final class NetworkException extends AppException {
 /// Odpowiedź ma inny kształt niż oczekiwany.
 final class ParsingException extends AppException {
   const ParsingException([super.message]);
+}
+
+/// Logowanie odrzucone: zły e-mail, złe hasło albo za dużo prób.
+final class InvalidCredentialsException extends AppException {
+  const InvalidCredentialsException();
+}
+
+/// Hasło i e-mail są poprawne, ale konto nie ma praw administratora.
+final class NotAnAdministratorException extends AppException {
+  const NotAnAdministratorException();
+}
+
+/// Konto jest zablokowane.
+final class AccountBlockedException extends AppException {
+  const AccountBlockedException();
+}
+
+/// Hasło nie spełnia wymagań backendu (co najmniej 8 znaków, bez spacji
+/// na początku i na końcu).
+final class WeakPasswordException extends AppException {
+  const WeakPasswordException();
 }

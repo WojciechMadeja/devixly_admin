@@ -54,7 +54,7 @@ void main() {
     },
   );
 
-  test('błędne hasło: błąd 401 i brak sesji', () async {
+  test('błędne hasło: osobny powód i brak sesji', () async {
     await setUpSignedOut(
       backend: FakeBackend(
         overrides: {
@@ -68,33 +68,32 @@ void main() {
 
     await expectLater(
       dataSource.login(email: 'admin@devixly.com', password: 'zle'),
-      throwsA(
-        isA<ServerException>().having((e) => e.statusCode, 'statusCode', 401),
-      ),
+      throwsA(isA<InvalidCredentialsException>()),
     );
     expect(dataSource.isSignedIn, isFalse);
   });
 
-  test('konto bez uprawnień administratora: błąd 403 i brak sesji', () async {
-    await setUpSignedOut(
-      backend: FakeBackend(
-        overrides: {
-          'emailIdp.loginAsAdministrator': FakeResponse.exception(
-            'ForbiddenException',
-            {'message': 'Brak uprawnień administratora.'},
-          ),
-        },
-      ),
-    );
+  test(
+    'konto bez uprawnień administratora: osobny powód i brak sesji',
+    () async {
+      await setUpSignedOut(
+        backend: FakeBackend(
+          overrides: {
+            'emailIdp.loginAsAdministrator': FakeResponse.exception(
+              'ForbiddenException',
+              {'message': 'Brak uprawnień administratora.'},
+            ),
+          },
+        ),
+      );
 
-    await expectLater(
-      dataSource.login(email: 'agent@devixly.com', password: 'tajne'),
-      throwsA(
-        isA<ServerException>().having((e) => e.statusCode, 'statusCode', 403),
-      ),
-    );
-    expect(dataSource.isSignedIn, isFalse);
-  });
+      await expectLater(
+        dataSource.login(email: 'agent@devixly.com', password: 'tajne'),
+        throwsA(isA<NotAnAdministratorException>()),
+      );
+      expect(dataSource.isSignedIn, isFalse);
+    },
+  );
 
   test('bez danych administratora po logowaniu sesja nie zostaje', () async {
     await setUpSignedOut(

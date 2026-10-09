@@ -49,11 +49,8 @@ class UsersRepositoryImpl implements UsersRepository {
   });
 
   @override
-  Future<Either<Failure, Unit>> importUsers({
+  Future<Either<Failure, List<String>>> importUsers({
     required List<CsvUser> users,
     required int companyId,
-  }) => guard(() async {
-    await _remote.importUsers(users: users, companyId: companyId);
-    return unit;
-  });
+  }) => guard(() => _remote.importUsers(users: users, companyId: companyId));
 }

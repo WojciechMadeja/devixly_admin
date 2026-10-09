@@ -27,4 +27,18 @@ void main() {
       }
     });
   });
+
+  group('isValidPassword', () {
+    test('przyjmuje hasło spełniające wymagania backendu', () {
+      for (final password in ['haslo123', 'bardzoDlugieHaslo', 'a b c d e']) {
+        expect(Validators.isValidPassword(password), isTrue, reason: password);
+      }
+    });
+
+    test('odrzuca krótkie i ze spacjami na brzegach', () {
+      for (final password in ['', 'krotkie', ' haslo123', 'haslo123 ']) {
+        expect(Validators.isValidPassword(password), isFalse, reason: password);
+      }
+    });
+  });
 }

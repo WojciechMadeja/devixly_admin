@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/state/loadable.dart';
 import '../../../../core/state/submission_status.dart';
+import '../../../../core/utils/validators.dart';
 import '../../../companies/domain/entities/company.dart';
 import '../../../companies/domain/repositories/companies_repository.dart';
 import '../../domain/entities/user_drafts.dart';
@@ -43,6 +44,10 @@ class UserFormCubit extends Cubit<UserFormState> {
         password.isEmpty ||
         company == null) {
       _finish(const SubmissionStatus.failure(ValidationFailure()));
+      return;
+    }
+    if (!Validators.isValidPassword(password)) {
+      _finish(const SubmissionStatus.failure(WeakPasswordFailure()));
       return;
     }
     emit(state.copyWith(submission: const SubmissionStatus.submitting()));

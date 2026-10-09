@@ -238,6 +238,66 @@ abstract class AppLocalizations {
   /// **'Sprawdź kod z e-maila. Hasło musi mieć co najmniej 8 znaków.'**
   String get resetPasswordCodeRejectedDescription;
 
+  /// No description provided for @loginInvalidCredentialsTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się zalogować'**
+  String get loginInvalidCredentialsTitle;
+
+  /// No description provided for @loginInvalidCredentialsDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nieprawidłowy e-mail lub hasło. Po pięciu nieudanych próbach logowanie jest chwilowo wstrzymane.'**
+  String get loginInvalidCredentialsDescription;
+
+  /// No description provided for @loginNotAdminTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Brak uprawnień'**
+  String get loginNotAdminTitle;
+
+  /// No description provided for @loginNotAdminDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'To konto nie ma uprawnień administratora, więc nie ma dostępu do panelu.'**
+  String get loginNotAdminDescription;
+
+  /// No description provided for @loginBlockedTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Konto zablokowane'**
+  String get loginBlockedTitle;
+
+  /// No description provided for @loginBlockedDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'To konto zostało zablokowane. Skontaktuj się z innym administratorem.'**
+  String get loginBlockedDescription;
+
+  /// No description provided for @loginNoConnectionTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Brak połączenia'**
+  String get loginNoConnectionTitle;
+
+  /// No description provided for @loginNoConnectionDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się połączyć z serwerem. Sprawdź połączenie z internetem i spróbuj ponownie.'**
+  String get loginNoConnectionDescription;
+
+  /// No description provided for @passwordTooShortTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Hasło jest za słabe'**
+  String get passwordTooShortTitle;
+
+  /// No description provided for @passwordTooShortDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Hasło musi mieć co najmniej 8 znaków i nie może zaczynać się ani kończyć spacją.'**
+  String get passwordTooShortDescription;
+
   /// No description provided for @resetPasswordFailedTitle.
   ///
   /// In pl, this message translates to:
@@ -879,6 +939,18 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Nie udało się dodać użytkowników'**
   String get csvImportFailed;
+
+  /// No description provided for @csvPasswordEmailFailedTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Konta utworzone, ale bez haseł'**
+  String get csvPasswordEmailFailedTitle;
+
+  /// No description provided for @csvPasswordEmailFailedDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się wysłać hasła na poniższe adresy. Poproś te osoby o użycie opcji „Zapomniałeś hasła”:'**
+  String get csvPasswordEmailFailedDescription;
 
   /// No description provided for @csvNothingToImport.
   ///

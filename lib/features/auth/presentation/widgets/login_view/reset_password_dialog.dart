@@ -42,12 +42,15 @@ class ResetPasswordDialog extends StatelessWidget {
                 title: switch (error) {
                   ResetCodeError.emptyFields => l10n.emptyFieldsTitle,
                   ResetCodeError.mismatch => l10n.passwordMismatchTitle,
+                  ResetCodeError.weakPassword => l10n.passwordTooShortTitle,
                   ResetCodeError.rejected =>
                     l10n.resetPasswordCodeRejectedTitle,
                 },
                 description: switch (error) {
                   ResetCodeError.emptyFields => l10n.emptyFieldsTitle,
                   ResetCodeError.mismatch => l10n.passwordMismatchDescription,
+                  ResetCodeError.weakPassword =>
+                    l10n.passwordTooShortDescription,
                   ResetCodeError.rejected =>
                     l10n.resetPasswordCodeRejectedDescription,
                 },

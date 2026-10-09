@@ -1,5 +1,13 @@
 /// Walidacja danych formularzy (reguły przeniesione 1:1 z wersji FlutterFlow).
 abstract final class Validators {
+  /// Wymagania backendu dla hasła: co najmniej 8 znaków i bez spacji na
+  /// początku ani na końcu. Sprawdzamy je tu, żeby nie wysyłać żądania,
+  /// które backend i tak odrzuci.
+  static const minPasswordLength = 8;
+
+  static bool isValidPassword(String password) =>
+      password.length >= minPasswordLength && password.trim() == password;
+
   static final _localPart = RegExp(r"^[A-Za-z0-9!#$%&'*+/=?^_`{|}~.-]+$");
   static final _domain = RegExp(r'^[A-Za-z0-9.-]+$');
   static final _topLevelDomain = RegExp(r'^[A-Za-z]{2,24}$');

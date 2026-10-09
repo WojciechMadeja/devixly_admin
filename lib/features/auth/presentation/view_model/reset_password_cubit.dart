@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/errors/failures.dart';
 import '../../../../core/utils/validators.dart';
 import '../../domain/repositories/auth_repository.dart';
 import 'reset_password_state.dart';
@@ -54,6 +55,10 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       emit(_withError(current, ResetCodeError.mismatch));
       return;
     }
+    if (!Validators.isValidPassword(newPassword)) {
+      emit(_withError(current, ResetCodeError.weakPassword));
+      return;
+    }
 
     emit(
       ResetPasswordState.awaitingCode(
@@ -69,7 +74,12 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     if (isClosed) return;
     emit(
       result.match(
-        (_) => _withError(current, ResetCodeError.rejected),
+        (failure) => _withError(
+          current,
+          failure is WeakPasswordFailure
+              ? ResetCodeError.weakPassword
+              : ResetCodeError.rejected,
+        ),
         (_) => const ResetPasswordState.sent(),
       ),
     );

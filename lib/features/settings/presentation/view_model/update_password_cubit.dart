@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/errors/failures.dart';
+import '../../../../core/utils/validators.dart';
 import '../../domain/entities/profile_drafts.dart';
 import '../../domain/repositories/profile_repository.dart';
 import 'update_password_state.dart';
@@ -27,6 +29,10 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordState> {
       _finish(const UpdatePasswordState.mismatch());
       return;
     }
+    if (!Validators.isValidPassword(newPassword)) {
+      _finish(const UpdatePasswordState.weakPassword());
+      return;
+    }
     emit(const UpdatePasswordState.submitting());
     final result = await _profiles.updatePassword(
       PasswordChange(oldPassword: oldPassword, newPassword: newPassword),
@@ -34,7 +40,9 @@ class UpdatePasswordCubit extends Cubit<UpdatePasswordState> {
     if (isClosed) return;
     _finish(
       result.match(
-        UpdatePasswordState.failure,
+        (failure) => failure is WeakPasswordFailure
+            ? const UpdatePasswordState.weakPassword()
+            : UpdatePasswordState.failure(failure),
         (_) => const UpdatePasswordState.success(),
       ),
     );

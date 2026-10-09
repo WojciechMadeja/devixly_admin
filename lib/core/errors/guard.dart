@@ -8,6 +8,14 @@ import 'failures.dart';
 Future<Either<Failure, T>> guard<T>(Future<T> Function() action) async {
   try {
     return Right(await action());
+  } on InvalidCredentialsException {
+    return const Left(InvalidCredentialsFailure());
+  } on NotAnAdministratorException {
+    return const Left(NotAnAdministratorFailure());
+  } on AccountBlockedException {
+    return const Left(AccountBlockedFailure());
+  } on WeakPasswordException {
+    return const Left(WeakPasswordFailure());
   } on UnauthorizedException catch (e) {
     return Left(UnauthorizedFailure(e.message));
   } on NetworkException catch (e) {
