@@ -205,14 +205,38 @@ abstract class AppLocalizations {
   /// No description provided for @resetPasswordSentTitle.
   ///
   /// In pl, this message translates to:
-  /// **'Twoje hasło zostało zresetowane'**
+  /// **'Twoje hasło zostało zmienione'**
   String get resetPasswordSentTitle;
 
   /// No description provided for @resetPasswordSentDescription.
   ///
   /// In pl, this message translates to:
-  /// **'Sprawdź swoją skrzynkę e-mailową'**
+  /// **'Zaloguj się nowym hasłem'**
   String get resetPasswordSentDescription;
+
+  /// No description provided for @resetPasswordCodeTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz kod z e-maila i nowe hasło'**
+  String get resetPasswordCodeTitle;
+
+  /// No description provided for @resetPasswordCodeHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Kod z e-maila'**
+  String get resetPasswordCodeHint;
+
+  /// No description provided for @resetPasswordCodeRejectedTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się zmienić hasła'**
+  String get resetPasswordCodeRejectedTitle;
+
+  /// No description provided for @resetPasswordCodeRejectedDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Sprawdź kod z e-maila. Hasło musi mieć co najmniej 8 znaków.'**
+  String get resetPasswordCodeRejectedDescription;
 
   /// No description provided for @resetPasswordFailedTitle.
   ///

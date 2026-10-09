@@ -18,12 +18,7 @@ void main() {
     firstName: 'Jan',
     lastName: 'K',
   );
-  const session = AuthSession(
-    accessToken: 't',
-    refreshToken: 'r',
-    refreshTokenId: 1,
-    user: user,
-  );
+  const session = AuthSession(user: user);
 
   late _MockAuthRepository auth;
   late StreamController<AuthSession?> changes;

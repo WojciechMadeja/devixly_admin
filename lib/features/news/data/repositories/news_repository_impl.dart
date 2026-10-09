@@ -6,6 +6,7 @@ import '../../domain/entities/news.dart';
 import '../../domain/entities/news_draft.dart';
 import '../../domain/repositories/news_repository.dart';
 import '../datasources/news_remote_data_source.dart';
+import '../models/news_mapper.dart';
 
 class NewsRepositoryImpl implements NewsRepository {
   NewsRepositoryImpl(this._remote);

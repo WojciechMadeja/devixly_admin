@@ -11,11 +11,13 @@ import '../../../../../core/widgets/dialogs/dialog_card.dart';
 import '../../../../../core/widgets/dialogs/info_dialog.dart';
 import '../../view_model/reset_password_cubit.dart';
 import '../../view_model/reset_password_state.dart';
+import 'reset_password_code_card.dart';
 
 enum ResetPasswordResult { sent, failed }
 
-/// Dialog wysłania e-maila resetującego hasło. Zamyka się z wynikiem
-/// wysyłki; zły format e-maila zgłasza bez zamykania.
+/// Dialog zapomnianego hasła: najpierw e-mail, na który backend wysyła kod,
+/// potem kod i nowe hasło. Zamyka się z wynikiem; błędy formularza zgłasza
+/// bez zamykania.
 class ResetPasswordDialog extends StatelessWidget {
   const ResetPasswordDialog({super.key});
 
@@ -23,7 +25,7 @@ class ResetPasswordDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<ResetPasswordCubit>(),
-      child: BlocListener<ResetPasswordCubit, ResetPasswordState>(
+      child: BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
         listener: (context, state) {
           final l10n = context.l10n;
           switch (state) {
@@ -34,15 +36,39 @@ class ResetPasswordDialog extends StatelessWidget {
                 description: l10n.invalidEmailDescription,
                 isError: true,
               );
+            case ResetPasswordAwaitingCode(:final error?):
+              showInfoDialog(
+                context,
+                title: switch (error) {
+                  ResetCodeError.emptyFields => l10n.emptyFieldsTitle,
+                  ResetCodeError.mismatch => l10n.passwordMismatchTitle,
+                  ResetCodeError.rejected =>
+                    l10n.resetPasswordCodeRejectedTitle,
+                },
+                description: switch (error) {
+                  ResetCodeError.emptyFields => l10n.emptyFieldsTitle,
+                  ResetCodeError.mismatch => l10n.passwordMismatchDescription,
+                  ResetCodeError.rejected =>
+                    l10n.resetPasswordCodeRejectedDescription,
+                },
+                isError: true,
+              );
             case ResetPasswordSent():
               Navigator.pop(context, ResetPasswordResult.sent);
             case ResetPasswordFailed():
               Navigator.pop(context, ResetPasswordResult.failed);
-            case ResetPasswordInitial() || ResetPasswordSubmitting():
+            case ResetPasswordInitial() ||
+                ResetPasswordSubmitting() ||
+                ResetPasswordAwaitingCode():
               break;
           }
         },
-        child: const _ResetPasswordCard(),
+        buildWhen: (previous, current) =>
+            (previous is ResetPasswordAwaitingCode) !=
+            (current is ResetPasswordAwaitingCode),
+        builder: (context, state) => state is ResetPasswordAwaitingCode
+            ? const ResetPasswordCodeCard()
+            : const _ResetPasswordCard(),
       ),
     );
   }

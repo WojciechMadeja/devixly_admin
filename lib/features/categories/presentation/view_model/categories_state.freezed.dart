@@ -11,294 +11,257 @@ part of 'categories_state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$CategoriesState {
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is CategoriesState);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  String toString() {
-    return 'CategoriesState()';
-  }
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoriesState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'CategoriesState()';
+}
+
+
 }
 
 /// @nodoc
-class $CategoriesStateCopyWith<$Res> {
-  $CategoriesStateCopyWith(
-      CategoriesState _, $Res Function(CategoriesState) __);
+class $CategoriesStateCopyWith<$Res>  {
+$CategoriesStateCopyWith(CategoriesState _, $Res Function(CategoriesState) __);
 }
+
 
 /// Adds pattern-matching-related methods to [CategoriesState].
 extension CategoriesStatePatterns on CategoriesState {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(CategoriesLoading value)? loading,
-    TResult Function(CategoriesLoaded value)? loaded,
-    TResult Function(CategoriesError value)? error,
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case CategoriesLoading() when loading != null:
-        return loading(_that);
-      case CategoriesLoaded() when loaded != null:
-        return loaded(_that);
-      case CategoriesError() when error != null:
-        return error(_that);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( CategoriesLoading value)?  loading,TResult Function( CategoriesLoaded value)?  loaded,TResult Function( CategoriesError value)?  error,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case CategoriesLoading() when loading != null:
+return loading(_that);case CategoriesLoaded() when loaded != null:
+return loaded(_that);case CategoriesError() when error != null:
+return error(_that);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// Callbacks receives the raw object, upcasted.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case final Subclass2 value:
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(CategoriesLoading value) loading,
-    required TResult Function(CategoriesLoaded value) loaded,
-    required TResult Function(CategoriesError value) error,
-  }) {
-    final _that = this;
-    switch (_that) {
-      case CategoriesLoading():
-        return loading(_that);
-      case CategoriesLoaded():
-        return loaded(_that);
-      case CategoriesError():
-        return error(_that);
-    }
-  }
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( CategoriesLoading value)  loading,required TResult Function( CategoriesLoaded value)  loaded,required TResult Function( CategoriesError value)  error,}){
+final _that = this;
+switch (_that) {
+case CategoriesLoading():
+return loading(_that);case CategoriesLoaded():
+return loaded(_that);case CategoriesError():
+return error(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  /// A variant of `map` that fallback to returning `null`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( CategoriesLoading value)?  loading,TResult? Function( CategoriesLoaded value)?  loaded,TResult? Function( CategoriesError value)?  error,}){
+final _that = this;
+switch (_that) {
+case CategoriesLoading() when loading != null:
+return loading(_that);case CategoriesLoaded() when loaded != null:
+return loaded(_that);case CategoriesError() when error != null:
+return error(_that);case _:
+  return null;
 
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(CategoriesLoading value)? loading,
-    TResult? Function(CategoriesLoaded value)? loaded,
-    TResult? Function(CategoriesError value)? error,
-  }) {
-    final _that = this;
-    switch (_that) {
-      case CategoriesLoading() when loading != null:
-        return loading(_that);
-      case CategoriesLoaded() when loaded != null:
-        return loaded(_that);
-      case CategoriesError() when error != null:
-        return error(_that);
-      case _:
-        return null;
-    }
-  }
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  /// A variant of `when` that fallback to an `orElse` callback.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  loading,TResult Function( List<Category> categories,  int? selectedId)?  loaded,TResult Function( Failure failure)?  error,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case CategoriesLoading() when loading != null:
+return loading();case CategoriesLoaded() when loaded != null:
+return loaded(_that.categories,_that.selectedId);case CategoriesError() when error != null:
+return error(_that.failure);case _:
+  return orElse();
 
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loading,
-    TResult Function(List<Category> categories, int? selectedId)? loaded,
-    TResult Function(Failure failure)? error,
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case CategoriesLoading() when loading != null:
-        return loading();
-      case CategoriesLoaded() when loaded != null:
-        return loaded(_that.categories, _that.selectedId);
-      case CategoriesError() when error != null:
-        return error(_that.failure);
-      case _:
-        return orElse();
-    }
-  }
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// As opposed to `map`, this offers destructuring.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case Subclass2(:final field2):
-  ///     return ...;
-  /// }
-  /// ```
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  loading,required TResult Function( List<Category> categories,  int? selectedId)  loaded,required TResult Function( Failure failure)  error,}) {final _that = this;
+switch (_that) {
+case CategoriesLoading():
+return loading();case CategoriesLoaded():
+return loaded(_that.categories,_that.selectedId);case CategoriesError():
+return error(_that.failure);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loading,
-    required TResult Function(List<Category> categories, int? selectedId)
-        loaded,
-    required TResult Function(Failure failure) error,
-  }) {
-    final _that = this;
-    switch (_that) {
-      case CategoriesLoading():
-        return loading();
-      case CategoriesLoaded():
-        return loaded(_that.categories, _that.selectedId);
-      case CategoriesError():
-        return error(_that.failure);
-    }
-  }
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  loading,TResult? Function( List<Category> categories,  int? selectedId)?  loaded,TResult? Function( Failure failure)?  error,}) {final _that = this;
+switch (_that) {
+case CategoriesLoading() when loading != null:
+return loading();case CategoriesLoaded() when loaded != null:
+return loaded(_that.categories,_that.selectedId);case CategoriesError() when error != null:
+return error(_that.failure);case _:
+  return null;
 
-  /// A variant of `when` that fallback to returning `null`
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
 
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loading,
-    TResult? Function(List<Category> categories, int? selectedId)? loaded,
-    TResult? Function(Failure failure)? error,
-  }) {
-    final _that = this;
-    switch (_that) {
-      case CategoriesLoading() when loading != null:
-        return loading();
-      case CategoriesLoaded() when loaded != null:
-        return loaded(_that.categories, _that.selectedId);
-      case CategoriesError() when error != null:
-        return error(_that.failure);
-      case _:
-        return null;
-    }
-  }
 }
 
 /// @nodoc
+
 
 class CategoriesLoading implements CategoriesState {
   const CategoriesLoading();
+  
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is CategoriesLoading);
-  }
 
-  @override
-  int get hashCode => runtimeType.hashCode;
 
-  @override
-  String toString() {
-    return 'CategoriesState.loading()';
-  }
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoriesLoading);
 }
 
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'CategoriesState.loading()';
+}
+
+
+}
+
+
+
+
 /// @nodoc
+
 
 class CategoriesLoaded implements CategoriesState {
-  const CategoriesLoaded(
-      {required final List<Category> categories, this.selectedId})
-      : _categories = categories;
+  const CategoriesLoaded({required final  List<Category> categories, this.selectedId}): _categories = categories;
+  
 
-  final List<Category> _categories;
-  List<Category> get categories {
-    if (_categories is EqualUnmodifiableListView) return _categories;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_categories);
-  }
+ final  List<Category> _categories;
+ List<Category> get categories {
+  if (_categories is EqualUnmodifiableListView) return _categories;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_categories);
+}
 
-  final int? selectedId;
+ final  int? selectedId;
 
-  /// Create a copy of CategoriesState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $CategoriesLoadedCopyWith<CategoriesLoaded> get copyWith =>
-      _$CategoriesLoadedCopyWithImpl<CategoriesLoaded>(this, _$identity);
+/// Create a copy of CategoriesState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CategoriesLoadedCopyWith<CategoriesLoaded> get copyWith => _$CategoriesLoadedCopyWithImpl<CategoriesLoaded>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is CategoriesLoaded &&
-            const DeepCollectionEquality()
-                .equals(other._categories, _categories) &&
-            (identical(other.selectedId, selectedId) ||
-                other.selectedId == selectedId));
-  }
 
-  @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_categories), selectedId);
 
-  @override
-  String toString() {
-    return 'CategoriesState.loaded(categories: $categories, selectedId: $selectedId)';
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoriesLoaded&&const DeepCollectionEquality().equals(other._categories, _categories)&&(identical(other.selectedId, selectedId) || other.selectedId == selectedId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_categories),selectedId);
+
+@override
+String toString() {
+  return 'CategoriesState.loaded(categories: $categories, selectedId: $selectedId)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $CategoriesLoadedCopyWith<$Res>
-    implements $CategoriesStateCopyWith<$Res> {
-  factory $CategoriesLoadedCopyWith(
-          CategoriesLoaded value, $Res Function(CategoriesLoaded) _then) =
-      _$CategoriesLoadedCopyWithImpl;
-  @useResult
-  $Res call({List<Category> categories, int? selectedId});
-}
+abstract mixin class $CategoriesLoadedCopyWith<$Res> implements $CategoriesStateCopyWith<$Res> {
+  factory $CategoriesLoadedCopyWith(CategoriesLoaded value, $Res Function(CategoriesLoaded) _then) = _$CategoriesLoadedCopyWithImpl;
+@useResult
+$Res call({
+ List<Category> categories, int? selectedId
+});
 
+
+
+
+}
 /// @nodoc
 class _$CategoriesLoadedCopyWithImpl<$Res>
     implements $CategoriesLoadedCopyWith<$Res> {
@@ -307,67 +270,65 @@ class _$CategoriesLoadedCopyWithImpl<$Res>
   final CategoriesLoaded _self;
   final $Res Function(CategoriesLoaded) _then;
 
-  /// Create a copy of CategoriesState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? categories = null,
-    Object? selectedId = freezed,
-  }) {
-    return _then(CategoriesLoaded(
-      categories: null == categories
-          ? _self._categories
-          : categories // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
-      selectedId: freezed == selectedId
-          ? _self.selectedId
-          : selectedId // ignore: cast_nullable_to_non_nullable
-              as int?,
-    ));
-  }
+/// Create a copy of CategoriesState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? categories = null,Object? selectedId = freezed,}) {
+  return _then(CategoriesLoaded(
+categories: null == categories ? _self._categories : categories // ignore: cast_nullable_to_non_nullable
+as List<Category>,selectedId: freezed == selectedId ? _self.selectedId : selectedId // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
 }
 
 /// @nodoc
+
 
 class CategoriesError implements CategoriesState {
   const CategoriesError(this.failure);
+  
 
-  final Failure failure;
+ final  Failure failure;
 
-  /// Create a copy of CategoriesState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $CategoriesErrorCopyWith<CategoriesError> get copyWith =>
-      _$CategoriesErrorCopyWithImpl<CategoriesError>(this, _$identity);
+/// Create a copy of CategoriesState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CategoriesErrorCopyWith<CategoriesError> get copyWith => _$CategoriesErrorCopyWithImpl<CategoriesError>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is CategoriesError &&
-            (identical(other.failure, failure) || other.failure == failure));
-  }
 
-  @override
-  int get hashCode => Object.hash(runtimeType, failure);
 
-  @override
-  String toString() {
-    return 'CategoriesState.error(failure: $failure)';
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoriesError&&(identical(other.failure, failure) || other.failure == failure));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,failure);
+
+@override
+String toString() {
+  return 'CategoriesState.error(failure: $failure)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $CategoriesErrorCopyWith<$Res>
-    implements $CategoriesStateCopyWith<$Res> {
-  factory $CategoriesErrorCopyWith(
-          CategoriesError value, $Res Function(CategoriesError) _then) =
-      _$CategoriesErrorCopyWithImpl;
-  @useResult
-  $Res call({Failure failure});
-}
+abstract mixin class $CategoriesErrorCopyWith<$Res> implements $CategoriesStateCopyWith<$Res> {
+  factory $CategoriesErrorCopyWith(CategoriesError value, $Res Function(CategoriesError) _then) = _$CategoriesErrorCopyWithImpl;
+@useResult
+$Res call({
+ Failure failure
+});
 
+
+
+
+}
 /// @nodoc
 class _$CategoriesErrorCopyWithImpl<$Res>
     implements $CategoriesErrorCopyWith<$Res> {
@@ -376,19 +337,16 @@ class _$CategoriesErrorCopyWithImpl<$Res>
   final CategoriesError _self;
   final $Res Function(CategoriesError) _then;
 
-  /// Create a copy of CategoriesState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? failure = null,
-  }) {
-    return _then(CategoriesError(
-      null == failure
-          ? _self.failure
-          : failure // ignore: cast_nullable_to_non_nullable
-              as Failure,
-    ));
-  }
+/// Create a copy of CategoriesState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? failure = null,}) {
+  return _then(CategoriesError(
+null == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
+as Failure,
+  ));
+}
+
+
 }
 
 // dart format on

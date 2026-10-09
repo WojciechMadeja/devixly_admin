@@ -1,14 +1,12 @@
-import '../../../../core/config/api_config.dart';
-import '../../../../core/network/authorized_api_client.dart';
-import '../../../../core/network/current_admin.dart';
-import '../../../../core/network/json_body.dart';
+import 'package:background_devixly_client/background_devixly_client.dart';
+
+import '../../../../core/network/backend_call.dart';
 import '../../domain/entities/company_draft.dart';
-import '../models/company_model.dart';
 
 abstract interface class CompaniesRemoteDataSource {
-  Future<List<CompanyModel>> getCompanies();
+  Future<List<Company>> getCompanies();
 
-  Future<CompanyModel> addCompany(CompanyDraft draft);
+  Future<Company> addCompany(CompanyDraft draft);
 
   Future<void> updateCompany(int id, CompanyDraft draft);
 
@@ -17,45 +15,60 @@ abstract interface class CompaniesRemoteDataSource {
   Future<void> deleteCompany(int id);
 }
 
+/// Firmy w backendzie (`CompanyEndpoint`).
 class CompaniesRemoteDataSourceImpl implements CompaniesRemoteDataSource {
-  CompaniesRemoteDataSourceImpl(this._client, this._admin);
+  CompaniesRemoteDataSourceImpl(this._client);
 
-  final AuthorizedApiClient _client;
-  final CurrentAdmin _admin;
-
-  static const _companies = '${XanoApiGroup.companies}/companies';
+  final Client _client;
 
   @override
-  Future<List<CompanyModel>> getCompanies() async {
-    final json = await _client.get(_companies);
-    return json.asJsonList().map(CompanyModel.fromJson).toList();
-  }
+  Future<List<Company>> getCompanies() => backendCall(_client.company.list);
 
   @override
-  Future<CompanyModel> addCompany(CompanyDraft draft) async {
-    final json = await _client.post(
-      _companies,
-      body: CompanyModel.draftToJson(draft),
-    );
-    return CompanyModel.fromJson(json.asJsonObject());
-  }
+  Future<Company> addCompany(CompanyDraft draft) =>
+      backendCall(() => _client.company.create(_input(draft)));
 
+  /// Backend przy zapisie zastępuje wszystkie pola firmy, więc te, których
+  /// formularz nie edytuje (administrator firmy, blokada), są najpierw
+  /// odczytywane i odsyłane bez zmian.
   @override
-  Future<void> updateCompany(int id, CompanyDraft draft) => _client.patch(
-    '$_companies/$id',
-    body: {'companies_id': id, ...CompanyModel.draftToJson(draft)},
-  );
-
-  @override
-  Future<void> setBlocked(int id, bool blocked) => _client.patch(
-    '$_companies/block/$id',
-    body: {
-      'companies_id': id,
-      'admin_email': _admin.email,
-      'is_blocked': blocked,
+  Future<void> updateCompany(int id, CompanyDraft draft) => backendCall(
+    () async {
+      final existing = await _client.company.getById(id);
+      if (existing == null) throw CompanyNotFoundException(id: id);
+      await _client.company.update(
+        id,
+        _input(draft, adminId: existing.adminId, isBlocked: existing.isBlocked),
+      );
     },
   );
 
   @override
-  Future<void> deleteCompany(int id) => _client.delete('$_companies/$id');
+  Future<void> setBlocked(int id, bool blocked) =>
+      backendCall(() => _client.company.setBlocked(id, blocked));
+
+  @override
+  Future<void> deleteCompany(int id) =>
+      backendCall(() => _client.company.delete(id));
+
+  /// Puste pola formularza zapisujemy jako brak wartości — e-mail firmy
+  /// jest unikalny, więc dwa puste teksty by się wykluczały.
+  static CompanyInput _input(
+    CompanyDraft draft, {
+    int? adminId,
+    bool isBlocked = false,
+  }) => CompanyInput(
+    name: draft.name,
+    email: _orNull(draft.email),
+    address: _orNull(draft.address),
+    postCode: _orNull(draft.postCode),
+    city: _orNull(draft.city),
+    phoneNumber: _orNull(draft.phoneNumber),
+    companyRepresentative: _orNull(draft.representative),
+    adminId: adminId,
+    isBlocked: isBlocked,
+  );
+
+  static String? _orNull(String value) =>
+      value.trim().isEmpty ? null : value.trim();
 }

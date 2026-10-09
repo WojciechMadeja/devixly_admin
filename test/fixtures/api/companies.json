@@ -2,40 +2,40 @@
   {
     "id": 1,
     "name": "Crowd Empire",
+    "isBlocked": false,
     "email": "biuro@crowdempire.ae",
     "address": "ul. Złota 44",
-    "post_code": "00-120",
+    "postCode": "00-120",
     "city": "Warszawa",
-    "phone_number": "+48 22 100 20 30",
-    "company_representative": "Anna Nowak",
-    "number_of_agents": 12,
-    "is_blocked": false,
-    "admin": 1
+    "phoneNumber": "+48 22 100 20 30",
+    "companyRepresentative": "Anna Nowak",
+    "numberOfUsers": 12,
+    "adminId": 1
   },
   {
     "id": 2,
     "name": "Devixly Sp. z o.o.",
+    "isBlocked": false,
     "email": "kontakt@devixly.com",
     "address": "ul. Długa 5",
-    "post_code": "30-001",
+    "postCode": "30-001",
     "city": "Kraków",
-    "phone_number": "+48 12 300 40 50",
-    "company_representative": "Piotr Wiśniewski",
-    "number_of_agents": 4,
-    "is_blocked": false,
-    "admin": 1
+    "phoneNumber": "+48 12 300 40 50",
+    "companyRepresentative": "Piotr Wiśniewski",
+    "numberOfUsers": 4,
+    "adminId": 1
   },
   {
     "id": 3,
     "name": "Łódzkie Nieruchomości",
+    "isBlocked": true,
     "email": "biuro@lodzkie.pl",
     "address": "ul. Piotrkowska 100",
-    "post_code": "90-001",
+    "postCode": "90-001",
     "city": "Łódź",
-    "phone_number": "+48 42 600 70 80",
-    "company_representative": "Ewa Zielińska",
-    "number_of_agents": 0,
-    "is_blocked": true,
-    "admin": 1
+    "phoneNumber": "+48 42 600 70 80",
+    "companyRepresentative": "Ewa Zielińska",
+    "numberOfUsers": 0,
+    "adminId": 1
   }
 ]

@@ -7,6 +7,7 @@ import '../../domain/entities/admin_profile.dart';
 import '../../domain/entities/profile_drafts.dart';
 import '../../domain/repositories/profile_repository.dart';
 import '../datasources/profile_remote_data_source.dart';
+import '../models/admin_profile_mapper.dart';
 
 class ProfileRepositoryImpl implements ProfileRepository {
   ProfileRepositoryImpl(this._remote, this._auth);
@@ -16,14 +17,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   Future<Either<Failure, AdminProfile>> getProfile() =>
-      guard(() async => (await _remote.getProfile()).toEntity());
+      guard(() async => (await _remote.getProfile()).toProfile());
 
   @override
   Future<Either<Failure, AdminProfile>> updateProfile(
     AdminProfile profile,
     ProfileUpdate update,
   ) => guard(() async {
-    final saved = (await _remote.updateProfile(profile, update)).toEntity();
+    final saved = (await _remote.updateProfile(profile, update)).toProfile();
     await _syncSession(saved);
     return saved;
   });

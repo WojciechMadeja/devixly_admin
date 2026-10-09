@@ -1,71 +1,105 @@
-import '../../../../core/config/api_config.dart';
-import '../../../../core/errors/exceptions.dart';
-import '../../../../core/network/http_json_client.dart';
-import '../models/auth_session_model.dart';
-import '../models/token_response_models.dart';
+import 'package:background_devixly_client/background_devixly_client.dart';
+import 'package:serverpod_auth_core_client/serverpod_auth_core_client.dart';
+
+import '../../../../core/network/backend_call.dart';
+import '../models/admin_user_model.dart';
 
 abstract interface class AuthRemoteDataSource {
-  Future<AuthSessionModel> login({
+  /// Wczytuje sesję klienta zapisaną przy poprzednim uruchomieniu.
+  Future<void> restore();
+
+  /// Czy klient ma sesję (tokeny).
+  bool get isSignedIn;
+
+  /// Loguje administratora i zwraca jego dane.
+  Future<AdminUserModel> login({
     required String email,
     required String password,
   });
 
-  Future<AuthSessionModel> refresh(AuthSessionModel session);
+  /// Dane zalogowanego administratora.
+  Future<AdminUserModel> currentUser();
 
-  Future<void> revoke(int refreshTokenId);
+  /// Kończy sesję na serwerze i w kliencie.
+  Future<void> signOut();
 
-  Future<void> requestPasswordReset(String email);
+  /// Usuwa sesję z klienta bez pytania serwera (sesja już nieważna).
+  Future<void> dropSession();
+
+  /// Wysyła kod do zmiany hasła; zwraca identyfikator prośby.
+  Future<String> startPasswordReset(String email);
+
+  Future<void> finishPasswordReset({
+    required String requestId,
+    required String code,
+    required String newPassword,
+  });
 }
 
-/// Endpointy logowania Xano. Nie wymagają nagłówka Bearer, dlatego używają
-/// klienta bez autoryzacji (to też zapobiega cyklowi zależności z
-/// odświeżaniem tokenu).
+/// Logowanie w backendzie Serverpod (`EmailIdpEndpoint`, `AccountEndpoint`).
+/// Do panelu wpuszcza `loginAsAdministrator`: konto bez uprawnień
+/// administratora nie dostaje sesji.
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this._client);
 
-  final HttpJsonClient _client;
+  final Client _client;
 
-  static const _auth = '${XanoApiGroup.auth}/auth';
+  ClientAuthSessionManager get _auth => _client.auth;
 
   @override
-  Future<AuthSessionModel> login({
+  Future<void> restore() => _auth.restore();
+
+  @override
+  bool get isSignedIn => _auth.isAuthenticated;
+
+  @override
+  Future<AdminUserModel> login({
     required String email,
     required String password,
-  }) async {
-    final json = await _client.post(
-      '$_auth/admin/login',
-      body: {'email': email, 'password': password},
+  }) => backendCall(() async {
+    final authSuccess = await _client.emailIdp.loginAsAdministrator(
+      email: email,
+      password: password,
     );
-    return LoginResponseModel.fromJson(_asMap(json)).toSession();
-  }
+    await _auth.updateSignedInUser(authSuccess);
+    try {
+      return AdminUserModel.fromProtocol(await _client.account.me());
+    } on Object {
+      // Bez danych administratora nie zostawiamy otwartej sesji.
+      await _auth.updateSignedInUser(null);
+      rethrow;
+    }
+  });
 
   @override
-  Future<AuthSessionModel> refresh(AuthSessionModel session) async {
-    final json = await _client.post(
-      '$_auth/refresh',
-      body: {
-        'refreshToken': session.refreshToken,
-        'refreshTokenId': session.refreshTokenId,
-        'userId': session.user.id,
-      },
-    );
-    return RefreshResponseModel.fromJson(
-      _asMap(json),
-    ).toSession(previous: session);
-  }
-
-  @override
-  Future<void> revoke(int refreshTokenId) => _client.post(
-    '$_auth/revoke_token',
-    body: {'refreshTokenId': refreshTokenId},
+  Future<AdminUserModel> currentUser() => backendCall(
+    () async => AdminUserModel.fromProtocol(await _client.account.me()),
   );
 
   @override
-  Future<void> requestPasswordReset(String email) =>
-      _client.post('$_auth/reset_password', body: {'email': email});
+  Future<void> signOut() => backendCall(_auth.signOutDevice);
 
-  static Map<String, dynamic> _asMap(Object? json) {
-    if (json is Map<String, dynamic>) return json;
-    throw const ParsingException('Nieoczekiwana odpowiedź serwera logowania.');
-  }
+  @override
+  Future<void> dropSession() => _auth.updateSignedInUser(null);
+
+  @override
+  Future<String> startPasswordReset(String email) => backendCall(
+    () async => (await _client.emailIdp.startPasswordReset(email: email)).uuid,
+  );
+
+  @override
+  Future<void> finishPasswordReset({
+    required String requestId,
+    required String code,
+    required String newPassword,
+  }) => backendCall(() async {
+    final token = await _client.emailIdp.verifyPasswordResetCode(
+      passwordResetRequestId: UuidValue.fromString(requestId),
+      verificationCode: code,
+    );
+    await _client.emailIdp.finishPasswordReset(
+      finishPasswordResetToken: token,
+      newPassword: newPassword,
+    );
+  });
 }

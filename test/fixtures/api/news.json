@@ -1,48 +1,57 @@
 [
   {
     "id": 11,
-    "created_at": 1757500000000,
+    "createdAt": "2025-09-10T10:26:40.000Z",
+    "date": "2026-09-05T00:00:00.000Z",
     "title": "Nowa inwestycja w Dubaju",
     "content": "Rozpoczynamy sprzedaż apartamentów w nowym projekcie. Szczegóły oferty znajdziesz w panelu.",
-    "image": {
-      "url": "https://example.com/news-11.png"
-    },
+    "image": "https://example.com/news-11.png",
+    "imagePath": "news/fixture/news-11.png",
     "author": "Jan Kowalski",
     "ratio": "horizontal",
     "categories": [
-      2,
-      4
-    ],
-    "date": "2026-09-5"
+      {
+        "newsId": 11,
+        "categoryId": 2
+      },
+      {
+        "newsId": 11,
+        "categoryId": 4
+      }
+    ]
   },
   {
     "id": 12,
-    "created_at": 1757600000000,
+    "createdAt": "2025-09-11T14:13:20.000Z",
+    "date": "2026-09-12T00:00:00.000Z",
     "title": "Spotkanie z inwestorami",
     "content": "Zapraszamy na spotkanie z inwestorami w biurze Crowd Empire.",
-    "image": {
-      "url": "https://example.com/news-12.png"
-    },
+    "image": "https://example.com/news-12.png",
+    "imagePath": "news/fixture/news-12.png",
     "author": "Anna Nowak",
     "ratio": "vertical",
     "categories": [
-      3
-    ],
-    "date": "2026-09-12"
+      {
+        "newsId": 12,
+        "categoryId": 3
+      }
+    ]
   },
   {
     "id": 13,
-    "created_at": 1757700000000,
+    "createdAt": "2025-09-12T18:00:00.000Z",
+    "date": "2026-09-20T00:00:00.000Z",
     "title": "Podsumowanie kwartału",
     "content": "Wyniki sprzedaży w trzecim kwartale przekroczyły oczekiwania.",
-    "image": {
-      "url": "https://example.com/news-13.png"
-    },
+    "image": "https://example.com/news-13.png",
+    "imagePath": "news/fixture/news-13.png",
     "author": "Jan Kowalski",
     "ratio": "square",
     "categories": [
-      1
-    ],
-    "date": "2026-09-20"
+      {
+        "newsId": 13,
+        "categoryId": 1
+      }
+    ]
   }
 ]

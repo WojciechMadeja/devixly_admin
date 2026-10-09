@@ -15,9 +15,6 @@ void main() {
   late _MockAuthRepository auth;
 
   const session = AuthSession(
-    accessToken: 't',
-    refreshToken: 'r',
-    refreshTokenId: 1,
     user: AdminUser(id: 1, email: 'a@b.pl', firstName: 'A', lastName: 'B'),
   );
 

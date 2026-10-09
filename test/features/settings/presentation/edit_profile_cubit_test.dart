@@ -58,14 +58,9 @@ void main() {
   setUp(() {
     repository = _MockRepository();
     auth = _MockAuthRepository();
-    when(() => auth.currentSession).thenReturn(
-      const AuthSession(
-        accessToken: 'auth-token-1',
-        refreshToken: 'refresh-token-1',
-        refreshTokenId: 7,
-        user: account,
-      ),
-    );
+    when(
+      () => auth.currentSession,
+    ).thenReturn(const AuthSession(user: account));
   });
 
   Future<void> submit(EditProfileCubit cubit) => cubit.submit(

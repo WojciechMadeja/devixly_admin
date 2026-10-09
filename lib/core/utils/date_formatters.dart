@@ -36,7 +36,7 @@ abstract final class DateFormatters {
     return '$day ${_months[month - 1]} ${parts[0]}';
   }
 
-  /// Znacznik czasu Xano (milisekundy od epoki, UTC) jako czas lokalny.
+  /// Znacznik czasu (milisekundy od epoki, UTC) jako czas lokalny.
   static DateTime fromEpochMillis(int millis) =>
       DateTime.fromMillisecondsSinceEpoch(millis, isUtc: true).toLocal();
 }

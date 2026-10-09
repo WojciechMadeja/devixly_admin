@@ -2,21 +2,21 @@
   {
     "id": 1,
     "name": "Crowd Empire",
-    "number_of_news": 3
+    "numberOfNews": 3
   },
   {
     "id": 2,
     "name": "Inwestycje",
-    "number_of_news": 5
+    "numberOfNews": 5
   },
   {
     "id": 3,
     "name": "Wydarzenia",
-    "number_of_news": 0
+    "numberOfNews": 0
   },
   {
     "id": 4,
     "name": "Rynek nieruchomości",
-    "number_of_news": 2
+    "numberOfNews": 2
   }
 ]

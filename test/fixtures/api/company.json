@@ -1,9 +1,10 @@
 {
   "id": 4,
   "name": "Nowa Firma",
+  "isBlocked": false,
   "email": "biuro@nowafirma.pl",
   "address": "ul. Polna 1",
-  "post_code": "00-001",
+  "postCode": "00-001",
   "city": "Warszawa",
-  "phone_number": "+48 22 111 22 33"
+  "phoneNumber": "+48 22 111 22 33"
 }

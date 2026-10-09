@@ -18,7 +18,9 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.0
+  # Serverpod 4.0.3 (klient backendu) wymaga Dart 3.12.2, czyli Fluttera
+  # 3.44.2 lub nowszego.
+  sdk: ^3.12.2
 
 dependencies:
   flutter:
@@ -28,6 +30,12 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   auto_size_text: ^3.0.0
+  # Backend: wygenerowany klient serwera Serverpod z sąsiedniego
+  # repozytorium `background_devixly` (zastąpił API Xano).
+  background_devixly_client:
+    path: ../background_devixly/background_devixly_client
+  serverpod_auth_core_client: 4.0.3
+  serverpod_auth_idp_client: 4.0.3
   csv: ^6.0.0
   # 2.7 inaczej rozkłada szerokości kolumn — tabela CSV wyglądałaby inaczej.
   data_table_2: 2.5.10
@@ -42,7 +50,7 @@ dependencies:
   http: ^1.4.0
   http_parser: ^4.1.2
   image_picker: ^1.1.2
-  intl: 0.20.2
+  intl: ^0.20.2
   json_annotation: ^4.12.0
   mime: ^2.1.0
   shared_preferences: ^2.5.3

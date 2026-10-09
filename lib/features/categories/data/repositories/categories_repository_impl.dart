@@ -5,6 +5,7 @@ import '../../../../core/errors/guard.dart';
 import '../../domain/entities/category.dart';
 import '../../domain/repositories/categories_repository.dart';
 import '../datasources/categories_remote_data_source.dart';
+import '../models/category_mapper.dart';
 
 class CategoriesRepositoryImpl implements CategoriesRepository {
   CategoriesRepositoryImpl(this._remote);

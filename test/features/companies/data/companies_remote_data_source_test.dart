@@ -1,14 +1,14 @@
 import 'package:devixly_admin/app/di/injection.dart';
 import 'package:devixly_admin/features/companies/data/datasources/companies_remote_data_source.dart';
+import 'package:devixly_admin/features/companies/data/models/company_mapper.dart';
 import 'package:devixly_admin/features/companies/domain/entities/company_draft.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../helpers/fake_xano_api.dart';
+import '../../../helpers/fake_backend.dart';
 import '../../../helpers/test_dependencies.dart';
 
-/// Kontrakt z Xano (grupa api:lUs0VlvB) — jak w wersji FlutterFlow.
+/// Kontrakt z backendem (`CompanyEndpoint`).
 void main() {
-  const base = 'https://xxiz-mxuj-zpyz.n7e.xano.io/api:lUs0VlvB/companies';
   const draft = CompanyDraft(
     name: 'Nowa Firma',
     email: 'biuro@nowafirma.pl',
@@ -22,13 +22,13 @@ void main() {
     'name': 'Nowa Firma',
     'email': 'biuro@nowafirma.pl',
     'address': 'ul. Polna 1',
-    'post_code': '00-001',
+    'postCode': '00-001',
     'city': 'Warszawa',
-    'phone_number': '+48 22 111 22 33',
-    'company_representative': 'Jan Nowak',
+    'phoneNumber': '+48 22 111 22 33',
+    'companyRepresentative': 'Jan Nowak',
   };
 
-  late FakeXanoApi api;
+  late FakeBackend api;
   late CompaniesRemoteDataSource dataSource;
 
   setUp(() async {
@@ -37,10 +37,10 @@ void main() {
   });
   tearDown(getIt.reset);
 
-  test('GET companies zwraca firmy z pełnymi danymi', () async {
+  test('company.list zwraca firmy z pełnymi danymi', () async {
     final companies = await dataSource.getCompanies();
 
-    expect(api.requests.single.url.toString(), base);
+    expect(api.calls.single.route, 'company.list');
     expect(companies, hasLength(3));
     final devixly = companies[1].toEntity();
     expect(devixly.name, 'Devixly Sp. z o.o.');
@@ -50,45 +50,62 @@ void main() {
     expect(companies[2].isBlocked, isTrue);
   });
 
-  test('POST companies z danymi formularza', () async {
+  test('company.create z danymi formularza', () async {
     final added = await dataSource.addCompany(draft);
 
-    final request = api.requests.single;
-    expect(request.method, 'POST');
-    expect(request.url.toString(), base);
-    expect(request.json, draftJson);
+    final call = api.calls.single;
+    expect(call.route, 'company.create');
+    expect(call.arguments, {
+      'input': {...draftJson, 'isBlocked': false},
+    });
     expect(added.id, 4);
   });
 
-  test('PATCH companies/{id} z companies_id i danymi formularza', () async {
-    await dataSource.updateCompany(2, draft);
+  test('company.create: puste pola formularza to brak wartości', () async {
+    await dataSource.addCompany(
+      const CompanyDraft(
+        name: 'Sama Nazwa',
+        email: '',
+        address: ' ',
+        postCode: '',
+        city: '',
+        phoneNumber: '',
+        representative: '',
+      ),
+    );
 
-    final request = api.requests.single;
-    expect(request.method, 'PATCH');
-    expect(request.url.toString(), '$base/2');
-    expect(request.json, {'companies_id': 2, ...draftJson});
+    expect(api.calls.single.arguments, {
+      'input': {'name': 'Sama Nazwa', 'isBlocked': false},
+    });
   });
 
-  test(
-    'PATCH companies/block/{id} z e-mailem admina i flagą blokady',
-    () async {
-      await dataSource.setBlocked(2, true);
+  test('company.update zachowuje administratora i blokadę firmy', () async {
+    await dataSource.updateCompany(2, draft);
 
-      final request = api.requests.single;
-      expect(request.url.toString(), '$base/block/2');
-      expect(request.json, {
-        'companies_id': 2,
-        'admin_email': 'admin@devixly.com',
-        'is_blocked': true,
-      });
-    },
-  );
+    expect(api.calls.map((call) => call.route), [
+      'company.getById',
+      'company.update',
+    ]);
+    expect(api.calls.first.arguments, {'id': 2});
+    expect(api.calls.last.arguments, {
+      'id': 2,
+      'input': {...draftJson, 'adminId': 1, 'isBlocked': false},
+    });
+  });
 
-  test('DELETE companies/{id}', () async {
+  test('company.setBlocked z id i flagą blokady', () async {
+    await dataSource.setBlocked(2, true);
+
+    final call = api.calls.single;
+    expect(call.route, 'company.setBlocked');
+    expect(call.arguments, {'id': 2, 'isBlocked': true});
+  });
+
+  test('company.delete z id', () async {
     await dataSource.deleteCompany(2);
 
-    final request = api.requests.single;
-    expect(request.method, 'DELETE');
-    expect(request.url.toString(), '$base/2');
+    final call = api.calls.single;
+    expect(call.route, 'company.delete');
+    expect(call.arguments, {'id': 2});
   });
 }

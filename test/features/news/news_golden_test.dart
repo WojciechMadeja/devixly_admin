@@ -14,7 +14,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/app_harness.dart';
 import '../../helpers/fake_network_images.dart';
-import '../../helpers/fake_xano_api.dart';
+import '../../helpers/fake_backend.dart';
 import '../../helpers/fixtures.dart';
 import '../../helpers/golden_helpers.dart';
 import '../../helpers/test_dependencies.dart';
@@ -53,7 +53,7 @@ Future<void> _pumpPage(
   WidgetTester tester,
   Widget view, {
   Size viewport = GoldenViewport.desktop,
-  FakeXanoApi? api,
+  FakeBackend? api,
 }) async {
   await setUpTestDependencies(api: api);
   await pumpView(tester, view, viewport: viewport);
@@ -77,7 +77,7 @@ void main() {
       await _pumpPage(
         tester,
         const NewsListView(),
-        api: FakeXanoApi(responseDelay: const Duration(seconds: 10)),
+        api: FakeBackend(responseDelay: const Duration(seconds: 10)),
       );
       await _expectBaseline('pages/news_list_loading_desktop');
       await tester.pump(const Duration(seconds: 11));
@@ -117,7 +117,7 @@ void main() {
       await _pumpPage(
         tester,
         const AddNewsView(),
-        api: FakeXanoApi(responseDelay: const Duration(seconds: 10)),
+        api: FakeBackend(responseDelay: const Duration(seconds: 10)),
       );
       await _expectBaseline('pages/add_news_loading_desktop');
       await tester.pump(const Duration(seconds: 11));

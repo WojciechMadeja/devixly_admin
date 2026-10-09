@@ -5,7 +5,6 @@ import 'package:fpdart/fpdart.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/errors/guard.dart';
-import '../../../../core/network/auth_token_provider.dart';
 import '../../../../core/network/current_admin.dart';
 import '../../domain/entities/admin_user.dart';
 import '../../domain/entities/auth_session.dart';
@@ -13,46 +12,50 @@ import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_data_source.dart';
 import '../datasources/session_local_data_source.dart';
 import '../models/admin_user_model.dart';
-import '../models/auth_session_model.dart';
 
-/// Sesja administratora. Jest też źródłem tokenu dla klienta API
-/// (`AuthTokenProvider`) i danych zalogowanego admina (`CurrentAdmin`).
+/// Sesja administratora i dane zalogowanego admina (`CurrentAdmin`).
 ///
-/// Token odświeżamy tylko, gdy wygasa albo backend go odrzuci, i zawsze jednym
-/// żądaniem naraz — Xano unieważnia użyty refresh token, więc dwa równoległe
-/// odświeżenia kończyłyby się wylogowaniem.
-class AuthRepositoryImpl
-    implements AuthRepository, AuthTokenProvider, CurrentAdmin {
-  AuthRepositoryImpl(
-    this._remote,
-    this._local, {
-    DateTime Function() clock = DateTime.now,
-  }) : _now = clock;
+/// Tokeny trzyma klient backendu i sam je odświeża; to repozytorium pamięta
+/// tylko, kto jest zalogowany. Gdy backend odrzuci sesję, klient woła
+/// [sessionRejected] (patrz `createBackendClient` w `injection.dart`).
+class AuthRepositoryImpl implements AuthRepository, CurrentAdmin {
+  AuthRepositoryImpl(this._remote, this._local);
 
   final AuthRemoteDataSource _remote;
   final SessionLocalDataSource _local;
-  final DateTime Function() _now;
 
   final _changes = StreamController<AuthSession?>.broadcast();
-  AuthSessionModel? _session;
-  Future<AuthSessionModel?>? _refreshInProgress;
+  AdminUserModel? _user;
 
   @override
   Stream<AuthSession?> get sessionChanges => _changes.stream;
 
   @override
-  AuthSession? get currentSession => _session?.toEntity();
+  AuthSession? get currentSession => switch (_user) {
+    final user? => AuthSession(user: user.toEntity()),
+    null => null,
+  };
 
   @override
   Future<AuthSession?> restoreSession() async {
-    final stored = _local.read();
-    if (stored == null || stored.toEntity().isExpiredAt(_now())) {
+    await _remote.restore();
+    if (!_remote.isSignedIn) {
       await _local.clear();
-      _session = null;
+      _user = null;
       return null;
     }
-    _session = stored;
-    return stored.toEntity();
+    // Zapamiętanym danym ufamy od razu — nieważną sesję zakończy pierwsze
+    // odrzucone żądanie. Bez nich pytamy backend.
+    try {
+      _user = _local.read() ?? await _remote.currentUser();
+    } on AppException {
+      await _remote.dropSession();
+      await _local.clear();
+      _user = null;
+      return null;
+    }
+    await _local.write(_user!);
+    return currentSession;
   }
 
   @override
@@ -61,91 +64,75 @@ class AuthRepositoryImpl
     required String password,
   }) {
     return guard(() async {
-      final session = await _remote.login(email: email, password: password);
-      await _setSession(session);
-      return session.toEntity();
+      final user = await _remote.login(email: email, password: password);
+      await _setUser(user);
+      return AuthSession(user: user.toEntity());
     });
   }
 
   @override
   Future<void> logout() async {
-    final session = _session;
-    await _setSession(null);
-    if (session != null) {
+    final wasSignedIn = _user != null;
+    await _setUser(null);
+    if (wasSignedIn) {
       // Unieważnienie w tle — wylogowanie lokalne nie czeka na sieć.
       unawaited(
-        _remote
-            .revoke(session.refreshTokenId)
-            .catchError((Object _) {}, test: (e) => e is AppException),
+        _remote.signOut().catchError(
+          (Object _) => _remote.dropSession(),
+          test: (e) => e is AppException,
+        ),
       );
     }
   }
 
-  @override
-  Future<Either<Failure, Unit>> requestPasswordReset(String email) {
-    return guard(() async {
-      await _remote.requestPasswordReset(email);
-      return unit;
-    });
+  /// Backend odrzucił sesję (wygasła albo została unieważniona): kończymy
+  /// ją lokalnie, a router przenosi do logowania.
+  Future<void> sessionRejected() async {
+    if (_user == null) return;
+    await _setUser(null);
+    await _remote.dropSession();
   }
+
+  @override
+  Future<Either<Failure, String>> requestPasswordReset(String email) =>
+      guard(() => _remote.startPasswordReset(email));
+
+  @override
+  Future<Either<Failure, Unit>> finishPasswordReset({
+    required String requestId,
+    required String code,
+    required String newPassword,
+  }) => guard(() async {
+    await _remote.finishPasswordReset(
+      requestId: requestId,
+      code: code,
+      newPassword: newPassword,
+    );
+    return unit;
+  });
 
   @override
   Future<void> updateCurrentUser(AdminUser user) async {
-    final session = _session;
-    if (session == null) return;
-    await _setSession(session.copyWith(user: AdminUserModel.fromEntity(user)));
+    if (_user == null) return;
+    await _setUser(AdminUserModel.fromEntity(user));
   }
 
   @override
-  Future<String?> validAccessToken() async {
-    final session = _session;
-    if (session == null) return null;
-    if (!session.toEntity().accessTokenExpiresSoon(_now())) {
-      return session.accessToken;
-    }
-    return (await _refreshOnce())?.accessToken;
-  }
+  int get id => _requireUser().id;
 
   @override
-  Future<String?> refreshAfterUnauthorized() async =>
-      (await _refreshOnce())?.accessToken;
+  String get email => _requireUser().email;
 
-  @override
-  int get id => _requireSession().user.id;
+  AdminUserModel _requireUser() =>
+      _user ?? (throw const UnauthorizedException());
 
-  @override
-  String get email => _requireSession().user.email;
-
-  AuthSessionModel _requireSession() =>
-      _session ?? (throw const UnauthorizedException());
-
-  Future<AuthSessionModel?> _refreshOnce() => _refreshInProgress ??= _refresh()
-      .whenComplete(() => _refreshInProgress = null);
-
-  Future<AuthSessionModel?> _refresh() async {
-    final current = _session;
-    if (current == null) return null;
-    try {
-      final refreshed = await _remote.refresh(current);
-      await _setSession(refreshed);
-      return refreshed;
-    } on NetworkException {
-      // Chwilowy brak sieci nie kończy sesji — żądanie zgłosi błąd sieci.
-      rethrow;
-    } on AppException {
-      // Backend odrzucił odświeżenie: sesja jest nieważna.
-      await logout();
-      return null;
-    }
-  }
-
-  Future<void> _setSession(AuthSessionModel? session) async {
-    _session = session;
-    if (session == null) {
+  Future<void> _setUser(AdminUserModel? user) async {
+    _user = user;
+    if (user == null) {
       await _local.clear();
     } else {
-      await _local.write(session);
+      await _local.write(user);
     }
-    _changes.add(session?.toEntity());
+    _changes.add(currentSession);
   }
 }

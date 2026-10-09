@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/app_harness.dart';
-import '../../helpers/fake_xano_api.dart';
+import '../../helpers/fake_backend.dart';
 import '../../helpers/golden_helpers.dart';
 import '../../helpers/test_dependencies.dart';
 
@@ -64,7 +64,7 @@ void main() {
 
     testWidgets('ładowanie wygląda jak w FlutterFlow', (tester) async {
       await setUpTestDependencies(
-        api: FakeXanoApi(responseDelay: const Duration(seconds: 10)),
+        api: FakeBackend(responseDelay: const Duration(seconds: 10)),
       );
       await pumpView(
         tester,

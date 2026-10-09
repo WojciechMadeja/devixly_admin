@@ -56,22 +56,23 @@ A single `redirect` in `app_router.dart` protects every route except `/` and `/l
 
 `EditNewsView` takes `?id=<int>` plus an optional `News` in `extra`; without `extra` (e.g. after F5) the cubit refetches the list and picks the entry by id.
 
-## Backend (Xano)
+## Backend (Serverpod)
 
-Base URL and API groups are in `lib/core/config/api_config.dart` (`auth`, `news`, `users`, `companies`, `categories`). Two clients:
+The panel talks to the Devixly Serverpod backend (`../background_devixly`) through its generated client, `background_devixly_client` — a **path dependency**, so that repo must sit next to this one and `serverpod generate` there changes the API here. The server URL is `ApiConfig.serverUrl` (default: production, `https://api.devixly.com/`; for a local backend pass `--dart-define=SERVER_URL=http://localhost:8080/`). The old Xano clients (`HttpJsonClient`, `AuthorizedApiClient`) and the freezed API models are gone; data sources return the protocol models and `data/models/*_mapper.dart` turn them into entities.
 
-- `HttpJsonClient` — plain JSON/multipart over `http`, 30 s timeout, `utf8.decode(bodyBytes)` (the server's charset header cannot be trusted with Polish text), non-2xx → `ServerException`.
-- `AuthorizedApiClient` — adds `Authorization: Bearer …` from `AuthTokenProvider`; on 401 it refreshes **once** and retries once.
+- `core/network/backend_client.dart` — `createBackendClient` builds the `Client` with a pure-Dart `ClientAuthSessionManager` that keeps the session (JWT + refresh token) in SharedPreferences (`PreferencesAuthStorage`, key `admin_auth`). The client refreshes the access token itself shortly before it expires, so a 401 on a normal call means the session is dead: `onUnauthorized` → `AuthRepositoryImpl.sessionRejected()` → the router goes to login. Do not add a refresh or retry on top of it.
+- `core/network/backend_call.dart` — every data source call goes through `backendCall`, which maps Serverpod client and endpoint exceptions to `AppException`s (repositories turn those into `Failure`s via `guard`).
+- `core/network/file_upload.dart` — `FileUploadFunction`, the upload of file bytes to the backend storage; injected so tests can replace it.
 
-Splitting the two breaks the DI cycle: `AuthRemoteDataSource` uses the plain client, every other data source the authorized one. `CurrentAdmin` (implemented by `AuthRepositoryImpl`) supplies the logged-in admin's id and e-mail — many Xano endpoints require `admin_email`.
+Identity comes only from the session: no request carries the admin's id or e-mail (Xano's `admin_email` is gone). `CurrentAdmin` (implemented by `AuthRepositoryImpl`) still tells the UI who is logged in; the admin's data is remembered under the `admin_user` preference so the panel knows it before the backend answers.
 
-Token refresh happens **only** when the access token is about to expire or after a 401, and it is single-flight; the FlutterFlow version refreshed before nearly every action and logged users out at random.
+Things worth knowing:
 
-Endpoint quirks worth knowing (kept deliberately, verified against the fixtures, still to be confirmed against the live API):
-
-- news without an image: `POST` sends an empty file part, `PATCH` sends the literal string `"null"` in `image_uploaded`;
-- `PUT user/{id}` requires `companies` (the company id) — the old code hard-coded `1`, the profile screen now sends the id from `GET user/{id}`;
-- login returns both `expiresAt` and `authTokenExpireAt`; the session stores both and the 401 retry is the safety net.
+- login is `emailIdp.loginAsAdministrator` (accounts without admin rights get no session) followed by `account.me`;
+- password reset has two steps (the backend e-mails a code): `startPasswordReset` → the dialog asks for the code and a new password → `verifyPasswordResetCode` + `finishPasswordReset`. This second step is new UI, not in the FlutterFlow baselines. In development without Mailgun keys the server logs the code;
+- `update` endpoints replace the whole record, so fields a form does not edit are read first and sent back (`company.update` keeps `adminId`/`isBlocked`, `news.update` keeps `imagePath`, the profile keeps e-mail and company);
+- a news image is uploaded first (`news.createImageUpload` + `FileUploadFunction`), and the article points at its storage path;
+- CSV import (`appUser.createUsers`) sends no passwords — the backend generates and e-mails them, and creates all accounts or none.
 
 ## Look and feel (keep it 1:1)
 
@@ -86,9 +87,9 @@ Every user-visible string goes into `lib/l10n/app_pl.arb` and is read through `c
 
 ## Tests
 
-- `test/helpers/` is the harness: `test_dependencies.dart` (`setUpTestDependencies()` registers the real DI graph against `FakeXanoApi` with a restored session — remember `tearDown(getIt.reset)`), `fake_xano_api.dart` (route → fixture map, `responseDelay` for loading states, recorded requests with `.json` and `.multipartParts`), `app_harness.dart` (`testApp`, `pumpView`, `pumpComponent`, `baselineGolden`), `golden_helpers.dart`, `fake_media_picker.dart`, `fake_network_images.dart`. Fixtures live in `test/fixtures/`.
+- `test/helpers/` is the harness: `test_dependencies.dart` (`setUpTestDependencies()` registers the real DI graph against `FakeBackend` with a restored session — remember `tearDown(getIt.reset)`), `fake_backend.dart` (an `http.Client` answering Serverpod RPC calls: `endpoint.method` → fixture map with `overrides`, `FakeResponse.exception` for endpoint exceptions, `responseDelay` for loading states, recorded `calls` with decoded `arguments`, and a fake file upload), `app_harness.dart` (`testApp`, `pumpView`, `pumpComponent`, `baselineGolden`), `golden_helpers.dart`, `fake_media_picker.dart`, `fake_network_images.dart`. Fixtures live in `test/fixtures/` (`api/*.json` are protocol models as the server serializes them).
 - Golden tests compare against `test/goldens/baseline/{pages,components}/*.png` at 0.5 % tolerance by default; `GOLDEN_TOLERANCE=0` proves pixel equality. `expectGoldenWithTolerance(..., tolerance: 0.01)` is used for the few dialogs where real Inter Bold differs from FlutterFlow's faux-bold `RichText`.
-- Contract tests assert the exact method, URL, headers and body of every Xano call — treat them as the API contract.
+- Contract tests assert the endpoint, method and arguments of every backend call — treat them as the API contract.
 - Cubit tests use `bloc_test` + `mocktail`. Note that bloc 9 emits the first state even when it equals the current one, so cubits guard resets with `if (state is! XInitial)`.
 
 ## Things that are deliberate

@@ -66,10 +66,23 @@ class AppLocalizationsPl extends AppLocalizations {
   String get resetPasswordSubmit => 'Wyślij';
 
   @override
-  String get resetPasswordSentTitle => 'Twoje hasło zostało zresetowane';
+  String get resetPasswordSentTitle => 'Twoje hasło zostało zmienione';
 
   @override
-  String get resetPasswordSentDescription => 'Sprawdź swoją skrzynkę e-mailową';
+  String get resetPasswordSentDescription => 'Zaloguj się nowym hasłem';
+
+  @override
+  String get resetPasswordCodeTitle => 'Wpisz kod z e-maila i nowe hasło';
+
+  @override
+  String get resetPasswordCodeHint => 'Kod z e-maila';
+
+  @override
+  String get resetPasswordCodeRejectedTitle => 'Nie udało się zmienić hasła';
+
+  @override
+  String get resetPasswordCodeRejectedDescription =>
+      'Sprawdź kod z e-maila. Hasło musi mieć co najmniej 8 znaków.';
 
   @override
   String get resetPasswordFailedTitle => 'Poszło coś nie tak';

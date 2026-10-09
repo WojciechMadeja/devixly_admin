@@ -1,14 +1,15 @@
 {
   "id": 1,
-  "first_name": "Jan",
-  "last_name": "Kowalski",
   "email": "admin@devixly.com",
-  "is_administrator": true,
-  "phone_number": "+48 600 100 200",
-  "is_blocked": false,
+  "firstName": "Jan",
+  "lastName": "Kowalski",
+  "phoneNumber": "+48 600 100 200",
+  "isAdministrator": true,
+  "isBlocked": false,
+  "companyId": 1,
   "company": {
     "id": 1,
     "name": "Crowd Empire",
-    "is_blocked": false
+    "isBlocked": false
   }
 }

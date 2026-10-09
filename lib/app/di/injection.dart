@@ -1,11 +1,14 @@
+import 'dart:async';
+
+import 'package:background_devixly_client/background_devixly_client.dart'
+    show Client;
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../core/network/auth_token_provider.dart';
-import '../../core/network/authorized_api_client.dart';
+import '../../core/network/backend_client.dart';
 import '../../core/network/current_admin.dart';
-import '../../core/network/http_json_client.dart';
+import '../../core/network/file_upload.dart';
 import '../../core/services/media_picker.dart';
 import '../../features/auth/data/datasources/auth_remote_data_source.dart';
 import '../../features/auth/data/datasources/session_local_data_source.dart';
@@ -53,10 +56,14 @@ final getIt = GetIt.instance;
 /// singletonami (`registerLazySingleton`), cubity ekranów — fabrykami
 /// (`registerFactory`), żeby każde wejście na ekran miało świeży stan.
 ///
-/// [httpClient] pozwala testom podstawić atrapę backendu.
-Future<void> setupDependencies({http.Client? httpClient}) async {
+/// [httpClient] i [uploadFile] pozwalają testom podstawić atrapę backendu
+/// i wysyłki plików.
+Future<void> setupDependencies({
+  http.Client? httpClient,
+  FileUploadFunction uploadFile = uploadToBackend,
+}) async {
   final preferences = await SharedPreferences.getInstance();
-  _registerCore(preferences, httpClient ?? http.Client());
+  _registerCore(preferences, httpClient, uploadFile);
   _registerAuth();
   _registerCategories();
   _registerCompanies();
@@ -66,12 +73,25 @@ Future<void> setupDependencies({http.Client? httpClient}) async {
   _registerSettings();
 }
 
-void _registerCore(SharedPreferences preferences, http.Client httpClient) {
+void _registerCore(
+  SharedPreferences preferences,
+  http.Client? httpClient,
+  FileUploadFunction uploadFile,
+) {
   getIt
     ..registerSingleton(preferences)
-    ..registerSingleton(httpClient)
-    ..registerLazySingleton(() => HttpJsonClient(getIt()))
-    ..registerLazySingleton(() => AuthorizedApiClient(getIt(), getIt()))
+    // Backend odrzucił sesję (wygasła albo została unieważniona): kończymy
+    // ją lokalnie, a router przenosi do logowania. Repozytorium sesji
+    // powstaje później niż klient, stąd leniwe sięgnięcie do `getIt`.
+    ..registerLazySingleton<Client>(
+      () => createBackendClient(
+        preferences: preferences,
+        httpClient: httpClient,
+        onUnauthorized: () =>
+            unawaited(getIt<AuthRepositoryImpl>().sessionRejected()),
+      ),
+    )
+    ..registerSingleton<FileUploadFunction>(uploadFile)
     ..registerLazySingleton<MediaPicker>(DeviceMediaPicker.new);
 }
 
@@ -85,9 +105,6 @@ void _registerAuth() {
     )
     ..registerLazySingleton(() => AuthRepositoryImpl(getIt(), getIt()))
     ..registerLazySingleton<AuthRepository>(() => getIt<AuthRepositoryImpl>())
-    ..registerLazySingleton<AuthTokenProvider>(
-      () => getIt<AuthRepositoryImpl>(),
-    )
     ..registerLazySingleton<CurrentAdmin>(() => getIt<AuthRepositoryImpl>())
     // Sesja żyje przez cały czas działania aplikacji.
     ..registerLazySingleton(() => SessionCubit(getIt()))
@@ -98,7 +115,7 @@ void _registerAuth() {
 void _registerCategories() {
   getIt
     ..registerLazySingleton<CategoriesRemoteDataSource>(
-      () => CategoriesRemoteDataSourceImpl(getIt(), getIt()),
+      () => CategoriesRemoteDataSourceImpl(getIt()),
     )
     ..registerLazySingleton<CategoriesRepository>(
       () => CategoriesRepositoryImpl(getIt()),
@@ -110,7 +127,7 @@ void _registerCategories() {
 void _registerCompanies() {
   getIt
     ..registerLazySingleton<CompaniesRemoteDataSource>(
-      () => CompaniesRemoteDataSourceImpl(getIt(), getIt()),
+      () => CompaniesRemoteDataSourceImpl(getIt()),
     )
     ..registerLazySingleton<CompaniesRepository>(
       () => CompaniesRepositoryImpl(getIt()),
@@ -122,7 +139,7 @@ void _registerCompanies() {
 void _registerNews() {
   getIt
     ..registerLazySingleton<NewsRemoteDataSource>(
-      () => NewsRemoteDataSourceImpl(getIt()),
+      () => NewsRemoteDataSourceImpl(getIt(), getIt()),
     )
     ..registerLazySingleton<NewsRepository>(() => NewsRepositoryImpl(getIt()))
     ..registerFactory(() => NewsListCubit(getIt(), getIt()))
@@ -134,7 +151,7 @@ void _registerNews() {
 void _registerUsers() {
   getIt
     ..registerLazySingleton<UsersRemoteDataSource>(
-      () => UsersRemoteDataSourceImpl(getIt(), getIt()),
+      () => UsersRemoteDataSourceImpl(getIt()),
     )
     ..registerLazySingleton<UsersRepository>(() => UsersRepositoryImpl(getIt()))
     ..registerLazySingleton(() => const ParseUsersCsv())
@@ -148,7 +165,7 @@ void _registerUsers() {
 void _registerSettings() {
   getIt
     ..registerLazySingleton<ProfileRemoteDataSource>(
-      () => ProfileRemoteDataSourceImpl(getIt(), getIt()),
+      () => ProfileRemoteDataSourceImpl(getIt()),
     )
     ..registerLazySingleton<ProfileRepository>(
       () => ProfileRepositoryImpl(getIt(), getIt()),
@@ -161,7 +178,7 @@ void _registerSettings() {
 void _registerAdmins() {
   getIt
     ..registerLazySingleton<AdminsRemoteDataSource>(
-      () => AdminsRemoteDataSourceImpl(getIt(), getIt()),
+      () => AdminsRemoteDataSourceImpl(getIt()),
     )
     ..registerLazySingleton<AdminsRepository>(
       () => AdminsRepositoryImpl(getIt()),

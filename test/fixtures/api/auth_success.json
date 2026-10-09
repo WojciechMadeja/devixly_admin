@@ -1,0 +1,9 @@
+{
+  "authStrategy": "jwt",
+  "token": "auth-token-1",
+  "refreshToken": "refresh-token-1",
+  "authUserId": "0199b1a2-0000-7000-8000-000000000001",
+  "scopeNames": [
+    "serverpod.admin"
+  ]
+}

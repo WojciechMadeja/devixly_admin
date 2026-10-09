@@ -1,15 +1,14 @@
-import 'dart:convert';
-import 'dart:typed_data';
+import 'package:background_devixly_client/background_devixly_client.dart';
 
-import '../../../../core/config/api_config.dart';
-import '../../../../core/network/authorized_api_client.dart';
-import '../../../../core/network/http_json_client.dart';
-import '../../../../core/network/json_body.dart';
+import '../../../../core/errors/exceptions.dart';
+import '../../../../core/network/backend_call.dart';
+import '../../../../core/network/file_upload.dart';
+import '../../../../core/services/media_picker.dart';
 import '../../domain/entities/news_draft.dart';
-import '../models/news_model.dart';
+import '../models/news_mapper.dart';
 
 abstract interface class NewsRemoteDataSource {
-  Future<List<NewsModel>> getNews();
+  Future<List<News>> getNews();
 
   Future<void> addNews(NewsDraft draft);
 
@@ -18,72 +17,65 @@ abstract interface class NewsRemoteDataSource {
   Future<void> deleteNews(int id);
 }
 
-/// Aktualności w Xano (multipart/form-data, pole pliku `image_uploaded`).
+/// Aktualności w backendzie (`NewsEndpoint`). Obrazek jest najpierw
+/// wysyłany prosto do storage backendu (`createImageUpload` + wysyłka
+/// pliku), a aktualność wskazuje go ścieżką w storage.
 class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
-  NewsRemoteDataSourceImpl(this._client);
+  NewsRemoteDataSourceImpl(this._client, this._upload);
 
-  final AuthorizedApiClient _client;
-
-  static const _news = '${XanoApiGroup.news}/news';
-  static const _imageField = 'image_uploaded';
+  final Client _client;
+  final FileUploadFunction _upload;
 
   @override
-  Future<List<NewsModel>> getNews() async {
-    final json = await _client.get(_news);
-    return json.asJsonList().map(NewsModel.fromJson).toList();
-  }
+  Future<List<News>> getNews() => backendCall(_client.news.list);
 
   @override
-  Future<void> addNews(NewsDraft draft) {
+  Future<void> addNews(NewsDraft draft) => backendCall(() async {
     final image = draft.image;
-    return _client.multipart(
-      'POST',
-      _news,
-      fields: _fields(draft),
-      // Bez obrazka backend dostaje pustą część pliku — jak dotychczas.
-      files: [
-        MultipartFileData(
-          field: _imageField,
-          bytes: image?.bytes ?? Uint8List(0),
-          filename: image?.name,
-        ),
-      ],
+    await _client.news.create(
+      _input(
+        draft,
+        imagePath: image == null ? null : await _uploadImage(image),
+      ),
     );
-  }
+  });
 
+  /// Bez nowego obrazka zostaje dotychczasowy: backend zastępuje przy
+  /// zapisie wszystkie pola, więc jego ścieżka jest najpierw odczytywana.
   @override
-  Future<void> editNews(int id, NewsDraft draft) {
+  Future<void> editNews(int id, NewsDraft draft) => backendCall(() async {
     final image = draft.image;
-    return _client.multipart(
-      'PATCH',
-      '$_news/$id',
-      fields: {
-        ..._fields(draft),
-        // Bez nowego obrazka wersja FlutterFlow wysyłała pole tekstowe
-        // "null" zamiast pliku — zachowane, dopóki nie potwierdzimy
-        // zachowania backendu (patrz CLAUDE.md, „Backend (Xano)”).
-        if (image == null) _imageField: 'null',
-      },
-      files: [
-        if (image != null)
-          MultipartFileData(
-            field: _imageField,
-            bytes: image.bytes,
-            filename: image.name,
-          ),
-      ],
-    );
-  }
+    final String? imagePath;
+    if (image != null) {
+      imagePath = await _uploadImage(image);
+    } else {
+      final existing = await _client.news.getById(id);
+      if (existing == null) throw NewsNotFoundException(id: id);
+      imagePath = existing.imagePath;
+    }
+    await _client.news.update(id, _input(draft, imagePath: imagePath));
+  });
 
   @override
-  Future<void> deleteNews(int id) => _client.delete('$_news/$id');
+  Future<void> deleteNews(int id) => backendCall(() => _client.news.delete(id));
 
-  static Map<String, String> _fields(NewsDraft draft) => {
-    'title': draft.title,
-    'content': draft.content,
-    'author': draft.author,
-    'ratio': draft.ratio.name,
-    'categories': jsonEncode(draft.categoryIds),
-    'date': draft.date,
-  };
+  /// Wysyła obrazek i zwraca jego ścieżkę w storage.
+  Future<String> _uploadImage(PickedFile image) async {
+    final upload = await _client.news.createImageUpload(fileName: image.name);
+    if (!await _upload(upload.uploadDescription, image.bytes)) {
+      throw const ServerException(502, 'Nie udało się wysłać obrazka.');
+    }
+    return upload.path;
+  }
+
+  static NewsInput _input(NewsDraft draft, {required String? imagePath}) =>
+      NewsInput(
+        date: newsDateFromApi(draft.date),
+        title: draft.title,
+        content: draft.content,
+        imagePath: imagePath,
+        author: draft.author,
+        ratio: NewsImageRatio.values.byName(draft.ratio.name),
+        categoryIds: draft.categoryIds,
+      );
 }

@@ -6,6 +6,7 @@ import '../../domain/entities/managed_user.dart';
 import '../../domain/entities/user_drafts.dart';
 import '../../domain/repositories/users_repository.dart';
 import '../datasources/users_remote_data_source.dart';
+import '../models/managed_user_mapper.dart';
 
 class UsersRepositoryImpl implements UsersRepository {
   UsersRepositoryImpl(this._remote);

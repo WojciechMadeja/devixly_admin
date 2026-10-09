@@ -68,9 +68,6 @@ void main() {
     ).thenAnswer((_) async => const Right(categories));
     when(() => auth.currentSession).thenReturn(
       const AuthSession(
-        accessToken: 't',
-        refreshToken: 'r',
-        refreshTokenId: 1,
         user: AdminUser(
           id: 1,
           email: 'a@b.pl',

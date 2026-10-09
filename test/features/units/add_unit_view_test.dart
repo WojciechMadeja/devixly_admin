@@ -9,7 +9,7 @@ import 'package:fpdart/fpdart.dart';
 import '../../helpers/app_harness.dart';
 import '../../helpers/golden_helpers.dart';
 
-/// Atrapa repozytorium — ekran nie ma jeszcze endpointu w Xano.
+/// Atrapa repozytorium — ekran nie ma jeszcze endpointu w backendzie.
 class _RecordingUnitsRepository implements UnitsRepository {
   final drafts = <UnitDraft>[];
 

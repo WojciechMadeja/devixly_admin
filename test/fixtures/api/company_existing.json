@@ -1,0 +1,13 @@
+{
+  "id": 2,
+  "name": "Devixly Sp. z o.o.",
+  "isBlocked": false,
+  "email": "kontakt@devixly.com",
+  "address": "ul. Długa 5",
+  "postCode": "30-001",
+  "city": "Kraków",
+  "phoneNumber": "+48 12 300 40 50",
+  "companyRepresentative": "Piotr Wiśniewski",
+  "numberOfUsers": 4,
+  "adminId": 1
+}

@@ -6,6 +6,7 @@ import '../../domain/entities/company.dart';
 import '../../domain/entities/company_draft.dart';
 import '../../domain/repositories/companies_repository.dart';
 import '../datasources/companies_remote_data_source.dart';
+import '../models/company_mapper.dart';
 
 class CompaniesRepositoryImpl implements CompaniesRepository {
   CompaniesRepositoryImpl(this._remote);

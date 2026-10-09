@@ -5,7 +5,7 @@ import 'package:devixly_admin/features/settings/domain/entities/profile_drafts.d
 import 'package:devixly_admin/features/settings/domain/repositories/profile_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../helpers/fake_xano_api.dart';
+import '../../../helpers/fake_backend.dart';
 import '../../../helpers/test_dependencies.dart';
 
 void main() {
@@ -13,10 +13,8 @@ void main() {
 
   test('po zapisie danych sesja zna nowe imię, nazwisko i telefon', () async {
     await setUpTestDependencies(
-      api: FakeXanoApi(
-        overrides: {
-          'PUT /api:om78GTVu/user/1': const FakeResponse('user_updated.json'),
-        },
+      api: FakeBackend(
+        overrides: {'account.me': const FakeResponse('user_updated.json')},
       ),
     );
     final auth = getIt<AuthRepository>();

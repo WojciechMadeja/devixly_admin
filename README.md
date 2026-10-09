@@ -1,6 +1,6 @@
 # Devixly Admin
 
-Panel administracyjny Devixly: aktualności, użytkownicy i administratorzy, firmy oraz kategorie. Aplikacja Flutter budowana przede wszystkim na web, w języku polskim. Backend to Xano (REST).
+Panel administracyjny Devixly: aktualności, użytkownicy i administratorzy, firmy oraz kategorie. Aplikacja Flutter budowana przede wszystkim na web, w języku polskim. Backend to serwer Serverpod z repozytorium `../background_devixly` (panel używa jego wygenerowanego klienta jako zależności `path`, więc oba repozytoria muszą leżeć obok siebie).
 
 ## Uruchomienie
 
@@ -9,11 +9,14 @@ flutter pub get
 flutter run -d chrome
 ```
 
-Adres backendu można podmienić przy budowaniu:
+Domyślnie panel łączy się z backendem produkcyjnym `https://api.devixly.com/`. Do pracy z lokalnym backendem adres podaje się przy uruchamianiu:
 
 ```bash
-flutter build web --release --dart-define=XANO_BASE_URL=https://twoj-host.xano.io
+flutter run -d chrome --dart-define=SERVER_URL=http://localhost:8080/
+flutter build web --release        # wersja na produkcję, bez dodatkowych parametrów
 ```
+
+Do panelu logują się tylko konta z uprawnieniami administratora.
 
 Wgrywamy zawartość `build/web` na hosting. Jest tam też `web/.htaccess`, który na
 Apache/LiteSpeed przekierowuje nieistniejące ścieżki do `index.html` — bez niego

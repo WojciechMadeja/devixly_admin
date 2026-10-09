@@ -1,3 +1,5 @@
+import 'package:background_devixly_client/background_devixly_client.dart'
+    show AppUser;
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/entities/admin_user.dart';
@@ -5,7 +7,7 @@ import '../../domain/entities/admin_user.dart';
 part 'admin_user_model.freezed.dart';
 part 'admin_user_model.g.dart';
 
-/// Dane administratora zapisane w sesji.
+/// Dane zalogowanego administratora, zapamiętywane lokalnie.
 @freezed
 abstract class AdminUserModel with _$AdminUserModel {
   const AdminUserModel._();
@@ -21,6 +23,16 @@ abstract class AdminUserModel with _$AdminUserModel {
 
   factory AdminUserModel.fromJson(Map<String, dynamic> json) =>
       _$AdminUserModelFromJson(json);
+
+  /// Z modelu backendu (`AccountEndpoint.me`).
+  factory AdminUserModel.fromProtocol(AppUser user) => AdminUserModel(
+    id: user.id!,
+    email: user.email ?? '',
+    firstName: user.firstName,
+    lastName: user.lastName,
+    phoneNumber: user.phoneNumber,
+    company: user.company?.name ?? '',
+  );
 
   factory AdminUserModel.fromEntity(AdminUser user) => AdminUserModel(
     id: user.id,

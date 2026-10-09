@@ -3,7 +3,7 @@
 sealed class AppException implements Exception {
   const AppException([this.message]);
 
-  /// Komunikat z backendu (pole `message` odpowiedzi Xano), jeśli był.
+  /// Komunikat z backendu, jeśli był.
   final String? message;
 
   @override

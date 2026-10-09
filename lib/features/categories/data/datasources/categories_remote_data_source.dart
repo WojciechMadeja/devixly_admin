@@ -1,52 +1,36 @@
-import '../../../../core/config/api_config.dart';
-import '../../../../core/network/authorized_api_client.dart';
-import '../../../../core/network/current_admin.dart';
-import '../../../../core/network/json_body.dart';
-import '../models/category_model.dart';
+import 'package:background_devixly_client/background_devixly_client.dart';
+
+import '../../../../core/network/backend_call.dart';
 
 abstract interface class CategoriesRemoteDataSource {
-  Future<List<CategoryModel>> getCategories();
+  Future<List<Category>> getCategories();
 
-  Future<CategoryModel> addCategory(String name);
+  Future<Category> addCategory(String name);
 
-  Future<CategoryModel> renameCategory(int id, String name);
+  Future<Category> renameCategory(int id, String name);
 
   Future<void> deleteCategory(int id);
 }
 
+/// Kategorie aktualności w backendzie (`CategoryEndpoint`). Zapisy wymagają
+/// uprawnień administratora — backend sprawdza je po sesji.
 class CategoriesRemoteDataSourceImpl implements CategoriesRemoteDataSource {
-  CategoriesRemoteDataSourceImpl(this._client, this._admin);
+  CategoriesRemoteDataSourceImpl(this._client);
 
-  final AuthorizedApiClient _client;
-  final CurrentAdmin _admin;
-
-  static const _categories = '${XanoApiGroup.categories}/categories';
+  final Client _client;
 
   @override
-  Future<List<CategoryModel>> getCategories() async {
-    final json = await _client.get(_categories);
-    return json.asJsonList().map(CategoryModel.fromJson).toList();
-  }
+  Future<List<Category>> getCategories() => backendCall(_client.category.list);
 
   @override
-  Future<CategoryModel> addCategory(String name) async {
-    final json = await _client.post(
-      _categories,
-      body: {'name': name, 'admin_email': _admin.email},
-    );
-    return CategoryModel.fromJson(json.asJsonObject());
-  }
+  Future<Category> addCategory(String name) =>
+      backendCall(() => _client.category.create(CategoryInput(name: name)));
 
   @override
-  Future<CategoryModel> renameCategory(int id, String name) async {
-    final json = await _client.patch(
-      '$_categories/$id',
-      body: {'name': name, 'admin_email': _admin.email},
-    );
-    return CategoryModel.fromJson(json.asJsonObject());
-  }
+  Future<Category> renameCategory(int id, String name) =>
+      backendCall(() => _client.category.update(id, CategoryInput(name: name)));
 
   @override
   Future<void> deleteCategory(int id) =>
-      _client.delete('$_categories/$id', query: {'admin_email': _admin.email});
+      backendCall(() => _client.category.delete(id));
 }

@@ -1,28 +1,29 @@
-import '../../../../core/config/api_config.dart';
-import '../../../../core/network/authorized_api_client.dart';
-import '../../../../core/network/current_admin.dart';
+import 'package:background_devixly_client/background_devixly_client.dart';
+
+import '../../../../core/network/backend_call.dart';
 import '../../domain/entities/new_admin.dart';
 
 abstract interface class AdminsRemoteDataSource {
   Future<void> addAdmin(NewAdmin admin);
 }
 
+/// Zakładanie kont administratorów (`AppUserEndpoint.createAdministrator`).
+/// Nowy administrator trafia do firmy tego, kto go zakłada.
 class AdminsRemoteDataSourceImpl implements AdminsRemoteDataSource {
-  AdminsRemoteDataSourceImpl(this._client, this._admin);
+  AdminsRemoteDataSourceImpl(this._client);
 
-  final AuthorizedApiClient _client;
-  final CurrentAdmin _admin;
+  final Client _client;
 
   @override
-  Future<void> addAdmin(NewAdmin admin) => _client.post(
-    '${XanoApiGroup.auth}/auth/admin/signup',
-    body: {
-      'email': admin.email,
-      'first_name': admin.firstName,
-      'last_name': admin.lastName,
-      'admin_email': _admin.email,
-      'phone_number': admin.phoneNumber,
-      'password': admin.password,
-    },
+  Future<void> addAdmin(NewAdmin admin) => backendCall(
+    () => _client.appUser.createAdministrator(
+      NewUserInput(
+        email: admin.email,
+        firstName: admin.firstName,
+        lastName: admin.lastName,
+        phoneNumber: admin.phoneNumber,
+        password: admin.password,
+      ),
+    ),
   );
 }
