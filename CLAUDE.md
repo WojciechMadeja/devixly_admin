@@ -25,6 +25,8 @@ flutter gen-l10n                         # after editing lib/l10n/app_pl.arb
 flutter build web --release
 ```
 
+After `serverpod generate` in `../background_devixly`, the Dart analysis server in the editor keeps serving the old generated client and reports phantom errors ("method isn't defined for EndpointX") while `flutter analyze` is clean — the client is a path package outside the opened folder, so the editor does not watch it. `touch .dart_tool/package_config.json` (or "Dart: Restart Analysis Server") makes it re-read the package.
+
 `dart format` and `dart fix --apply` before committing. `freezed` is pinned to 3.2.5 (4.x needs Dart 3.13, Flutter 3.44 ships 3.12) and `data_table_2` to 2.5.10 (2.7 lays out column widths differently and breaks the CSV table goldens).
 
 ## Architecture
