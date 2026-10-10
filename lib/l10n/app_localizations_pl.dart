@@ -679,6 +679,18 @@ class AppLocalizationsPl extends AppLocalizations {
   String get projectDetailsUnits => 'Jednostki';
 
   @override
+  String get projectDetailsImages => 'Zdjęcia';
+
+  @override
+  String get projectDetailsNoImages => 'Ten projekt nie ma zdjęć';
+
+  @override
+  String get unitNoLayouts => 'Ta jednostka nie ma rzutów';
+
+  @override
+  String get unitsColumnActions => 'Podgląd';
+
+  @override
   String get projectDetailsNoUnits => 'Ten projekt nie ma jeszcze jednostek';
 
   @override

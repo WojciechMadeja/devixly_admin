@@ -11,9 +11,37 @@
     "floor": "12",
     "status": "available",
     "unitTypeId": 4,
-    "unitType": {"id": 4, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 11, "nameEn": "Apartment", "namePl": "Apartament"},
+    "unitType": {
+      "id": 4,
+      "createdAt": "2026-10-01T08:00:00.000Z",
+      "externalId": 11,
+      "nameEn": "Apartment",
+      "namePl": "Apartament"
+    },
     "layoutId": 6,
-    "layout": {"id": 6, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 21, "nameEn": "2 bedrooms", "namePl": "2 sypialnie"}
+    "layout": {
+      "id": 6,
+      "createdAt": "2026-10-01T08:00:00.000Z",
+      "externalId": 21,
+      "nameEn": "2 bedrooms",
+      "namePl": "2 sypialnie"
+    },
+    "layoutFiles": [
+      {
+        "id": 600,
+        "unitId": 41,
+        "position": 0,
+        "fileId": 910,
+        "file": {
+          "id": 910,
+          "createdAt": "2026-10-01T08:00:00.000Z",
+          "sourceUrl": "https://geniemap.example/plan-1203.png",
+          "storagePath": "units/plan-1203.png",
+          "publicUrl": "https://api.devixly.com/files/plan-1203.png",
+          "sizeBytes": 1024
+        }
+      }
+    ]
   },
   {
     "id": 42,
@@ -24,6 +52,9 @@
     "price": 300000,
     "area": 800.0,
     "floor": "3",
-    "status": "available"
+    "status": "available",
+    "layoutFileUrls": [
+      "https://example.com/units/plan-12A.png"
+    ]
   }
 ]

@@ -13,6 +13,7 @@ class ProjectUnit extends Equatable {
     this.price,
     this.pricePer,
     this.area,
+    this.layoutUrls = const [],
   });
 
   final int id;
@@ -25,6 +26,9 @@ class ProjectUnit extends Equatable {
   final int? price;
   final double? pricePer;
   final double? area;
+
+  /// Rzuty jednostki, w kolejności z backendu.
+  final List<String> layoutUrls;
 
   /// Jednostka dodana ręcznie w panelu (ujemne `externalId` w backendzie).
   bool get isManual => externalId < 0;
@@ -41,5 +45,6 @@ class ProjectUnit extends Equatable {
     price,
     pricePer,
     area,
+    layoutUrls,
   ];
 }

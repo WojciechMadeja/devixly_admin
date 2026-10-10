@@ -13,6 +13,9 @@ import '../../../../core/widgets/admin_page_scaffold.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/gold_divider.dart';
 import '../../../../core/widgets/skeleton.dart';
+import '../../../../core/widgets/dialogs/show_app_dialog.dart';
+import '../../../../core/widgets/image_gallery.dart';
+import '../../../units/presentation/widgets/shared/unit_preview_dialog.dart';
 import '../../../units/presentation/widgets/shared/units_table.dart';
 import '../view_model/project_details_cubit.dart';
 import '../view_model/project_details_state.dart';
@@ -68,6 +71,12 @@ class _ProjectDetailsBody extends StatelessWidget {
               },
               if (state.details case Loaded(:final value)) ...[
                 ProjectSummaryCard(details: value),
+                const GoldDivider(),
+                _SectionTitle(l10n.projectDetailsImages),
+                ImageGallery(
+                  urls: value.imageUrls,
+                  emptyLabel: l10n.projectDetailsNoImages,
+                ),
                 const GoldDivider(),
                 _SectionTitle(l10n.projectDetailsPaymentPlans),
                 PaymentPlansSection(plans: value.paymentPlans),
@@ -128,7 +137,13 @@ class _Units extends StatelessWidget {
         ),
         Loaded(:final value) => SizedBox(
           height: 420,
-          child: UnitsTable(units: value),
+          child: UnitsTable(
+            units: value,
+            onPreview: (unit) => showAppDialog<void>(
+              context,
+              builder: (_) => UnitPreviewDialog(unit: unit),
+            ),
+          ),
         ),
       },
     );

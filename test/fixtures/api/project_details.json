@@ -4,9 +4,26 @@
   "externalId": 5001,
   "name": "Marina Heights",
   "districtId": 2,
-  "district": {"id": 2, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": "dubai-marina", "name": "Dubai Marina"},
+  "district": {
+    "id": 2,
+    "createdAt": "2026-10-01T08:00:00.000Z",
+    "externalId": "dubai-marina",
+    "name": "Dubai Marina"
+  },
   "developerId": 3,
-  "developer": {"id": 3, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 77, "name": "Emaar", "address": "Dubai", "contactName": "Ali", "contactPhone": "+971 4 000 0000", "site": "https://emaar.com", "commissionFrom": 2.0, "commissionTo": 5.0, "logoUrl": "https://example.com/emaar.png"},
+  "developer": {
+    "id": 3,
+    "createdAt": "2026-10-01T08:00:00.000Z",
+    "externalId": 77,
+    "name": "Emaar",
+    "address": "Dubai",
+    "contactName": "Ali",
+    "contactPhone": "+971 4 000 0000",
+    "site": "https://emaar.com",
+    "commissionFrom": 2.0,
+    "commissionTo": 5.0,
+    "logoUrl": "https://example.com/emaar.png"
+  },
   "status": "available",
   "descriptionPl": "Apartamenty przy marinie.",
   "handover": "2027-06-30T00:00:00.000Z",
@@ -32,9 +49,60 @@
       "description": "Standard plan",
       "descriptionPl": "Plan standardowy",
       "items": [
-        {"id": 100, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 9001, "paymentPlanId": 10, "name": "20% down payment", "namePl": "20% przy rezerwacji", "description": "On booking", "descriptionPl": "Przy rezerwacji"},
-        {"id": 101, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 9002, "paymentPlanId": 10, "name": "40% during construction", "namePl": "40% w trakcie budowy", "description": "Milestones", "descriptionPl": "Kamienie milowe"}
+        {
+          "id": 100,
+          "createdAt": "2026-10-01T08:00:00.000Z",
+          "externalId": 9001,
+          "paymentPlanId": 10,
+          "name": "20% down payment",
+          "namePl": "20% przy rezerwacji",
+          "description": "On booking",
+          "descriptionPl": "Przy rezerwacji"
+        },
+        {
+          "id": 101,
+          "createdAt": "2026-10-01T08:00:00.000Z",
+          "externalId": 9002,
+          "paymentPlanId": 10,
+          "name": "40% during construction",
+          "namePl": "40% w trakcie budowy",
+          "description": "Milestones",
+          "descriptionPl": "Kamienie milowe"
+        }
       ]
+    }
+  ],
+  "images": [
+    "https://example.com/projects/5001-1.png"
+  ],
+  "storedImages": [
+    {
+      "id": 500,
+      "projectId": 1,
+      "position": 1,
+      "fileId": 900,
+      "file": {
+        "id": 900,
+        "createdAt": "2026-10-01T08:00:00.000Z",
+        "sourceUrl": "https://geniemap.example/5001-2.png",
+        "storagePath": "projects/5001-2.png",
+        "publicUrl": "https://api.devixly.com/files/5001-2.png",
+        "sizeBytes": 2048
+      }
+    },
+    {
+      "id": 501,
+      "projectId": 1,
+      "position": 0,
+      "fileId": 901,
+      "file": {
+        "id": 901,
+        "createdAt": "2026-10-01T08:00:00.000Z",
+        "sourceUrl": "https://geniemap.example/5001-1.png",
+        "storagePath": "projects/5001-1.png",
+        "publicUrl": "https://api.devixly.com/files/5001-1.png",
+        "sizeBytes": 4096
+      }
     }
   ]
 }

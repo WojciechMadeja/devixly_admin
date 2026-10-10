@@ -19,6 +19,7 @@ extension ProjectSummaryMapper on sp.Project {
 
   ProjectDetails toDetails() => ProjectDetails(
     summary: toSummary(),
+    imageUrls: _imageUrls(this),
     paymentPlans: [
       for (final plan in paymentPlans ?? const <sp.PaymentPlan>[])
         plan.toEntity(),
@@ -36,6 +37,18 @@ extension ProjectSummaryMapper on sp.Project {
     saleTypesDeveloper: saleTypesDeveloper,
     saleTypesResale: saleTypesResale,
   );
+}
+
+/// Zdjęcia bierzemy z kopii w storage backendu; dopóki nocna
+/// synchronizacja ich nie pobierze, zostają adresy źródłowe.
+List<String> _imageUrls(sp.Project project) {
+  final stored = project.storedImages ?? const <sp.ProjectImage>[];
+  if (stored.isNotEmpty) {
+    final ordered = [...stored]
+      ..sort((a, b) => a.position.compareTo(b.position));
+    return [for (final image in ordered) ?image.file?.publicUrl];
+  }
+  return project.images ?? const [];
 }
 
 extension PaymentPlanMapper on sp.PaymentPlan {

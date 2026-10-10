@@ -1384,6 +1384,30 @@ abstract class AppLocalizations {
   /// **'Jednostki'**
   String get projectDetailsUnits;
 
+  /// No description provided for @projectDetailsImages.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zdjęcia'**
+  String get projectDetailsImages;
+
+  /// No description provided for @projectDetailsNoImages.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ten projekt nie ma zdjęć'**
+  String get projectDetailsNoImages;
+
+  /// No description provided for @unitNoLayouts.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ta jednostka nie ma rzutów'**
+  String get unitNoLayouts;
+
+  /// No description provided for @unitsColumnActions.
+  ///
+  /// In pl, this message translates to:
+  /// **'Podgląd'**
+  String get unitsColumnActions;
+
   /// No description provided for @projectDetailsNoUnits.
   ///
   /// In pl, this message translates to:

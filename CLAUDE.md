@@ -101,6 +101,7 @@ Every user-visible string goes into `lib/l10n/app_pl.arb` and is read through `c
 - `features/lookups` is a thin shared feature: dictionaries (districts, developers, unit types, layouts) reduced to `DictionaryItem` for the pickers of other features.
 - `ProjectsListView` searches server side (`project.list(nameContains:)`, debounced, capped at 200 rows), while the unit form's project picker filters a cached list from `project.listOptionsForUnit` locally — that call reads three columns, so it stays cheap. `ProjectsRepositoryImpl` keeps that list until a project is added.
 - A project's units are read through `UnitsRepository.getUnits` (units feature) and shown on the project page next to its payment plans — `project.getById` already includes the plans with their items.
+- Images come from the server's storage copies (`StoredFile.publicUrl` behind `Project.storedImages`, ordered by `position`, and `Unit.layoutFiles`); the GenieMap source URLs (`images`, `layoutFileUrls`) are the fallback until the nightly sync has downloaded them. `core/widgets/image_gallery.dart` renders both as thumbnails that open a full-size preview.
 - The home tile "Oferty" is visible but inactive on purpose.
 - `kProtectedOwnerName` (`core/constants/business_rules.dart`) is the company that cannot be edited or deleted.
 - Golden baselines for some mobile viewports show the old overflowing layout; those views are compared manually, desktop goldens are the automated check.

@@ -21,5 +21,16 @@ extension UnitMapper on sp.Unit {
     price: price,
     pricePer: pricePer,
     area: area,
+    layoutUrls: _layoutUrls(this),
   );
+}
+
+/// Rzuty bierzemy z kopii w storage backendu; dopóki nocna synchronizacja
+/// ich nie pobierze, zostają adresy źródłowe.
+List<String> _layoutUrls(sp.Unit unit) {
+  final stored = unit.layoutFiles ?? const <sp.UnitLayoutFile>[];
+  if (stored.isNotEmpty) {
+    return [for (final file in stored) ?file.file?.publicUrl];
+  }
+  return unit.layoutFileUrls ?? const [];
 }

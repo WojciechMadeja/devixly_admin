@@ -4,14 +4,16 @@ import '../../../../../core/l10n/l10n.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 import '../../../../../core/widgets/app_data_table.dart';
+import '../../../../../core/widgets/tap_area.dart';
 import '../../../domain/entities/project_unit.dart';
 
 /// Tabela jednostek projektu: numer, piętro, powierzchnia, cena, status,
 /// typ i układ.
 class UnitsTable extends StatelessWidget {
-  const UnitsTable({super.key, required this.units});
+  const UnitsTable({super.key, required this.units, required this.onPreview});
 
   final List<ProjectUnit> units;
+  final ValueChanged<ProjectUnit> onPreview;
 
   static const _cellStyle = AppTextStyles.bodySmall;
 
@@ -32,6 +34,7 @@ class UnitsTable extends StatelessWidget {
         DataColumn2(label: header(l10n.unitsColumnStatus)),
         DataColumn2(label: header(l10n.unitsColumnType)),
         DataColumn2(label: header(l10n.unitsColumnLayout)),
+        DataColumn2(label: header(l10n.unitsColumnActions), fixedWidth: 100),
       ],
       rowBuilder: (unit, index) => [
         Row(
@@ -59,6 +62,16 @@ class UnitsTable extends StatelessWidget {
         _cell(context, unit.status),
         _cell(context, unit.typeName),
         _cell(context, unit.layoutName),
+        Align(
+          child: TapArea(
+            onTap: () => onPreview(unit),
+            child: const Icon(
+              Icons.info_outline,
+              color: AppColors.primary,
+              size: 30,
+            ),
+          ),
+        ),
       ],
     );
   }

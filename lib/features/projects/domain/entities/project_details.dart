@@ -8,6 +8,7 @@ class ProjectDetails extends Equatable {
   const ProjectDetails({
     required this.summary,
     required this.paymentPlans,
+    this.imageUrls = const [],
     this.descriptionPl = '',
     this.descriptionEn = '',
     this.ownership,
@@ -20,6 +21,9 @@ class ProjectDetails extends Equatable {
 
   final ProjectSummary summary;
   final List<ProjectPaymentPlan> paymentPlans;
+
+  /// Zdjęcia projektu, w kolejności z backendu.
+  final List<String> imageUrls;
   final String descriptionPl;
   final String descriptionEn;
   final ProjectOwnership? ownership;
@@ -33,6 +37,7 @@ class ProjectDetails extends Equatable {
   List<Object?> get props => [
     summary,
     paymentPlans,
+    imageUrls,
     descriptionPl,
     descriptionEn,
     ownership,
