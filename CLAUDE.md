@@ -72,7 +72,9 @@ Things worth knowing:
 - password reset has two steps (the backend e-mails a code): `startPasswordReset` → the dialog asks for the code and a new password → `verifyPasswordResetCode` + `finishPasswordReset`. This second step is new UI, not in the FlutterFlow baselines. In development without Mailgun keys the server logs the code;
 - `update` endpoints replace the whole record, so fields a form does not edit are read first and sent back (`company.update` keeps `adminId`/`isBlocked`, `news.update` keeps `imagePath`, the profile keeps e-mail and company);
 - a news image is uploaded first (`news.createImageUpload` + `FileUploadFunction`), and the article points at its storage path;
-- CSV import (`appUser.createUsers`) sends no passwords — the backend generates and e-mails them, and creates all accounts or none.
+- CSV import (`appUser.createUsers`) sends no passwords — the backend generates and e-mails them, and creates all accounts or none; the answer's `passwordEmailFailed` lists the addresses the password never reached;
+- projects are created with `project.create` (admin only) and picked for a unit with `project.listOptionsForUnit`, a lightweight list the panel filters locally;
+- `unit.create` was added to the backend for this panel — GenieMap stays the source of truth for everything it syncs.
 
 ## Look and feel (keep it 1:1)
 
@@ -94,7 +96,10 @@ Every user-visible string goes into `lib/l10n/app_pl.arb` and is read through `c
 
 ## Things that are deliberate
 
-- `features/units` (`AddUnitView`) has **no route and no DI registration**: the backend has no unit endpoint yet. Its `UnitsRepository` is an interface without an implementation and the view's doc comment lists the steps to wire it up. It must never call `auth/admin/signup` again.
-- The home tiles "Dodaj jednostki" and "Oferty" are visible but inactive on purpose.
+- Units added through `features/units` get a **negative `externalId`** on the server (`UnitEndpoint.create`). GenieMap numbers its units from 1 up, and the nightly sync deletes the units it no longer returns for a project, so the sign is what keeps hand-added units alive — `UnitSyncService` skips `externalId <= 0`. Keep both sides of that convention in mind before touching either.
+- A project saved with resale-only sale types, or with status `sold_out`, is deleted by the nightly `removeInactiveProjects` step. The project form warns about it instead of blocking it.
+- `features/lookups` is a thin shared feature: dictionaries (districts, developers, unit types, layouts) reduced to `DictionaryItem` for the pickers of other features.
+- The home tile "Oferty" is visible but inactive on purpose.
 - `kProtectedOwnerName` (`core/constants/business_rules.dart`) is the company that cannot be edited or deleted.
 - Golden baselines for some mobile viewports show the old overflowing layout; those views are compared manually, desktop goldens are the automated check.
+- Screens without a FlutterFlow ancestor (`AddProjectView`, the rebuilt `AddUnitView`) and the home screen with its extra "Dodaj projekty" tile keep their own goldens under `test/features/<feature>/goldens/`; `test/goldens/baseline/` stays the record of the old UI.

@@ -51,6 +51,13 @@ class FakeBackend {
     'appUser.update': FakeResponse('user.json'),
     'appUser.setBlocked': FakeResponse('user.json'),
     'appUser.delete': FakeResponse.empty(),
+    'project.listOptionsForUnit': FakeResponse('project_options.json'),
+    'project.create': FakeResponse('project.json'),
+    'unit.create': FakeResponse('unit.json'),
+    'district.list': FakeResponse('districts.json'),
+    'developer.list': FakeResponse('developers.json'),
+    'unitType.list': FakeResponse('unit_types.json'),
+    'layout.list': FakeResponse('layouts.json'),
   };
 
   final Map<String, FakeResponse> _routes;

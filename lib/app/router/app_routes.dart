@@ -1,6 +1,6 @@
-/// Ścieżki URL panelu — identyczne jak w wersji FlutterFlow, żeby zakładki
-/// i linki użytkowników dalej działały. Ekran „Dodaj jednostkę”
-/// (`AddUnitView`) celowo nie ma trasy.
+/// Ścieżki URL panelu. Adresy przeniesione z wersji FlutterFlow zostają
+/// bez zmian, żeby zakładki i linki użytkowników dalej działały; nowe
+/// ekrany dopisujemy na końcu.
 abstract final class AppRoutes {
   static const root = '/';
   static const login = '/loginPage';
@@ -14,6 +14,8 @@ abstract final class AppRoutes {
   static const addUser = '/addUserPage';
   static const importUsers = '/addListOfUsersPage';
   static const addAdmin = '/addAdminPage';
+  static const addProject = '/addProjectPage';
+  static const addUnit = '/addUnityPage';
   static const settings = '/settingsPage';
   static const editProfile = '/editPersonDataPage';
   static const updatePassword = '/updatePasswordPage';

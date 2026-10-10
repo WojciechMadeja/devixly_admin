@@ -12,9 +12,11 @@ import '../../features/news/presentation/view/add_news_view.dart';
 import '../../features/news/presentation/view/edit_news_view.dart';
 import '../../features/admins/presentation/view/add_admin_view.dart';
 import '../../features/news/presentation/view/news_list_view.dart';
+import '../../features/projects/presentation/view/add_project_view.dart';
 import '../../features/settings/presentation/view/edit_profile_view.dart';
 import '../../features/settings/presentation/view/settings_view.dart';
 import '../../features/settings/presentation/view/update_password_view.dart';
+import '../../features/units/presentation/view/add_unit_view.dart';
 import '../../features/users/presentation/view/add_user_view.dart';
 import '../../features/users/presentation/view/csv_import_view.dart';
 import '../../features/users/presentation/view/users_list_view.dart';
@@ -90,6 +92,14 @@ GoRouter createAppRouter(SessionCubit session) {
       GoRoute(
         path: AppRoutes.addAdmin,
         builder: (context, state) => const AddAdminView(),
+      ),
+      GoRoute(
+        path: AppRoutes.addProject,
+        builder: (context, state) => const AddProjectView(),
+      ),
+      GoRoute(
+        path: AppRoutes.addUnit,
+        builder: (context, state) => const AddUnitView(),
       ),
       GoRoute(
         path: AppRoutes.settings,

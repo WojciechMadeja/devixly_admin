@@ -531,4 +531,129 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get unitSaveFailed => 'Nie udało się zapisać jednostki';
+
+  @override
+  String get pickerSearchHint => 'Szukaj';
+
+  @override
+  String get pickerNoResults => 'Brak pasujących pozycji';
+
+  @override
+  String get homeAddProjects => 'Dodaj projekty';
+
+  @override
+  String get projectAddTitle => 'Dodaj projekt';
+
+  @override
+  String get projectNameHint => 'Nazwa projektu';
+
+  @override
+  String get projectExternalIdHint => 'Numer projektu (externalId)';
+
+  @override
+  String get projectNocHint => 'NOC';
+
+  @override
+  String get projectStatusHint => 'Status, np. available';
+
+  @override
+  String get projectDescriptionPlHint => 'Opis po polsku';
+
+  @override
+  String get projectDescriptionEnHint => 'Opis po angielsku';
+
+  @override
+  String get projectPriceFromHint => 'Cena od';
+
+  @override
+  String get projectPriceToHint => 'Cena do';
+
+  @override
+  String get projectAreaFromHint => 'Powierzchnia od';
+
+  @override
+  String get projectAreaToHint => 'Powierzchnia do';
+
+  @override
+  String get projectDistrictPlaceholder => 'Wybierz dzielnicę';
+
+  @override
+  String get projectDeveloperPlaceholder => 'Wybierz dewelopera';
+
+  @override
+  String get projectHandoverLabel => 'Termin oddania';
+
+  @override
+  String get projectStartOfSalesLabel => 'Start sprzedaży';
+
+  @override
+  String get projectOwnershipPlaceholder => 'Rodzaj własności';
+
+  @override
+  String get projectOwnershipFreehold => 'Freehold';
+
+  @override
+  String get projectOwnershipLeasehold => 'Leasehold';
+
+  @override
+  String get projectSaleDeveloper => 'Sprzedaż od dewelopera';
+
+  @override
+  String get projectSaleResale => 'Sprzedaż wtórna';
+
+  @override
+  String get projectSaleWarning =>
+      'Projekt tylko z rynku wtórnego albo ze statusem „sold_out” jest usuwany przez nocną synchronizację.';
+
+  @override
+  String get projectSaved => 'Pomyślnie zapisano projekt';
+
+  @override
+  String get projectSaveFailed => 'Nie udało się zapisać projektu';
+
+  @override
+  String get projectRequiredFields => 'Uzupełnij nazwę, numer projektu i NOC';
+
+  @override
+  String get unitProjectPlaceholder => 'Wyszukaj projekt';
+
+  @override
+  String get unitProjectSearchHint => 'Szukaj projektu po nazwie lub numerze';
+
+  @override
+  String get unitProjectLabel => 'Projekt';
+
+  @override
+  String get projectExternalIdLabel => 'Nr';
+
+  @override
+  String get unitNumberHint => 'Numer jednostki';
+
+  @override
+  String get unitAreaHint => 'Powierzchnia (ft²)';
+
+  @override
+  String get unitFloorHint => 'Piętro';
+
+  @override
+  String get unitStatusHint => 'Status, np. available';
+
+  @override
+  String get unitHeightHint => 'Forma, np. Simplex';
+
+  @override
+  String get unitTypeOfSaleHint => 'Typ sprzedaży, np. offPlan';
+
+  @override
+  String get unitTypePlaceholder => 'Typ jednostki';
+
+  @override
+  String get unitLayoutPlaceholder => 'Układ';
+
+  @override
+  String get unitRequiredFields => 'Wybierz projekt i podaj numer jednostki';
+
+  @override
+  String get unitManualNote =>
+      'Jednostki dodane tutaj nie są nadpisywane przez nocną synchronizację z GenieMap.';
 }

@@ -1095,6 +1095,252 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Nie udało się zapisać jednostki'**
   String get unitSaveFailed;
+
+  /// No description provided for @pickerSearchHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Szukaj'**
+  String get pickerSearchHint;
+
+  /// No description provided for @pickerNoResults.
+  ///
+  /// In pl, this message translates to:
+  /// **'Brak pasujących pozycji'**
+  String get pickerNoResults;
+
+  /// No description provided for @homeAddProjects.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj projekty'**
+  String get homeAddProjects;
+
+  /// No description provided for @projectAddTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj projekt'**
+  String get projectAddTitle;
+
+  /// No description provided for @projectNameHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nazwa projektu'**
+  String get projectNameHint;
+
+  /// No description provided for @projectExternalIdHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Numer projektu (externalId)'**
+  String get projectExternalIdHint;
+
+  /// No description provided for @projectNocHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'NOC'**
+  String get projectNocHint;
+
+  /// No description provided for @projectStatusHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Status, np. available'**
+  String get projectStatusHint;
+
+  /// No description provided for @projectDescriptionPlHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Opis po polsku'**
+  String get projectDescriptionPlHint;
+
+  /// No description provided for @projectDescriptionEnHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Opis po angielsku'**
+  String get projectDescriptionEnHint;
+
+  /// No description provided for @projectPriceFromHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Cena od'**
+  String get projectPriceFromHint;
+
+  /// No description provided for @projectPriceToHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Cena do'**
+  String get projectPriceToHint;
+
+  /// No description provided for @projectAreaFromHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Powierzchnia od'**
+  String get projectAreaFromHint;
+
+  /// No description provided for @projectAreaToHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Powierzchnia do'**
+  String get projectAreaToHint;
+
+  /// No description provided for @projectDistrictPlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wybierz dzielnicę'**
+  String get projectDistrictPlaceholder;
+
+  /// No description provided for @projectDeveloperPlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wybierz dewelopera'**
+  String get projectDeveloperPlaceholder;
+
+  /// No description provided for @projectHandoverLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Termin oddania'**
+  String get projectHandoverLabel;
+
+  /// No description provided for @projectStartOfSalesLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Start sprzedaży'**
+  String get projectStartOfSalesLabel;
+
+  /// No description provided for @projectOwnershipPlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rodzaj własności'**
+  String get projectOwnershipPlaceholder;
+
+  /// No description provided for @projectOwnershipFreehold.
+  ///
+  /// In pl, this message translates to:
+  /// **'Freehold'**
+  String get projectOwnershipFreehold;
+
+  /// No description provided for @projectOwnershipLeasehold.
+  ///
+  /// In pl, this message translates to:
+  /// **'Leasehold'**
+  String get projectOwnershipLeasehold;
+
+  /// No description provided for @projectSaleDeveloper.
+  ///
+  /// In pl, this message translates to:
+  /// **'Sprzedaż od dewelopera'**
+  String get projectSaleDeveloper;
+
+  /// No description provided for @projectSaleResale.
+  ///
+  /// In pl, this message translates to:
+  /// **'Sprzedaż wtórna'**
+  String get projectSaleResale;
+
+  /// No description provided for @projectSaleWarning.
+  ///
+  /// In pl, this message translates to:
+  /// **'Projekt tylko z rynku wtórnego albo ze statusem „sold_out” jest usuwany przez nocną synchronizację.'**
+  String get projectSaleWarning;
+
+  /// No description provided for @projectSaved.
+  ///
+  /// In pl, this message translates to:
+  /// **'Pomyślnie zapisano projekt'**
+  String get projectSaved;
+
+  /// No description provided for @projectSaveFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się zapisać projektu'**
+  String get projectSaveFailed;
+
+  /// No description provided for @projectRequiredFields.
+  ///
+  /// In pl, this message translates to:
+  /// **'Uzupełnij nazwę, numer projektu i NOC'**
+  String get projectRequiredFields;
+
+  /// No description provided for @unitProjectPlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wyszukaj projekt'**
+  String get unitProjectPlaceholder;
+
+  /// No description provided for @unitProjectSearchHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Szukaj projektu po nazwie lub numerze'**
+  String get unitProjectSearchHint;
+
+  /// No description provided for @unitProjectLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Projekt'**
+  String get unitProjectLabel;
+
+  /// No description provided for @projectExternalIdLabel.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nr'**
+  String get projectExternalIdLabel;
+
+  /// No description provided for @unitNumberHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Numer jednostki'**
+  String get unitNumberHint;
+
+  /// No description provided for @unitAreaHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Powierzchnia (ft²)'**
+  String get unitAreaHint;
+
+  /// No description provided for @unitFloorHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Piętro'**
+  String get unitFloorHint;
+
+  /// No description provided for @unitStatusHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Status, np. available'**
+  String get unitStatusHint;
+
+  /// No description provided for @unitHeightHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Forma, np. Simplex'**
+  String get unitHeightHint;
+
+  /// No description provided for @unitTypeOfSaleHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Typ sprzedaży, np. offPlan'**
+  String get unitTypeOfSaleHint;
+
+  /// No description provided for @unitTypePlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Typ jednostki'**
+  String get unitTypePlaceholder;
+
+  /// No description provided for @unitLayoutPlaceholder.
+  ///
+  /// In pl, this message translates to:
+  /// **'Układ'**
+  String get unitLayoutPlaceholder;
+
+  /// No description provided for @unitRequiredFields.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wybierz projekt i podaj numer jednostki'**
+  String get unitRequiredFields;
+
+  /// No description provided for @unitManualNote.
+  ///
+  /// In pl, this message translates to:
+  /// **'Jednostki dodane tutaj nie są nadpisywane przez nocną synchronizację z GenieMap.'**
+  String get unitManualNote;
 }
 
 class _AppLocalizationsDelegate

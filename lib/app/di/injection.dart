@@ -35,7 +35,18 @@ import '../../features/admins/data/datasources/admins_remote_data_source.dart';
 import '../../features/admins/data/repositories/admins_repository_impl.dart';
 import '../../features/admins/domain/repositories/admins_repository.dart';
 import '../../features/admins/presentation/view_model/admin_form_cubit.dart';
+import '../../features/lookups/data/datasources/lookups_remote_data_source.dart';
+import '../../features/lookups/data/repositories/lookups_repository_impl.dart';
+import '../../features/lookups/domain/repositories/lookups_repository.dart';
 import '../../features/news/presentation/view_model/news_list_cubit.dart';
+import '../../features/projects/data/datasources/projects_remote_data_source.dart';
+import '../../features/projects/data/repositories/projects_repository_impl.dart';
+import '../../features/projects/domain/repositories/projects_repository.dart';
+import '../../features/projects/presentation/view_model/project_form_cubit.dart';
+import '../../features/units/data/datasources/units_remote_data_source.dart';
+import '../../features/units/data/repositories/units_repository_impl.dart';
+import '../../features/units/domain/repositories/units_repository.dart';
+import '../../features/units/presentation/view_model/add_unit_cubit.dart';
 import '../../features/settings/data/datasources/profile_remote_data_source.dart';
 import '../../features/settings/data/repositories/profile_repository_impl.dart';
 import '../../features/settings/domain/repositories/profile_repository.dart';
@@ -71,6 +82,9 @@ Future<void> setupDependencies({
   _registerUsers();
   _registerAdmins();
   _registerSettings();
+  _registerLookups();
+  _registerProjects();
+  _registerUnits();
 }
 
 void _registerCore(
@@ -160,8 +174,6 @@ void _registerUsers() {
     ..registerFactory(() => CsvImportCubit(getIt(), getIt(), getIt(), getIt()));
 }
 
-/// Ekran „Dodaj jednostkę” (`features/units`) celowo nie jest tu
-/// rejestrowany — nie ma jeszcze endpointu ani trasy.
 void _registerSettings() {
   getIt
     ..registerLazySingleton<ProfileRemoteDataSource>(
@@ -173,6 +185,38 @@ void _registerSettings() {
     ..registerFactory(() => ProfileCubit(getIt()))
     ..registerFactory(() => EditProfileCubit(getIt(), getIt()))
     ..registerFactory(() => UpdatePasswordCubit(getIt()));
+}
+
+/// Słowniki (dzielnice, deweloperzy, typy jednostek, układy) są wspólne
+/// dla formularzy projektu i jednostki.
+void _registerLookups() {
+  getIt
+    ..registerLazySingleton<LookupsRemoteDataSource>(
+      () => LookupsRemoteDataSourceImpl(getIt()),
+    )
+    ..registerLazySingleton<LookupsRepository>(
+      () => LookupsRepositoryImpl(getIt()),
+    );
+}
+
+void _registerProjects() {
+  getIt
+    ..registerLazySingleton<ProjectsRemoteDataSource>(
+      () => ProjectsRemoteDataSourceImpl(getIt()),
+    )
+    ..registerLazySingleton<ProjectsRepository>(
+      () => ProjectsRepositoryImpl(getIt()),
+    )
+    ..registerFactory(() => ProjectFormCubit(getIt(), getIt()));
+}
+
+void _registerUnits() {
+  getIt
+    ..registerLazySingleton<UnitsRemoteDataSource>(
+      () => UnitsRemoteDataSourceImpl(getIt()),
+    )
+    ..registerLazySingleton<UnitsRepository>(() => UnitsRepositoryImpl(getIt()))
+    ..registerFactory(() => AddUnitCubit(getIt(), getIt(), getIt()));
 }
 
 void _registerAdmins() {

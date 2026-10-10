@@ -45,10 +45,15 @@ class HomeTileGrid extends StatelessWidget {
           label: l10n.homeCompanies,
           onTap: () => open(AppRoutes.companies),
         ),
-        // Ekran jednostek nie jest jeszcze podłączony (brak trasy).
+        HomeTile(
+          icon: Icons.domain_add,
+          label: l10n.homeAddProjects,
+          onTap: () => open(AppRoutes.addProject),
+        ),
         HomeTile(
           icon: compact ? Icons.other_houses_rounded : Icons.other_houses,
           label: l10n.homeAddUnits,
+          onTap: () => open(AppRoutes.addUnit),
         ),
         HomeTile(
           icon: Icons.person_add,
