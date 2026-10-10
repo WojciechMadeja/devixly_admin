@@ -16,6 +16,7 @@ import '../../../../core/widgets/skeleton.dart';
 import '../../../../core/widgets/dialogs/show_app_dialog.dart';
 import '../../../../core/widgets/image_gallery.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
+import '../../../../core/widgets/dialogs/confirm_dialog.dart';
 import '../../../../core/widgets/dialogs/typed_confirmation_dialog.dart';
 import '../../../units/domain/entities/project_unit.dart';
 import '../../../units/presentation/widgets/shared/edit_unit_dialog.dart';
@@ -23,6 +24,9 @@ import '../../../units/presentation/widgets/shared/unit_preview_dialog.dart';
 import '../../../units/presentation/widgets/shared/units_table.dart';
 import '../view_model/project_details_cubit.dart';
 import '../view_model/project_details_state.dart';
+import '../../domain/entities/payment_plan_drafts.dart';
+import '../../domain/entities/project_details.dart';
+import '../widgets/project_details_view/payment_plan_dialogs.dart';
 import '../widgets/project_details_view/payment_plans_section.dart';
 import '../widgets/project_details_view/project_summary_card.dart';
 
@@ -83,7 +87,14 @@ class _ProjectDetailsBody extends StatelessWidget {
                 ),
                 const GoldDivider(),
                 _SectionTitle(l10n.projectDetailsPaymentPlans),
-                PaymentPlansSection(plans: value.paymentPlans),
+                PaymentPlansSection(
+                  plans: value.paymentPlans,
+                  onAddPlan: () => _addPaymentPlan(context, value.summary.id),
+                  onDeletePlan: (plan) => _confirmDeletePlan(context, plan),
+                  onAddItem: (plan) => _addPaymentItem(context, plan),
+                  onDeleteItem: (plan, item) =>
+                      _confirmDeleteItem(context, plan, item),
+                ),
               ] else if (state.details is Loading<Object>) ...[
                 const SkeletonBox(width: 600, height: 160),
               ],
@@ -104,6 +115,128 @@ class _ProjectDetailsBody extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _addPaymentPlan(BuildContext context, int projectId) {
+  final cubit = context.read<ProjectDetailsCubit>();
+  final messenger = ScaffoldMessenger.of(context);
+  final l10n = context.l10n;
+  return showAppDialog<void>(
+    context,
+    builder: (_) => PaymentEntryDialog(
+      title: l10n.paymentPlanAddTitle,
+      nameHint: l10n.paymentPlanNameHint,
+      descriptionHint: l10n.paymentPlanDescriptionHint,
+      withPostHandover: true,
+      onSave:
+          ({
+            required String name,
+            required String description,
+            required bool postHandover,
+          }) async {
+            final saved = await cubit.addPaymentPlan(
+              PaymentPlanDraft(
+                projectId: projectId,
+                name: name,
+                description: description,
+                postHandover: postHandover,
+              ),
+            );
+            if (saved) {
+              AppSnackBar.success(messenger, l10n.paymentPlanSaved);
+            } else {
+              AppSnackBar.error(messenger, l10n.paymentPlanSaveFailed);
+            }
+            return saved;
+          },
+    ),
+  );
+}
+
+Future<void> _addPaymentItem(BuildContext context, ProjectPaymentPlan plan) {
+  final cubit = context.read<ProjectDetailsCubit>();
+  final messenger = ScaffoldMessenger.of(context);
+  final l10n = context.l10n;
+  return showAppDialog<void>(
+    context,
+    builder: (_) => PaymentEntryDialog(
+      title: l10n.paymentItemAddTitle,
+      nameHint: l10n.paymentItemNameHint,
+      descriptionHint: l10n.paymentItemDescriptionHint,
+      onSave:
+          ({
+            required String name,
+            required String description,
+            required bool postHandover,
+          }) async {
+            final saved = await cubit.addPaymentItem(
+              PaymentItemDraft(
+                paymentPlanId: plan.id,
+                name: name,
+                description: description,
+              ),
+            );
+            if (saved) {
+              AppSnackBar.success(messenger, l10n.paymentItemSaved);
+            } else {
+              AppSnackBar.error(messenger, l10n.paymentItemSaveFailed);
+            }
+            return saved;
+          },
+    ),
+  );
+}
+
+Future<void> _confirmDeletePlan(BuildContext context, ProjectPaymentPlan plan) {
+  final cubit = context.read<ProjectDetailsCubit>();
+  final messenger = ScaffoldMessenger.of(context);
+  final l10n = context.l10n;
+  return showAppDialog<void>(
+    context,
+    builder: (_) => ConfirmDialog(
+      message: l10n.paymentPlanDeleteMessage,
+      highlight: plan.name,
+      hint: plan.isManual ? null : l10n.paymentPlanSyncedWarning,
+      confirmLabel: l10n.commonDelete,
+      onConfirm: () async {
+        final removed = await cubit.deletePaymentPlan(plan.id);
+        if (removed) {
+          AppSnackBar.success(messenger, l10n.paymentPlanDeleted);
+        } else {
+          AppSnackBar.error(messenger, l10n.paymentPlanDeleteFailed);
+        }
+        return removed;
+      },
+    ),
+  );
+}
+
+Future<void> _confirmDeleteItem(
+  BuildContext context,
+  ProjectPaymentPlan plan,
+  ProjectPaymentItem item,
+) {
+  final cubit = context.read<ProjectDetailsCubit>();
+  final messenger = ScaffoldMessenger.of(context);
+  final l10n = context.l10n;
+  return showAppDialog<void>(
+    context,
+    builder: (_) => ConfirmDialog(
+      message: l10n.paymentItemDeleteMessage,
+      highlight: item.name,
+      hint: plan.isManual ? null : l10n.paymentPlanSyncedWarning,
+      confirmLabel: l10n.commonDelete,
+      onConfirm: () async {
+        final removed = await cubit.deletePaymentItem(item.id);
+        if (removed) {
+          AppSnackBar.success(messenger, l10n.paymentItemDeleted);
+        } else {
+          AppSnackBar.error(messenger, l10n.paymentItemDeleteFailed);
+        }
+        return removed;
+      },
+    ),
+  );
 }
 
 Future<void> _editUnit(BuildContext context, ProjectUnit unit) {

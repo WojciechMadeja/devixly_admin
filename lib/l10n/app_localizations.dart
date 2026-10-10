@@ -1396,6 +1396,126 @@ abstract class AppLocalizations {
   /// **'Plany płatności'**
   String get projectDetailsPaymentPlans;
 
+  /// No description provided for @paymentPlanAddTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj plan płatności'**
+  String get paymentPlanAddTitle;
+
+  /// No description provided for @paymentPlanNameHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nazwa planu, np. 60/40'**
+  String get paymentPlanNameHint;
+
+  /// No description provided for @paymentPlanDescriptionHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Opis planu'**
+  String get paymentPlanDescriptionHint;
+
+  /// No description provided for @paymentPlanAdd.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj plan'**
+  String get paymentPlanAdd;
+
+  /// No description provided for @paymentPlanSaved.
+  ///
+  /// In pl, this message translates to:
+  /// **'Plan płatności dodany'**
+  String get paymentPlanSaved;
+
+  /// No description provided for @paymentPlanSaveFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się dodać planu płatności'**
+  String get paymentPlanSaveFailed;
+
+  /// No description provided for @paymentPlanDeleteMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz usunąć plan płatności?'**
+  String get paymentPlanDeleteMessage;
+
+  /// No description provided for @paymentPlanDeleted.
+  ///
+  /// In pl, this message translates to:
+  /// **'Plan płatności usunięty'**
+  String get paymentPlanDeleted;
+
+  /// No description provided for @paymentPlanDeleteFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się usunąć planu płatności'**
+  String get paymentPlanDeleteFailed;
+
+  /// No description provided for @paymentPlanSyncedWarning.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ten plan pochodzi z GenieMap — nocna synchronizacja przywróci go.'**
+  String get paymentPlanSyncedWarning;
+
+  /// No description provided for @paymentItemAddTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj ratę'**
+  String get paymentItemAddTitle;
+
+  /// No description provided for @paymentItemNameHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nazwa raty, np. 20% przy rezerwacji'**
+  String get paymentItemNameHint;
+
+  /// No description provided for @paymentItemDescriptionHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Opis raty'**
+  String get paymentItemDescriptionHint;
+
+  /// No description provided for @paymentItemAdd.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj ratę'**
+  String get paymentItemAdd;
+
+  /// No description provided for @paymentItemSaved.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rata dodana'**
+  String get paymentItemSaved;
+
+  /// No description provided for @paymentItemSaveFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się dodać raty'**
+  String get paymentItemSaveFailed;
+
+  /// No description provided for @paymentItemDeleteMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz usunąć ratę?'**
+  String get paymentItemDeleteMessage;
+
+  /// No description provided for @paymentItemDeleted.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rata usunięta'**
+  String get paymentItemDeleted;
+
+  /// No description provided for @paymentItemDeleteFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się usunąć raty'**
+  String get paymentItemDeleteFailed;
+
+  /// No description provided for @paymentNameRequired.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wpisz nazwę'**
+  String get paymentNameRequired;
+
   /// No description provided for @projectDetailsNoPaymentPlans.
   ///
   /// In pl, this message translates to:

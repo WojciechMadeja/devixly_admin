@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fpdart/fpdart.dart';
+
+import '../../../../core/errors/failures.dart';
 
 import '../../../../core/state/loadable.dart';
 import '../../../lookups/domain/repositories/lookups_repository.dart';
 import '../../../units/domain/entities/unit_draft.dart';
 import '../../../units/domain/repositories/units_repository.dart';
+import '../../domain/entities/payment_plan_drafts.dart';
 import '../../domain/repositories/projects_repository.dart';
 import 'project_details_state.dart';
 
@@ -39,6 +43,40 @@ class ProjectDetailsCubit extends Cubit<ProjectDetailsState> {
         layouts: layouts.getOrElse((_) => const []),
       ),
     );
+  }
+
+  /// Dodaje plan płatności; zwraca, czy się udało.
+  Future<bool> addPaymentPlan(PaymentPlanDraft draft) =>
+      _afterChange(_projects.addPaymentPlan(draft));
+
+  Future<bool> deletePaymentPlan(int id) =>
+      _afterChange(_projects.deletePaymentPlan(id));
+
+  Future<bool> addPaymentItem(PaymentItemDraft draft) =>
+      _afterChange(_projects.addPaymentItem(draft));
+
+  Future<bool> deletePaymentItem(int id) =>
+      _afterChange(_projects.deletePaymentItem(id));
+
+  /// Po zmianie w planach czytamy projekt od nowa — plany i raty
+  /// przychodzą razem z nim.
+  Future<bool> _afterChange(Future<Either<Failure, Unit>> change) async {
+    final result = await change;
+    if (isClosed) return false;
+    return result.match((_) => false, (_) {
+      unawaited(_reloadDetails());
+      return true;
+    });
+  }
+
+  Future<void> _reloadDetails() async {
+    final projectId = _projectId;
+    if (projectId == null) return;
+    final result = await _projects.getProject(projectId);
+    if (isClosed) return;
+    result.match((_) {}, (details) {
+      emit(state.copyWith(details: Loadable.loaded(details)));
+    });
   }
 
   /// Zapisuje zmiany jednostki; zwraca, czy się udało.

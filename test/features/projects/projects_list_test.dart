@@ -8,8 +8,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:devixly_admin/core/widgets/dialogs/typed_confirmation_dialog.dart';
 import 'package:devixly_admin/core/widgets/image_gallery.dart';
+import 'package:devixly_admin/features/projects/presentation/widgets/project_details_view/payment_plan_dialogs.dart';
 import 'package:devixly_admin/features/units/presentation/widgets/shared/edit_unit_dialog.dart';
 import 'package:devixly_admin/features/units/presentation/widgets/shared/unit_preview_dialog.dart';
+import 'package:devixly_admin/features/units/presentation/widgets/shared/units_table.dart';
 
 import '../../helpers/app_harness.dart';
 import '../../helpers/fake_network_images.dart';
@@ -174,6 +176,70 @@ void main() {
       expect(gallery.urls, ['https://api.devixly.com/files/plan-1203.png']);
     });
 
+    testWidgets('dodaje plan płatności bez numeru z GenieMap', (tester) async {
+      await pumpView(
+        tester,
+        const ProjectDetailsView(projectId: 1),
+        viewport: const Size(1440, 1400),
+      );
+      await tester.pump(const Duration(milliseconds: 300));
+
+      await tester.tap(find.text('Dodaj plan'));
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find
+            .descendant(
+              of: find.byType(PaymentEntryDialog),
+              matching: find.byType(TextFormField),
+            )
+            .first,
+        '80/20',
+      );
+      await tester.tap(find.text('Zapisz'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      final call = api.callsOf('paymentPlan.create').single;
+      final input = call.arguments['input']! as Map<String, Object?>;
+      expect(input['projectId'], 1);
+      expect(input['name'], '80/20');
+      // Numer nadaje backend — ręczne plany dostają ujemny.
+      expect(input.containsKey('externalId'), isFalse);
+      // Po zapisie czytamy projekt od nowa, żeby zobaczyć nowy plan.
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(api.callsOf('project.getById'), hasLength(2));
+    });
+
+    testWidgets('dodaje ratę do planu', (tester) async {
+      await pumpView(
+        tester,
+        const ProjectDetailsView(projectId: 1),
+        viewport: const Size(1440, 1400),
+      );
+      await tester.pump(const Duration(milliseconds: 300));
+
+      await tester.tap(find.text('Dodaj ratę').first);
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find
+            .descendant(
+              of: find.byType(PaymentEntryDialog),
+              matching: find.byType(TextFormField),
+            )
+            .first,
+        '10% przy odbiorze',
+      );
+      await tester.tap(find.text('Zapisz'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      final input =
+          api.callsOf('item.create').single.arguments['input']!
+              as Map<String, Object?>;
+      expect(input['paymentPlanId'], 10);
+      expect(input['name'], '10% przy odbiorze');
+    });
+
     testWidgets('edycja jednostki zapisuje zmiany', (tester) async {
       await pumpView(
         tester,
@@ -182,7 +248,14 @@ void main() {
       );
       await tester.pump(const Duration(milliseconds: 300));
 
-      await tester.tap(find.byIcon(Icons.edit_outlined).first);
+      await tester.tap(
+        find
+            .descendant(
+              of: find.byType(UnitsTable),
+              matching: find.byIcon(Icons.edit_outlined),
+            )
+            .first,
+      );
       await tester.pumpAndSettle();
 
       // Pierwsze pole dialogu to numer jednostki.
@@ -212,7 +285,14 @@ void main() {
       );
       await tester.pump(const Duration(milliseconds: 300));
 
-      await tester.tap(find.byIcon(Icons.delete_outline).first);
+      await tester.tap(
+        find
+            .descendant(
+              of: find.byType(UnitsTable),
+              matching: find.byIcon(Icons.delete_outline),
+            )
+            .first,
+      );
       await tester.pumpAndSettle();
       await tester.enterText(
         find.descendant(

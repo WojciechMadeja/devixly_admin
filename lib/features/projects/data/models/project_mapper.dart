@@ -57,12 +57,15 @@ List<String> _imageUrls(sp.Project project) {
 extension PaymentPlanMapper on sp.PaymentPlan {
   /// Nazwy i opisy pokazujemy po polsku, gdy backend ma tłumaczenie.
   ProjectPaymentPlan toEntity() => ProjectPaymentPlan(
+    id: id!,
+    externalId: externalId,
     name: namePl ?? name,
     description: descriptionPl ?? description,
     postHandover: postHandover,
     items: [
       for (final item in items ?? const <sp.Item>[])
         ProjectPaymentItem(
+          id: item.id!,
           name: item.namePl ?? item.name,
           description: item.descriptionPl ?? item.description,
         ),

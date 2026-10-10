@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/errors/failures.dart';
+import '../entities/payment_plan_drafts.dart';
 import '../entities/project_details.dart';
 import '../entities/project_draft.dart';
 import '../entities/project_option.dart';
@@ -22,4 +23,14 @@ abstract interface class ProjectsRepository {
   Future<Either<Failure, List<ProjectSummary>>> getProjects({String? search});
 
   Future<Either<Failure, ProjectDetails>> getProject(int id);
+
+  /// Plany płatności i raty dodane w panelu dostają w backendzie ujemny
+  /// numer, więc nocna synchronizacja ich nie usuwa.
+  Future<Either<Failure, Unit>> addPaymentPlan(PaymentPlanDraft draft);
+
+  Future<Either<Failure, Unit>> deletePaymentPlan(int id);
+
+  Future<Either<Failure, Unit>> addPaymentItem(PaymentItemDraft draft);
+
+  Future<Either<Failure, Unit>> deletePaymentItem(int id);
 }

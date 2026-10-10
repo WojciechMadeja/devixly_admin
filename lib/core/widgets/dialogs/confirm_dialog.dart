@@ -17,6 +17,7 @@ class ConfirmDialog extends StatefulWidget {
     required this.confirmLabel,
     required this.onConfirm,
     this.highlight,
+    this.hint,
     this.confirmColor = AppColors.accent3,
   });
 
@@ -24,6 +25,10 @@ class ConfirmDialog extends StatefulWidget {
 
   /// Pogrubiona nazwa elementu pod pytaniem, np. tytuł aktualności.
   final String? highlight;
+
+  /// Dodatkowe ostrzeżenie pod nazwą, np. że rekord wróci przy najbliższej
+  /// synchronizacji.
+  final String? hint;
   final String confirmLabel;
   final Color confirmColor;
   final Future<bool> Function() onConfirm;
@@ -66,6 +71,12 @@ class _ConfirmDialogState extends State<ConfirmDialog> {
               textAlign: TextAlign.center,
               style: AppTextStyles.bodyLargeBold,
             ),
+          ),
+        if (widget.hint case final hint?)
+          Text(
+            hint,
+            textAlign: TextAlign.center,
+            style: AppTextStyles.bodySmall.copyWith(color: AppColors.accent1),
           ),
         DialogActions(
           children: [

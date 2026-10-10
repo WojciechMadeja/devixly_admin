@@ -3,6 +3,7 @@ import 'package:background_devixly_client/background_devixly_client.dart'
     show Client;
 
 import '../../../../core/network/backend_call.dart';
+import '../../domain/entities/payment_plan_drafts.dart';
 import '../../domain/entities/project_draft.dart';
 
 abstract interface class ProjectsRemoteDataSource {
@@ -17,6 +18,14 @@ abstract interface class ProjectsRemoteDataSource {
   Future<List<sp.Project>> getProjects({String? search});
 
   Future<sp.Project?> getProject(int id);
+
+  Future<sp.PaymentPlan> addPaymentPlan(PaymentPlanDraft draft);
+
+  Future<void> deletePaymentPlan(int id);
+
+  Future<sp.Item> addPaymentItem(PaymentItemDraft draft);
+
+  Future<void> deletePaymentItem(int id);
 }
 
 /// Projekty w backendzie (`ProjectEndpoint`). Zapis wymaga uprawnień
@@ -44,6 +53,42 @@ class ProjectsRemoteDataSourceImpl implements ProjectsRemoteDataSource {
   @override
   Future<void> deleteProject(int id) =>
       backendCall(() => _client.project.delete(id));
+
+  /// Bez numeru backend nada ujemny — taki, jakiego GenieMap nie używa.
+  @override
+  Future<sp.PaymentPlan> addPaymentPlan(PaymentPlanDraft draft) => backendCall(
+    () => _client.paymentPlan.create(
+      sp.PaymentPlanInput(
+        projectId: draft.projectId,
+        name: draft.name,
+        namePl: draft.name,
+        description: draft.description,
+        descriptionPl: draft.description,
+        postHandover: draft.postHandover,
+      ),
+    ),
+  );
+
+  @override
+  Future<void> deletePaymentPlan(int id) =>
+      backendCall(() => _client.paymentPlan.delete(id));
+
+  @override
+  Future<sp.Item> addPaymentItem(PaymentItemDraft draft) => backendCall(
+    () => _client.item.create(
+      sp.ItemInput(
+        paymentPlanId: draft.paymentPlanId,
+        name: draft.name,
+        namePl: draft.name,
+        description: draft.description,
+        descriptionPl: draft.description,
+      ),
+    ),
+  );
+
+  @override
+  Future<void> deletePaymentItem(int id) =>
+      backendCall(() => _client.item.delete(id));
 
   static sp.ProjectInput _input(ProjectDraft draft, {sp.Project? existing}) =>
       sp.ProjectInput(

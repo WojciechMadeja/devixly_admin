@@ -685,6 +685,68 @@ class AppLocalizationsPl extends AppLocalizations {
   String get projectDetailsPaymentPlans => 'Plany płatności';
 
   @override
+  String get paymentPlanAddTitle => 'Dodaj plan płatności';
+
+  @override
+  String get paymentPlanNameHint => 'Nazwa planu, np. 60/40';
+
+  @override
+  String get paymentPlanDescriptionHint => 'Opis planu';
+
+  @override
+  String get paymentPlanAdd => 'Dodaj plan';
+
+  @override
+  String get paymentPlanSaved => 'Plan płatności dodany';
+
+  @override
+  String get paymentPlanSaveFailed => 'Nie udało się dodać planu płatności';
+
+  @override
+  String get paymentPlanDeleteMessage =>
+      'Czy na pewno chcesz usunąć plan płatności?';
+
+  @override
+  String get paymentPlanDeleted => 'Plan płatności usunięty';
+
+  @override
+  String get paymentPlanDeleteFailed => 'Nie udało się usunąć planu płatności';
+
+  @override
+  String get paymentPlanSyncedWarning =>
+      'Ten plan pochodzi z GenieMap — nocna synchronizacja przywróci go.';
+
+  @override
+  String get paymentItemAddTitle => 'Dodaj ratę';
+
+  @override
+  String get paymentItemNameHint => 'Nazwa raty, np. 20% przy rezerwacji';
+
+  @override
+  String get paymentItemDescriptionHint => 'Opis raty';
+
+  @override
+  String get paymentItemAdd => 'Dodaj ratę';
+
+  @override
+  String get paymentItemSaved => 'Rata dodana';
+
+  @override
+  String get paymentItemSaveFailed => 'Nie udało się dodać raty';
+
+  @override
+  String get paymentItemDeleteMessage => 'Czy na pewno chcesz usunąć ratę?';
+
+  @override
+  String get paymentItemDeleted => 'Rata usunięta';
+
+  @override
+  String get paymentItemDeleteFailed => 'Nie udało się usunąć raty';
+
+  @override
+  String get paymentNameRequired => 'Wpisz nazwę';
+
+  @override
   String get projectDetailsNoPaymentPlans =>
       'Ten projekt nie ma planów płatności';
 

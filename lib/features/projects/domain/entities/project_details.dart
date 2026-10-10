@@ -57,12 +57,18 @@ class ProjectDetails extends Equatable {
 /// Plan płatności projektu razem z jego ratami.
 class ProjectPaymentPlan extends Equatable {
   const ProjectPaymentPlan({
+    required this.id,
+    required this.externalId,
     required this.name,
     required this.items,
     this.description = '',
     this.postHandover = false,
   });
 
+  final int id;
+
+  /// Numer z GenieMap; ujemny oznacza plan dodany ręcznie w panelu.
+  final int externalId;
   final String name;
   final List<ProjectPaymentItem> items;
   final String description;
@@ -70,17 +76,32 @@ class ProjectPaymentPlan extends Equatable {
   /// Plan z płatnościami po odbiorze kluczy.
   final bool postHandover;
 
+  /// Plan dodany ręcznie w panelu — synchronizacja go nie rusza.
+  bool get isManual => externalId < 0;
+
   @override
-  List<Object?> get props => [name, items, description, postHandover];
+  List<Object?> get props => [
+    id,
+    externalId,
+    name,
+    items,
+    description,
+    postHandover,
+  ];
 }
 
 /// Pojedyncza rata planu płatności.
 class ProjectPaymentItem extends Equatable {
-  const ProjectPaymentItem({required this.name, this.description = ''});
+  const ProjectPaymentItem({
+    required this.id,
+    required this.name,
+    this.description = '',
+  });
 
+  final int id;
   final String name;
   final String description;
 
   @override
-  List<Object?> get props => [name, description];
+  List<Object?> get props => [id, name, description];
 }

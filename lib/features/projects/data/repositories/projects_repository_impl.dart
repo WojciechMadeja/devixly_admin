@@ -4,6 +4,7 @@ import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/errors/guard.dart';
+import '../../domain/entities/payment_plan_drafts.dart';
 import '../../domain/entities/project_details.dart';
 import '../../domain/entities/project_draft.dart';
 import '../../domain/entities/project_option.dart';
@@ -46,6 +47,32 @@ class ProjectsRepositoryImpl implements ProjectsRepository {
             project.toSummary(),
         ],
       );
+
+  @override
+  Future<Either<Failure, Unit>> addPaymentPlan(PaymentPlanDraft draft) =>
+      guard(() async {
+        await _remote.addPaymentPlan(draft);
+        return unit;
+      });
+
+  @override
+  Future<Either<Failure, Unit>> deletePaymentPlan(int id) => guard(() async {
+    await _remote.deletePaymentPlan(id);
+    return unit;
+  });
+
+  @override
+  Future<Either<Failure, Unit>> addPaymentItem(PaymentItemDraft draft) =>
+      guard(() async {
+        await _remote.addPaymentItem(draft);
+        return unit;
+      });
+
+  @override
+  Future<Either<Failure, Unit>> deletePaymentItem(int id) => guard(() async {
+    await _remote.deletePaymentItem(id);
+    return unit;
+  });
 
   @override
   Future<Either<Failure, ProjectDetails>> getProject(int id) => guard(() async {
