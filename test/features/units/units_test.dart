@@ -87,6 +87,33 @@ void main() {
       expect(find.text('Palm Residence'), findsOneWidget);
     });
 
+    testWidgets('projekty o tej samej nazwie nie psują listy', (tester) async {
+      await getIt.reset();
+      api = await setUpTestDependencies(
+        api: FakeBackend(
+          overrides: {
+            'project.listOptionsForUnit': const FakeResponse(
+              'project_options_duplicates.json',
+            ),
+          },
+        ),
+      );
+      await pumpView(
+        tester,
+        const AddUnitView(),
+        viewport: GoldenViewport.desktop,
+      );
+
+      await tester.tap(find.text('Wyszukaj projekt'));
+      await tester.pumpAndSettle();
+
+      expect(tester.takeException(), isNull);
+      expect(find.text('ELLINGTON NEW LAUNCH'), findsNWidgets(2));
+      // Rozróżnia je numer projektu.
+      expect(find.text('Nr 5001'), findsOneWidget);
+      expect(find.text('Nr 5002'), findsOneWidget);
+    });
+
     testWidgets('bez projektu nie wysyłamy jednostki', (tester) async {
       await pumpView(
         tester,

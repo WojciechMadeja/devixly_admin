@@ -4,7 +4,6 @@ import '../../l10n/l10n.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_text_styles.dart';
 import '../app_text_field.dart';
-import '../list_card.dart';
 import '../tap_area.dart';
 
 /// Lista wyboru z wyszukiwarką — dla słowników i projektów, których bywa
@@ -41,7 +40,7 @@ class _SearchablePickerDialogState<T> extends State<SearchablePickerDialog<T>> {
   String _query = '';
 
   static const _shape = RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(8)),
+    borderRadius: BorderRadius.all(Radius.circular(20)),
   );
 
   @override
@@ -61,7 +60,7 @@ class _SearchablePickerDialogState<T> extends State<SearchablePickerDialog<T>> {
         if (widget.matches(item, _query)) item,
     ];
     return Container(
-      width: 320,
+      width: 360,
       constraints: const BoxConstraints(maxHeight: 700),
       child: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -72,7 +71,7 @@ class _SearchablePickerDialogState<T> extends State<SearchablePickerDialog<T>> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
               child: AppTextField(
                 controller: _search,
                 hintText: widget.searchHint ?? l10n.pickerSearchHint,
@@ -81,23 +80,27 @@ class _SearchablePickerDialogState<T> extends State<SearchablePickerDialog<T>> {
             ),
             if (found.isEmpty)
               Padding(
-                padding: const EdgeInsets.only(bottom: 15),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 25),
                 child: Text(
                   widget.emptyLabel ?? l10n.pickerNoResults,
+                  textAlign: TextAlign.center,
                   style: emptyStyle,
                 ),
               )
             else
               Flexible(
                 child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    spacing: 5,
+                    spacing: 10,
                     children: [
                       for (final item in found)
                         TapArea(
-                          key: ValueKey(widget.labelOf(item)),
+                          // Nazwy bywają takie same (np. dwa etapy tej
+                          // samej inwestycji), więc kluczem jest pozycja,
+                          // a nie jej podpis.
+                          key: ObjectKey(item),
                           onTap: () => Navigator.pop(context, item),
                           child: _PickerCard(
                             label: widget.labelOf(item),
@@ -128,33 +131,50 @@ class _PickerCard extends StatefulWidget {
 class _PickerCardState extends State<_PickerCard> {
   bool _hovered = false;
 
+  static const _shape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(12)),
+  );
+
   @override
   Widget build(BuildContext context) {
     final subtitle = widget.subtitle;
     return MouseRegion(
       opaque: false,
+      cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
-      child: ListCard(
+      child: Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        margin: EdgeInsets.zero,
         color: _hovered ? AppColors.tertiary : AppColors.primaryBackground,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              widget.label,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: AppTextStyles.bodySemiBold,
-            ),
-            if (subtitle != null)
+        elevation: 4,
+        shape: _shape,
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 2,
+            children: [
               Text(
-                subtitle,
-                maxLines: 1,
+                widget.label,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: AppTextStyles.bodySmall,
+                textAlign: TextAlign.center,
+                style: AppTextStyles.bodySemiBold,
               ),
-          ],
+              if (subtitle != null)
+                Text(
+                  subtitle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.bodySmall.copyWith(
+                    color: AppColors.secondaryText,
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

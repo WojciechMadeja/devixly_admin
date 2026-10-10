@@ -1267,7 +1267,7 @@ abstract class AppLocalizations {
   /// No description provided for @unitProjectSearchHint.
   ///
   /// In pl, this message translates to:
-  /// **'Szukaj projektu po nazwie lub numerze'**
+  /// **'Szukaj po nazwie lub numerze'**
   String get unitProjectSearchHint;
 
   /// No description provided for @unitProjectLabel.
