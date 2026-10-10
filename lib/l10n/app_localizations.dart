@@ -1288,6 +1288,234 @@ abstract class AppLocalizations {
   /// **'Nr'**
   String get projectExternalIdLabel;
 
+  /// No description provided for @homeProjectsList.
+  ///
+  /// In pl, this message translates to:
+  /// **'Lista projektów'**
+  String get homeProjectsList;
+
+  /// No description provided for @projectsListTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Lista projektów'**
+  String get projectsListTitle;
+
+  /// No description provided for @projectsSearchHint.
+  ///
+  /// In pl, this message translates to:
+  /// **'Szukaj projektu po nazwie'**
+  String get projectsSearchHint;
+
+  /// No description provided for @projectsEmpty.
+  ///
+  /// In pl, this message translates to:
+  /// **'Brak projektów do pokazania'**
+  String get projectsEmpty;
+
+  /// No description provided for @projectsColumnName.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nazwa'**
+  String get projectsColumnName;
+
+  /// No description provided for @projectsColumnDistrict.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dzielnica'**
+  String get projectsColumnDistrict;
+
+  /// No description provided for @projectsColumnDeveloper.
+  ///
+  /// In pl, this message translates to:
+  /// **'Deweloper'**
+  String get projectsColumnDeveloper;
+
+  /// No description provided for @projectsColumnStatus.
+  ///
+  /// In pl, this message translates to:
+  /// **'Status'**
+  String get projectsColumnStatus;
+
+  /// No description provided for @projectsColumnHandover.
+  ///
+  /// In pl, this message translates to:
+  /// **'Oddanie'**
+  String get projectsColumnHandover;
+
+  /// No description provided for @projectsColumnPrice.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ceny jednostek'**
+  String get projectsColumnPrice;
+
+  /// No description provided for @projectManualBadge.
+  ///
+  /// In pl, this message translates to:
+  /// **'ręczny'**
+  String get projectManualBadge;
+
+  /// No description provided for @projectDetailsTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Projekt'**
+  String get projectDetailsTitle;
+
+  /// No description provided for @projectDetailsPaymentPlans.
+  ///
+  /// In pl, this message translates to:
+  /// **'Plany płatności'**
+  String get projectDetailsPaymentPlans;
+
+  /// No description provided for @projectDetailsNoPaymentPlans.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ten projekt nie ma planów płatności'**
+  String get projectDetailsNoPaymentPlans;
+
+  /// No description provided for @projectDetailsPostHandover.
+  ///
+  /// In pl, this message translates to:
+  /// **'Płatności po odbiorze'**
+  String get projectDetailsPostHandover;
+
+  /// No description provided for @projectDetailsUnits.
+  ///
+  /// In pl, this message translates to:
+  /// **'Jednostki'**
+  String get projectDetailsUnits;
+
+  /// No description provided for @projectDetailsNoUnits.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ten projekt nie ma jeszcze jednostek'**
+  String get projectDetailsNoUnits;
+
+  /// No description provided for @projectDetailsAddUnit.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dodaj jednostkę'**
+  String get projectDetailsAddUnit;
+
+  /// No description provided for @projectDetailsDeveloper.
+  ///
+  /// In pl, this message translates to:
+  /// **'Deweloper'**
+  String get projectDetailsDeveloper;
+
+  /// No description provided for @projectDetailsDistrict.
+  ///
+  /// In pl, this message translates to:
+  /// **'Dzielnica'**
+  String get projectDetailsDistrict;
+
+  /// No description provided for @projectDetailsStatus.
+  ///
+  /// In pl, this message translates to:
+  /// **'Status'**
+  String get projectDetailsStatus;
+
+  /// No description provided for @projectDetailsHandover.
+  ///
+  /// In pl, this message translates to:
+  /// **'Termin oddania'**
+  String get projectDetailsHandover;
+
+  /// No description provided for @projectDetailsStartOfSales.
+  ///
+  /// In pl, this message translates to:
+  /// **'Start sprzedaży'**
+  String get projectDetailsStartOfSales;
+
+  /// No description provided for @projectDetailsOwnership.
+  ///
+  /// In pl, this message translates to:
+  /// **'Rodzaj własności'**
+  String get projectDetailsOwnership;
+
+  /// No description provided for @projectDetailsPrices.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ceny jednostek'**
+  String get projectDetailsPrices;
+
+  /// No description provided for @projectDetailsAreas.
+  ///
+  /// In pl, this message translates to:
+  /// **'Powierzchnie'**
+  String get projectDetailsAreas;
+
+  /// No description provided for @projectDetailsSaleTypes.
+  ///
+  /// In pl, this message translates to:
+  /// **'Typy sprzedaży'**
+  String get projectDetailsSaleTypes;
+
+  /// No description provided for @projectDetailsDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Opis'**
+  String get projectDetailsDescription;
+
+  /// No description provided for @unitsColumnNumber.
+  ///
+  /// In pl, this message translates to:
+  /// **'Numer'**
+  String get unitsColumnNumber;
+
+  /// No description provided for @unitsColumnFloor.
+  ///
+  /// In pl, this message translates to:
+  /// **'Piętro'**
+  String get unitsColumnFloor;
+
+  /// No description provided for @unitsColumnArea.
+  ///
+  /// In pl, this message translates to:
+  /// **'Powierzchnia'**
+  String get unitsColumnArea;
+
+  /// No description provided for @unitsColumnPrice.
+  ///
+  /// In pl, this message translates to:
+  /// **'Cena'**
+  String get unitsColumnPrice;
+
+  /// No description provided for @unitsColumnPricePer.
+  ///
+  /// In pl, this message translates to:
+  /// **'Cena / ft²'**
+  String get unitsColumnPricePer;
+
+  /// No description provided for @unitsColumnStatus.
+  ///
+  /// In pl, this message translates to:
+  /// **'Status'**
+  String get unitsColumnStatus;
+
+  /// No description provided for @unitsColumnType.
+  ///
+  /// In pl, this message translates to:
+  /// **'Typ'**
+  String get unitsColumnType;
+
+  /// No description provided for @unitsColumnLayout.
+  ///
+  /// In pl, this message translates to:
+  /// **'Układ'**
+  String get unitsColumnLayout;
+
+  /// No description provided for @valueRange.
+  ///
+  /// In pl, this message translates to:
+  /// **'{from} – {to}'**
+  String valueRange(String from, String to);
+
+  /// No description provided for @valueMissing.
+  ///
+  /// In pl, this message translates to:
+  /// **'—'**
+  String get valueMissing;
+
   /// No description provided for @unitNumberHint.
   ///
   /// In pl, this message translates to:

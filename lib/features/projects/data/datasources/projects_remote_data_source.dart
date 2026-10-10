@@ -9,6 +9,10 @@ abstract interface class ProjectsRemoteDataSource {
   Future<sp.Project> addProject(ProjectDraft draft);
 
   Future<List<sp.ProjectOption>> getProjectOptions();
+
+  Future<List<sp.Project>> getProjects({String? search});
+
+  Future<sp.Project?> getProject(int id);
 }
 
 /// Projekty w backendzie (`ProjectEndpoint`). Zapis wymaga uprawnień
@@ -50,4 +54,21 @@ class ProjectsRemoteDataSourceImpl implements ProjectsRemoteDataSource {
   @override
   Future<List<sp.ProjectOption>> getProjectOptions() =>
       backendCall(_client.project.listOptionsForUnit);
+
+  /// Lista z danymi do tabeli; backend dokłada dzielnicę i dewelopera.
+  /// Szukamy po nazwie projektu — backend łączy filtry przez AND, więc ten
+  /// sam tekst w nazwie i deweloperze musiałby pasować do obu naraz.
+  @override
+  Future<List<sp.Project>> getProjects({String? search}) => backendCall(
+    () => _client.project.list(nameContains: _orNull(search), limit: 200),
+  );
+
+  @override
+  Future<sp.Project?> getProject(int id) =>
+      backendCall(() => _client.project.getById(id));
+
+  static String? _orNull(String? value) {
+    final text = value?.trim();
+    return text == null || text.isEmpty ? null : text;
+  }
 }

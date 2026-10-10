@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "createdAt": "2026-10-01T08:00:00.000Z",
+    "externalId": 5001,
+    "name": "Marina Heights",
+    "districtId": 2,
+    "district": {"id": 2, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": "dubai-marina", "name": "Dubai Marina"},
+    "developerId": 3,
+    "developer": {"id": 3, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 77, "name": "Emaar", "address": "Dubai", "contactName": "Ali", "contactPhone": "+971 4 000 0000", "site": "https://emaar.com", "commissionFrom": 2.0, "commissionTo": 5.0, "logoUrl": "https://example.com/emaar.png"},
+    "status": "available",
+    "handover": "2027-06-30T00:00:00.000Z",
+    "noc": 2.5,
+    "unitPriceRangeFrom": 100000,
+    "unitPriceRangeTo": 250000,
+    "saleTypesDeveloper": true,
+    "saleTypesResale": false,
+    "updated": "2026-10-01T08:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "createdAt": "2026-10-02T08:00:00.000Z",
+    "externalId": -1,
+    "name": "Ręczna inwestycja",
+    "noc": 1.0,
+    "saleTypesDeveloper": true,
+    "saleTypesResale": false,
+    "updated": "2026-10-02T08:00:00.000Z"
+  }
+]

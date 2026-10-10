@@ -1,6 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/errors/failures.dart';
+import '../entities/project_unit.dart';
 import '../entities/unit_draft.dart';
 
 /// Zapis jednostek dodawanych ręcznie w panelu (`UnitEndpoint.create`).
@@ -8,4 +9,7 @@ import '../entities/unit_draft.dart';
 /// dotyka.
 abstract interface class UnitsRepository {
   Future<Either<Failure, Unit>> addUnit(UnitDraft draft);
+
+  /// Jednostki wybranego projektu, w kolejności z backendu.
+  Future<Either<Failure, List<ProjectUnit>>> getUnits(int projectId);
 }

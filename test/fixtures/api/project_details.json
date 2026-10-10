@@ -1,0 +1,40 @@
+{
+  "id": 1,
+  "createdAt": "2026-10-01T08:00:00.000Z",
+  "externalId": 5001,
+  "name": "Marina Heights",
+  "districtId": 2,
+  "district": {"id": 2, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": "dubai-marina", "name": "Dubai Marina"},
+  "developerId": 3,
+  "developer": {"id": 3, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 77, "name": "Emaar", "address": "Dubai", "contactName": "Ali", "contactPhone": "+971 4 000 0000", "site": "https://emaar.com", "commissionFrom": 2.0, "commissionTo": 5.0, "logoUrl": "https://example.com/emaar.png"},
+  "status": "available",
+  "descriptionPl": "Apartamenty przy marinie.",
+  "handover": "2027-06-30T00:00:00.000Z",
+  "startOfSales": "2026-11-01T00:00:00.000Z",
+  "noc": 2.5,
+  "unitPriceRangeFrom": 100000,
+  "unitPriceRangeTo": 250000,
+  "unitAreaRangeFrom": 500,
+  "unitAreaRangeTo": 1200,
+  "ownershipType": "freehold",
+  "saleTypesDeveloper": true,
+  "saleTypesResale": false,
+  "updated": "2026-10-01T08:00:00.000Z",
+  "paymentPlans": [
+    {
+      "id": 10,
+      "createdAt": "2026-10-01T08:00:00.000Z",
+      "externalId": 900,
+      "projectId": 1,
+      "name": "60/40",
+      "namePl": "60/40 z odbiorem",
+      "postHandover": true,
+      "description": "Standard plan",
+      "descriptionPl": "Plan standardowy",
+      "items": [
+        {"id": 100, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 9001, "paymentPlanId": 10, "name": "20% down payment", "namePl": "20% przy rezerwacji", "description": "On booking", "descriptionPl": "Przy rezerwacji"},
+        {"id": 101, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 9002, "paymentPlanId": 10, "name": "40% during construction", "namePl": "40% w trakcie budowy", "description": "Milestones", "descriptionPl": "Kamienie milowe"}
+      ]
+    }
+  ]
+}

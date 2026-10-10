@@ -5,6 +5,8 @@ import '../../domain/entities/unit_draft.dart' as domain;
 
 abstract interface class UnitsRemoteDataSource {
   Future<Unit> addUnit(domain.UnitDraft draft);
+
+  Future<List<Unit>> getUnits(int projectId);
 }
 
 /// Jednostki w backendzie (`UnitEndpoint`). Dodana tu jednostka dostaje
@@ -14,6 +16,10 @@ class UnitsRemoteDataSourceImpl implements UnitsRemoteDataSource {
   UnitsRemoteDataSourceImpl(this._client);
 
   final Client _client;
+
+  @override
+  Future<List<Unit>> getUnits(int projectId) =>
+      backendCall(() => _client.unit.getByProject(projectId));
 
   @override
   Future<Unit> addUnit(domain.UnitDraft draft) => backendCall(

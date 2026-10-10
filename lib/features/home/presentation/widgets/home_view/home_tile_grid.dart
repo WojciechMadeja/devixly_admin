@@ -51,6 +51,11 @@ class HomeTileGrid extends StatelessWidget {
           onTap: () => open(AppRoutes.addProject),
         ),
         HomeTile(
+          icon: Icons.apartment,
+          label: l10n.homeProjectsList,
+          onTap: () => open(AppRoutes.projectsList),
+        ),
+        HomeTile(
           icon: compact ? Icons.other_houses_rounded : Icons.other_houses,
           label: l10n.homeAddUnits,
           onTap: () => open(AppRoutes.addUnit),

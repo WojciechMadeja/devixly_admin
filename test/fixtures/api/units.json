@@ -1,0 +1,29 @@
+[
+  {
+    "id": 41,
+    "createdAt": "2026-10-01T08:00:00.000Z",
+    "externalId": 7001,
+    "projectId": 1,
+    "number": "1203",
+    "price": 450000,
+    "pricePer": 450.0,
+    "area": 1000.0,
+    "floor": "12",
+    "status": "available",
+    "unitTypeId": 4,
+    "unitType": {"id": 4, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 11, "nameEn": "Apartment", "namePl": "Apartament"},
+    "layoutId": 6,
+    "layout": {"id": 6, "createdAt": "2026-10-01T08:00:00.000Z", "externalId": 21, "nameEn": "2 bedrooms", "namePl": "2 sypialnie"}
+  },
+  {
+    "id": 42,
+    "createdAt": "2026-10-02T08:00:00.000Z",
+    "externalId": -1,
+    "projectId": 1,
+    "number": "12A",
+    "price": 300000,
+    "area": 800.0,
+    "floor": "3",
+    "status": "available"
+  }
+]

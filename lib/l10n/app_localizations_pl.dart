@@ -630,6 +630,123 @@ class AppLocalizationsPl extends AppLocalizations {
   String get projectExternalIdLabel => 'Nr';
 
   @override
+  String get homeProjectsList => 'Lista projektów';
+
+  @override
+  String get projectsListTitle => 'Lista projektów';
+
+  @override
+  String get projectsSearchHint => 'Szukaj projektu po nazwie';
+
+  @override
+  String get projectsEmpty => 'Brak projektów do pokazania';
+
+  @override
+  String get projectsColumnName => 'Nazwa';
+
+  @override
+  String get projectsColumnDistrict => 'Dzielnica';
+
+  @override
+  String get projectsColumnDeveloper => 'Deweloper';
+
+  @override
+  String get projectsColumnStatus => 'Status';
+
+  @override
+  String get projectsColumnHandover => 'Oddanie';
+
+  @override
+  String get projectsColumnPrice => 'Ceny jednostek';
+
+  @override
+  String get projectManualBadge => 'ręczny';
+
+  @override
+  String get projectDetailsTitle => 'Projekt';
+
+  @override
+  String get projectDetailsPaymentPlans => 'Plany płatności';
+
+  @override
+  String get projectDetailsNoPaymentPlans =>
+      'Ten projekt nie ma planów płatności';
+
+  @override
+  String get projectDetailsPostHandover => 'Płatności po odbiorze';
+
+  @override
+  String get projectDetailsUnits => 'Jednostki';
+
+  @override
+  String get projectDetailsNoUnits => 'Ten projekt nie ma jeszcze jednostek';
+
+  @override
+  String get projectDetailsAddUnit => 'Dodaj jednostkę';
+
+  @override
+  String get projectDetailsDeveloper => 'Deweloper';
+
+  @override
+  String get projectDetailsDistrict => 'Dzielnica';
+
+  @override
+  String get projectDetailsStatus => 'Status';
+
+  @override
+  String get projectDetailsHandover => 'Termin oddania';
+
+  @override
+  String get projectDetailsStartOfSales => 'Start sprzedaży';
+
+  @override
+  String get projectDetailsOwnership => 'Rodzaj własności';
+
+  @override
+  String get projectDetailsPrices => 'Ceny jednostek';
+
+  @override
+  String get projectDetailsAreas => 'Powierzchnie';
+
+  @override
+  String get projectDetailsSaleTypes => 'Typy sprzedaży';
+
+  @override
+  String get projectDetailsDescription => 'Opis';
+
+  @override
+  String get unitsColumnNumber => 'Numer';
+
+  @override
+  String get unitsColumnFloor => 'Piętro';
+
+  @override
+  String get unitsColumnArea => 'Powierzchnia';
+
+  @override
+  String get unitsColumnPrice => 'Cena';
+
+  @override
+  String get unitsColumnPricePer => 'Cena / ft²';
+
+  @override
+  String get unitsColumnStatus => 'Status';
+
+  @override
+  String get unitsColumnType => 'Typ';
+
+  @override
+  String get unitsColumnLayout => 'Układ';
+
+  @override
+  String valueRange(String from, String to) {
+    return '$from – $to';
+  }
+
+  @override
+  String get valueMissing => '—';
+
+  @override
   String get unitNumberHint => 'Numer jednostki';
 
   @override

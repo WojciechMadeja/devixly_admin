@@ -42,7 +42,9 @@ import '../../features/news/presentation/view_model/news_list_cubit.dart';
 import '../../features/projects/data/datasources/projects_remote_data_source.dart';
 import '../../features/projects/data/repositories/projects_repository_impl.dart';
 import '../../features/projects/domain/repositories/projects_repository.dart';
+import '../../features/projects/presentation/view_model/project_details_cubit.dart';
 import '../../features/projects/presentation/view_model/project_form_cubit.dart';
+import '../../features/projects/presentation/view_model/projects_list_cubit.dart';
 import '../../features/units/data/datasources/units_remote_data_source.dart';
 import '../../features/units/data/repositories/units_repository_impl.dart';
 import '../../features/units/domain/repositories/units_repository.dart';
@@ -207,7 +209,9 @@ void _registerProjects() {
     ..registerLazySingleton<ProjectsRepository>(
       () => ProjectsRepositoryImpl(getIt()),
     )
-    ..registerFactory(() => ProjectFormCubit(getIt(), getIt()));
+    ..registerFactory(() => ProjectFormCubit(getIt(), getIt()))
+    ..registerFactory(() => ProjectsListCubit(getIt()))
+    ..registerFactory(() => ProjectDetailsCubit(getIt(), getIt()));
 }
 
 void _registerUnits() {

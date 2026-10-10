@@ -13,6 +13,8 @@ import '../../features/news/presentation/view/edit_news_view.dart';
 import '../../features/admins/presentation/view/add_admin_view.dart';
 import '../../features/news/presentation/view/news_list_view.dart';
 import '../../features/projects/presentation/view/add_project_view.dart';
+import '../../features/projects/presentation/view/project_details_view.dart';
+import '../../features/projects/presentation/view/projects_list_view.dart';
 import '../../features/settings/presentation/view/edit_profile_view.dart';
 import '../../features/settings/presentation/view/settings_view.dart';
 import '../../features/settings/presentation/view/update_password_view.dart';
@@ -96,6 +98,20 @@ GoRouter createAppRouter(SessionCubit session) {
       GoRoute(
         path: AppRoutes.addProject,
         builder: (context, state) => const AddProjectView(),
+      ),
+      GoRoute(
+        path: AppRoutes.projectsList,
+        builder: (context, state) => const ProjectsListView(),
+      ),
+      GoRoute(
+        path: AppRoutes.projectDetails,
+        redirect: (context, state) =>
+            int.tryParse(state.uri.queryParameters['id'] ?? '') == null
+            ? AppRoutes.projectsList
+            : null,
+        builder: (context, state) => ProjectDetailsView(
+          projectId: int.parse(state.uri.queryParameters['id']!),
+        ),
       ),
       GoRoute(
         path: AppRoutes.addUnit,
