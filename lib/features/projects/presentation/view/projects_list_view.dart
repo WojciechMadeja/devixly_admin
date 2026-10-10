@@ -12,6 +12,8 @@ import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/admin_page_scaffold.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../../../core/widgets/app_text_field.dart';
+import '../../../../core/widgets/dialogs/show_app_dialog.dart';
+import '../../../../core/widgets/dialogs/typed_confirmation_dialog.dart';
 import '../../../../core/widgets/skeleton.dart';
 import '../../domain/entities/project_summary.dart';
 import '../view_model/projects_list_cubit.dart';
@@ -113,10 +115,44 @@ class _ProjectsResult extends StatelessWidget {
           projects: value,
           onOpen: (project) =>
               context.push('${AppRoutes.projectDetails}?id=${project.id}'),
+          onEdit: (project) =>
+              context.push('${AppRoutes.editProject}?id=${project.id}'),
+          onDelete: (project) => _confirmDelete(context, project),
         ),
       },
     );
   }
+}
+
+/// Usunięcie projektu potwierdzamy przepisaniem frazy — kasuje też jego
+/// jednostki i plany płatności.
+Future<void> _confirmDelete(BuildContext context, ProjectSummary project) {
+  final cubit = context.read<ProjectsListCubit>();
+  final messenger = ScaffoldMessenger.of(context);
+  final l10n = context.l10n;
+  return showAppDialog<void>(
+    context,
+    builder: (_) => TypedConfirmationDialog(
+      messagePrefix: l10n.projectDeleteMessage,
+      highlights: [project.name],
+      messageSuffix: project.isManual ? l10n.userQuestionMark : '',
+      // Projekt z GenieMap wróci przy najbliższej synchronizacji.
+      hint: project.isManual ? null : l10n.projectSyncedWarning,
+      phrase: l10n.deletePhrase,
+      mismatchMessage: l10n.deleteMismatch,
+      confirmLabel: l10n.commonDelete,
+      confirmColor: AppColors.accent3,
+      onConfirm: () async {
+        final removed = await cubit.delete(project.id);
+        if (removed) {
+          AppSnackBar.success(messenger, l10n.projectDeleted);
+        } else {
+          AppSnackBar.error(messenger, l10n.projectDeleteFailed);
+        }
+        return removed;
+      },
+    ),
+  );
 }
 
 class _TableSkeleton extends StatelessWidget {

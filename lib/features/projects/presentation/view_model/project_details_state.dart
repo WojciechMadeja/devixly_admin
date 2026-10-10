@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/state/loadable.dart';
+import '../../../lookups/domain/entities/dictionary_item.dart';
 import '../../../units/domain/entities/project_unit.dart';
 import '../../domain/entities/project_details.dart';
 
@@ -15,5 +16,7 @@ abstract class ProjectDetailsState with _$ProjectDetailsState {
     Loadable<ProjectDetails> details,
     @Default(Loadable<List<ProjectUnit>>.loading())
     Loadable<List<ProjectUnit>> units,
+    @Default(<DictionaryItem>[]) List<DictionaryItem> unitTypes,
+    @Default(<DictionaryItem>[]) List<DictionaryItem> layouts,
   }) = _ProjectDetailsState;
 }

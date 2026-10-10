@@ -8,6 +8,10 @@ import '../../domain/entities/project_draft.dart';
 abstract interface class ProjectsRemoteDataSource {
   Future<sp.Project> addProject(ProjectDraft draft);
 
+  Future<sp.Project> updateProject(int id, ProjectDraft draft);
+
+  Future<void> deleteProject(int id);
+
   Future<List<sp.ProjectOption>> getProjectOptions();
 
   Future<List<sp.Project>> getProjects({String? search});
@@ -23,8 +27,25 @@ class ProjectsRemoteDataSourceImpl implements ProjectsRemoteDataSource {
   final Client _client;
 
   @override
-  Future<sp.Project> addProject(ProjectDraft draft) => backendCall(
-    () => _client.project.create(
+  Future<sp.Project> addProject(ProjectDraft draft) =>
+      backendCall(() => _client.project.create(_input(draft)));
+
+  /// Zapis zastępuje w backendzie wszystkie pola projektu, więc najpierw
+  /// czytamy obecny rekord i podmieniamy tylko to, co jest w formularzu —
+  /// inaczej zniknęłyby zdjęcia, dokumenty i powiązania słownikowe.
+  @override
+  Future<sp.Project> updateProject(int id, ProjectDraft draft) =>
+      backendCall(() async {
+        final existing = await _client.project.getById(id);
+        if (existing == null) throw sp.ProjectNotFoundException(id: id);
+        return _client.project.update(id, _input(draft, existing: existing));
+      });
+
+  @override
+  Future<void> deleteProject(int id) =>
+      backendCall(() => _client.project.delete(id));
+
+  static sp.ProjectInput _input(ProjectDraft draft, {sp.Project? existing}) =>
       sp.ProjectInput(
         externalId: draft.externalId,
         name: draft.name,
@@ -47,9 +68,33 @@ class ProjectsRemoteDataSourceImpl implements ProjectsRemoteDataSource {
           ProjectOwnership.leasehold => sp.OwnershipType.leasehold,
           null => null,
         },
-      ),
-    ),
-  );
+        // Pola spoza formularza przepisujemy z obecnego rekordu; przy
+        // nowym projekcie po prostu ich nie ma.
+        sellerId: existing?.sellerId,
+        sellerName: existing?.sellerName,
+        pointLat: existing?.pointLat,
+        pointLon: existing?.pointLon,
+        serviceCharge: existing?.serviceCharge,
+        eoi: existing?.eoi,
+        images: existing?.images,
+        documents: existing?.documents,
+        amenityIds: switch (existing?.amenities) {
+          final rows? => [for (final row in rows) row.amenityId],
+          null => null,
+        },
+        finishIds: switch (existing?.finishes) {
+          final rows? => [for (final row in rows) row.finishId],
+          null => null,
+        },
+        layoutIds: switch (existing?.layouts) {
+          final rows? => [for (final row in rows) row.layoutId],
+          null => null,
+        },
+        unitTypeIds: switch (existing?.unitTypes) {
+          final rows? => [for (final row in rows) row.unitTypeId],
+          null => null,
+        },
+      );
 
   @override
   Future<List<sp.ProjectOption>> getProjectOptions() =>

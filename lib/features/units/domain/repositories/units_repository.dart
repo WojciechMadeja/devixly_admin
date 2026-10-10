@@ -10,6 +10,10 @@ import '../entities/unit_draft.dart';
 abstract interface class UnitsRepository {
   Future<Either<Failure, Unit>> addUnit(UnitDraft draft);
 
+  Future<Either<Failure, Unit>> updateUnit(int id, UnitDraft draft);
+
+  Future<Either<Failure, Unit>> deleteUnit(int id);
+
   /// Jednostki wybranego projektu, w kolejności z backendu.
   Future<Either<Failure, List<ProjectUnit>>> getUnits(int projectId);
 }

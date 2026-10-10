@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../app/di/injection.dart';
+import 'dart:async';
+
 import '../../../../core/errors/failures.dart';
 import '../../../../core/l10n/l10n.dart';
 import '../../../../core/state/loadable.dart';
@@ -13,20 +16,35 @@ import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../../lookups/domain/entities/dictionary_item.dart';
 import '../../../lookups/presentation/widgets/shared/lookup_picker_field.dart';
+import '../../domain/entities/project_details.dart';
 import '../view_model/project_form_cubit.dart';
 import '../view_model/project_form_state.dart';
 import '../widgets/add_project_view/project_form_fields.dart';
 
-/// Dodawanie projektu inwestycyjnego.
+/// Dodawanie projektu inwestycyjnego, a z [projectId] — edycja istniejącego.
 class AddProjectView extends StatelessWidget {
-  const AddProjectView({super.key});
+  const AddProjectView({super.key, this.projectId});
+
+  /// Projekt do edycji; `null` oznacza nowy.
+  final int? projectId;
 
   static const pageTitle = 'AddProjectPage';
 
   @override
   Widget build(BuildContext context) {
+    final projectId = this.projectId;
     return BlocProvider(
-      create: (_) => getIt<ProjectFormCubit>()..loadLookups(),
+      create: (_) {
+        final cubit = getIt<ProjectFormCubit>();
+        // Słowniki muszą być wczytane przed projektem, żeby dało się
+        // dopasować jego dzielnicę i dewelopera do pozycji list.
+        unawaited(
+          cubit.loadLookups().then((_) {
+            if (projectId != null) cubit.loadProject(projectId);
+          }),
+        );
+        return cubit;
+      },
       child: const AdminPageScaffold(title: pageTitle, body: _AddProjectBody()),
     );
   }
@@ -48,11 +66,32 @@ class _AddProjectBodyState extends State<_AddProjectBody> {
     super.dispose();
   }
 
+  /// Wypełnia pola wczytanym projektem (raz, przy wejściu w edycję).
+  void _fill(ProjectDetails details) {
+    final summary = details.summary;
+    _fields.name.text = summary.name;
+    _fields.externalId.text = '${summary.externalId}';
+    _fields.status.text = summary.status;
+    _fields.descriptionPl.text = details.descriptionPl;
+    _fields.descriptionEn.text = details.descriptionEn;
+    _fields.priceFrom.text = summary.priceFrom?.toString() ?? '';
+    _fields.priceTo.text = summary.priceTo?.toString() ?? '';
+    _fields.areaFrom.text = details.areaFrom?.toString() ?? '';
+    _fields.areaTo.text = details.areaTo?.toString() ?? '';
+    _fields.noc.text = details.noc?.toString() ?? '';
+  }
+
   void _onSubmission(BuildContext context, SubmissionStatus status) {
     final messenger = ScaffoldMessenger.of(context);
     final l10n = context.l10n;
     switch (status) {
       case SubmissionSuccess():
+        final editing = context.read<ProjectFormCubit>().state.editing != null;
+        if (editing) {
+          AppSnackBar.success(messenger, l10n.projectSaved);
+          context.pop();
+          return;
+        }
         _fields.clear();
         AppSnackBar.success(messenger, l10n.projectSaved);
       case SubmissionFailure(failure: ValidationFailure()):
@@ -81,9 +120,20 @@ class _AddProjectBodyState extends State<_AddProjectBody> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final sidePadding = Responsive.percentOfWidth(context, 15);
-    return BlocListener<ProjectFormCubit, ProjectFormState>(
-      listenWhen: (a, b) => a.submission != b.submission,
-      listener: (context, state) => _onSubmission(context, state.submission),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ProjectFormCubit, ProjectFormState>(
+          listenWhen: (a, b) => a.submission != b.submission,
+          listener: (context, state) =>
+              _onSubmission(context, state.submission),
+        ),
+        BlocListener<ProjectFormCubit, ProjectFormState>(
+          listenWhen: (a, b) => a.editing != b.editing,
+          listener: (context, state) {
+            if (state.editing case final details?) _fill(details);
+          },
+        ),
+      ],
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: sidePadding),
         child: SingleChildScrollView(
@@ -93,10 +143,13 @@ class _AddProjectBodyState extends State<_AddProjectBody> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: Text(
-                  l10n.projectAddTitle,
-                  textAlign: TextAlign.center,
-                  style: AppTextStyles.pageTitle,
+                child: BlocSelector<ProjectFormCubit, ProjectFormState, bool>(
+                  selector: (state) => state.editing != null,
+                  builder: (context, isEdit) => Text(
+                    isEdit ? l10n.projectEditTitle : l10n.projectAddTitle,
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.pageTitle,
+                  ),
                 ),
               ),
               ProjectField(

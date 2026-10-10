@@ -6,6 +6,10 @@ import '../../domain/entities/unit_draft.dart' as domain;
 abstract interface class UnitsRemoteDataSource {
   Future<Unit> addUnit(domain.UnitDraft draft);
 
+  Future<Unit> updateUnit(int id, domain.UnitDraft draft);
+
+  Future<void> deleteUnit(int id);
+
   Future<List<Unit>> getUnits(int projectId);
 }
 
@@ -22,20 +26,28 @@ class UnitsRemoteDataSourceImpl implements UnitsRemoteDataSource {
       backendCall(() => _client.unit.getByProject(projectId));
 
   @override
-  Future<Unit> addUnit(domain.UnitDraft draft) => backendCall(
-    () => _client.unit.create(
-      UnitInput(
-        projectId: draft.projectId,
-        number: draft.number,
-        price: draft.price,
-        area: draft.area,
-        floor: draft.floor,
-        status: draft.status,
-        height: draft.height,
-        typeOfSale: draft.typeOfSale,
-        unitTypeId: draft.unitTypeId,
-        layoutId: draft.layoutId,
-      ),
-    ),
+  Future<Unit> addUnit(domain.UnitDraft draft) =>
+      backendCall(() => _client.unit.create(_input(draft)));
+
+  /// Backend zostawia przy zapisie pola spoza `UnitInput` — numer
+  /// biznesowy i rzuty jednostki.
+  @override
+  Future<Unit> updateUnit(int id, domain.UnitDraft draft) =>
+      backendCall(() => _client.unit.update(id, _input(draft)));
+
+  @override
+  Future<void> deleteUnit(int id) => backendCall(() => _client.unit.delete(id));
+
+  static UnitInput _input(domain.UnitDraft draft) => UnitInput(
+    projectId: draft.projectId,
+    number: draft.number,
+    price: draft.price,
+    area: draft.area,
+    floor: draft.floor,
+    status: draft.status,
+    height: draft.height,
+    typeOfSale: draft.typeOfSale,
+    unitTypeId: draft.unitTypeId,
+    layoutId: draft.layoutId,
   );
 }

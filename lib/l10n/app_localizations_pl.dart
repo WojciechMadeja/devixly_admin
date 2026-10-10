@@ -545,6 +545,22 @@ class AppLocalizationsPl extends AppLocalizations {
   String get projectAddTitle => 'Dodaj projekt';
 
   @override
+  String get projectEditTitle => 'Edytuj projekt';
+
+  @override
+  String get projectDeleteMessage => 'Czy na pewno chcesz usunąć projekt ';
+
+  @override
+  String get projectSyncedWarning =>
+      'Ten projekt pochodzi z GenieMap — nocna synchronizacja przywróci go albo nadpisze zmiany.';
+
+  @override
+  String get projectDeleted => 'Projekt usunięty';
+
+  @override
+  String get projectDeleteFailed => 'Nie udało się usunąć projektu';
+
+  @override
   String get projectNameHint => 'Nazwa projektu';
 
   @override
@@ -686,6 +702,29 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get unitNoLayouts => 'Ta jednostka nie ma rzutów';
+
+  @override
+  String get unitEditTitle => 'Edytuj jednostkę';
+
+  @override
+  String get unitDeleteMessage => 'Czy na pewno chcesz usunąć jednostkę ';
+
+  @override
+  String get unitSyncedWarning =>
+      'Ta jednostka pochodzi z GenieMap — nocna synchronizacja nadpisze zmiany.';
+
+  @override
+  String get unitSyncedDeleteWarning =>
+      'Ta jednostka pochodzi z GenieMap — nocna synchronizacja przywróci ją.';
+
+  @override
+  String get unitUpdated => 'Zapisano zmiany jednostki';
+
+  @override
+  String get unitDeleted => 'Jednostka usunięta';
+
+  @override
+  String get unitDeleteFailed => 'Nie udało się usunąć jednostki';
 
   @override
   String get unitsColumnActions => 'Podgląd';

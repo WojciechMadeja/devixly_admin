@@ -9,6 +9,12 @@ import '../entities/project_summary.dart';
 abstract interface class ProjectsRepository {
   Future<Either<Failure, Unit>> addProject(ProjectDraft draft);
 
+  /// Zapisuje zmiany projektu, zostawiając pola, których formularz nie
+  /// edytuje (zdjęcia, dokumenty, udogodnienia, wykończenia itd.).
+  Future<Either<Failure, Unit>> updateProject(int id, ProjectDraft draft);
+
+  Future<Either<Failure, Unit>> deleteProject(int id);
+
   /// Lekka lista projektów do wyboru (id, numer i nazwa).
   Future<Either<Failure, List<ProjectOption>>> getProjectOptions();
 

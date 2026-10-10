@@ -20,6 +20,19 @@ class UnitsRepositoryImpl implements UnitsRepository {
   });
 
   @override
+  Future<Either<Failure, Unit>> updateUnit(int id, UnitDraft draft) =>
+      guard(() async {
+        await _remote.updateUnit(id, draft);
+        return unit;
+      });
+
+  @override
+  Future<Either<Failure, Unit>> deleteUnit(int id) => guard(() async {
+    await _remote.deleteUnit(id);
+    return unit;
+  });
+
+  @override
   Future<Either<Failure, List<ProjectUnit>>> getUnits(int projectId) => guard(
     () async => [
       for (final unit in await _remote.getUnits(projectId)) unit.toEntity(),

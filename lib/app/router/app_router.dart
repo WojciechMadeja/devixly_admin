@@ -100,6 +100,16 @@ GoRouter createAppRouter(SessionCubit session) {
         builder: (context, state) => const AddProjectView(),
       ),
       GoRoute(
+        path: AppRoutes.editProject,
+        redirect: (context, state) =>
+            int.tryParse(state.uri.queryParameters['id'] ?? '') == null
+            ? AppRoutes.projectsList
+            : null,
+        builder: (context, state) => AddProjectView(
+          projectId: int.parse(state.uri.queryParameters['id']!),
+        ),
+      ),
+      GoRoute(
         path: AppRoutes.projectsList,
         builder: (context, state) => const ProjectsListView(),
       ),

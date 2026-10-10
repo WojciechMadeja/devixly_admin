@@ -1120,6 +1120,36 @@ abstract class AppLocalizations {
   /// **'Dodaj projekt'**
   String get projectAddTitle;
 
+  /// No description provided for @projectEditTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Edytuj projekt'**
+  String get projectEditTitle;
+
+  /// No description provided for @projectDeleteMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz usunąć projekt '**
+  String get projectDeleteMessage;
+
+  /// No description provided for @projectSyncedWarning.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ten projekt pochodzi z GenieMap — nocna synchronizacja przywróci go albo nadpisze zmiany.'**
+  String get projectSyncedWarning;
+
+  /// No description provided for @projectDeleted.
+  ///
+  /// In pl, this message translates to:
+  /// **'Projekt usunięty'**
+  String get projectDeleted;
+
+  /// No description provided for @projectDeleteFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się usunąć projektu'**
+  String get projectDeleteFailed;
+
   /// No description provided for @projectNameHint.
   ///
   /// In pl, this message translates to:
@@ -1401,6 +1431,48 @@ abstract class AppLocalizations {
   /// In pl, this message translates to:
   /// **'Ta jednostka nie ma rzutów'**
   String get unitNoLayouts;
+
+  /// No description provided for @unitEditTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Edytuj jednostkę'**
+  String get unitEditTitle;
+
+  /// No description provided for @unitDeleteMessage.
+  ///
+  /// In pl, this message translates to:
+  /// **'Czy na pewno chcesz usunąć jednostkę '**
+  String get unitDeleteMessage;
+
+  /// No description provided for @unitSyncedWarning.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ta jednostka pochodzi z GenieMap — nocna synchronizacja nadpisze zmiany.'**
+  String get unitSyncedWarning;
+
+  /// No description provided for @unitSyncedDeleteWarning.
+  ///
+  /// In pl, this message translates to:
+  /// **'Ta jednostka pochodzi z GenieMap — nocna synchronizacja przywróci ją.'**
+  String get unitSyncedDeleteWarning;
+
+  /// No description provided for @unitUpdated.
+  ///
+  /// In pl, this message translates to:
+  /// **'Zapisano zmiany jednostki'**
+  String get unitUpdated;
+
+  /// No description provided for @unitDeleted.
+  ///
+  /// In pl, this message translates to:
+  /// **'Jednostka usunięta'**
+  String get unitDeleted;
+
+  /// No description provided for @unitDeleteFailed.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się usunąć jednostki'**
+  String get unitDeleteFailed;
 
   /// No description provided for @unitsColumnActions.
   ///

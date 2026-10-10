@@ -6,7 +6,9 @@ import 'package:devixly_admin/features/projects/presentation/view/projects_list_
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:devixly_admin/core/widgets/dialogs/typed_confirmation_dialog.dart';
 import 'package:devixly_admin/core/widgets/image_gallery.dart';
+import 'package:devixly_admin/features/units/presentation/widgets/shared/edit_unit_dialog.dart';
 import 'package:devixly_admin/features/units/presentation/widgets/shared/unit_preview_dialog.dart';
 
 import '../../helpers/app_harness.dart';
@@ -42,6 +44,41 @@ void main() {
       // Projekt dodany ręcznie jest oznaczony.
       expect(find.text('Ręczna inwestycja'), findsOneWidget);
       expect(find.text('ręczny'), findsOneWidget);
+    });
+
+    testWidgets('usuwanie projektu wymaga przepisania frazy', (tester) async {
+      await pumpView(
+        tester,
+        const ProjectsListView(),
+        viewport: GoldenViewport.desktop,
+      );
+      await tester.pump(const Duration(milliseconds: 300));
+
+      await tester.tap(find.byIcon(Icons.delete_outline).first);
+      await tester.pumpAndSettle();
+      // Projekt z GenieMap wraca przy synchronizacji — dialog o tym mówi.
+      expect(
+        find.textContaining('nocna synchronizacja', findRichText: true),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.text('Usuń'));
+      await tester.pump();
+      expect(api.callsOf('project.delete'), isEmpty);
+
+      await tester.enterText(
+        find.descendant(
+          of: find.byType(TypedConfirmationDialog),
+          matching: find.byType(TextFormField),
+        ),
+        'DELETE',
+      );
+      await tester.tap(find.text('Usuń'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(api.callsOf('project.delete').single.arguments, {'id': 1});
+      expect(find.text('Marina Heights'), findsNothing);
     });
 
     testWidgets('wyszukiwanie pyta backend o nazwę', (tester) async {
@@ -135,6 +172,61 @@ void main() {
         ),
       );
       expect(gallery.urls, ['https://api.devixly.com/files/plan-1203.png']);
+    });
+
+    testWidgets('edycja jednostki zapisuje zmiany', (tester) async {
+      await pumpView(
+        tester,
+        const ProjectDetailsView(projectId: 1),
+        viewport: const Size(1440, 1400),
+      );
+      await tester.pump(const Duration(milliseconds: 300));
+
+      await tester.tap(find.byIcon(Icons.edit_outlined).first);
+      await tester.pumpAndSettle();
+
+      // Pierwsze pole dialogu to numer jednostki.
+      await tester.enterText(
+        find
+            .descendant(
+              of: find.byType(EditUnitDialog),
+              matching: find.byType(TextFormField),
+            )
+            .first,
+        '1204',
+      );
+      await tester.tap(find.text('Zapisz'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      final call = api.callsOf('unit.update').single;
+      expect(call.arguments['id'], 41);
+      expect(call.arguments['input'], containsPair('number', '1204'));
+    });
+
+    testWidgets('usuwanie jednostki zdejmuje ją z tabeli', (tester) async {
+      await pumpView(
+        tester,
+        const ProjectDetailsView(projectId: 1),
+        viewport: const Size(1440, 1400),
+      );
+      await tester.pump(const Duration(milliseconds: 300));
+
+      await tester.tap(find.byIcon(Icons.delete_outline).first);
+      await tester.pumpAndSettle();
+      await tester.enterText(
+        find.descendant(
+          of: find.byType(TypedConfirmationDialog),
+          matching: find.byType(TextFormField),
+        ),
+        'DELETE',
+      );
+      await tester.tap(find.text('Usuń'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+
+      expect(api.callsOf('unit.delete').single.arguments, {'id': 41});
+      expect(find.text('1203'), findsNothing);
     });
   });
 }

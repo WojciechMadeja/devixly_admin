@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProjectDetailsState {
 
- Loadable<ProjectDetails> get details; Loadable<List<ProjectUnit>> get units;
+ Loadable<ProjectDetails> get details; Loadable<List<ProjectUnit>> get units; List<DictionaryItem> get unitTypes; List<DictionaryItem> get layouts;
 /// Create a copy of ProjectDetailsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ProjectDetailsStateCopyWith<ProjectDetailsState> get copyWith => _$ProjectDetai
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProjectDetailsState&&(identical(other.details, details) || other.details == details)&&(identical(other.units, units) || other.units == units));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProjectDetailsState&&(identical(other.details, details) || other.details == details)&&(identical(other.units, units) || other.units == units)&&const DeepCollectionEquality().equals(other.unitTypes, unitTypes)&&const DeepCollectionEquality().equals(other.layouts, layouts));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,details,units);
+int get hashCode => Object.hash(runtimeType,details,units,const DeepCollectionEquality().hash(unitTypes),const DeepCollectionEquality().hash(layouts));
 
 @override
 String toString() {
-  return 'ProjectDetailsState(details: $details, units: $units)';
+  return 'ProjectDetailsState(details: $details, units: $units, unitTypes: $unitTypes, layouts: $layouts)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ProjectDetailsStateCopyWith<$Res>  {
   factory $ProjectDetailsStateCopyWith(ProjectDetailsState value, $Res Function(ProjectDetailsState) _then) = _$ProjectDetailsStateCopyWithImpl;
 @useResult
 $Res call({
- Loadable<ProjectDetails> details, Loadable<List<ProjectUnit>> units
+ Loadable<ProjectDetails> details, Loadable<List<ProjectUnit>> units, List<DictionaryItem> unitTypes, List<DictionaryItem> layouts
 });
 
 
@@ -62,11 +62,13 @@ class _$ProjectDetailsStateCopyWithImpl<$Res>
 
 /// Create a copy of ProjectDetailsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? details = null,Object? units = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? details = null,Object? units = null,Object? unitTypes = null,Object? layouts = null,}) {
   return _then(_self.copyWith(
 details: null == details ? _self.details : details // ignore: cast_nullable_to_non_nullable
 as Loadable<ProjectDetails>,units: null == units ? _self.units : units // ignore: cast_nullable_to_non_nullable
-as Loadable<List<ProjectUnit>>,
+as Loadable<List<ProjectUnit>>,unitTypes: null == unitTypes ? _self.unitTypes : unitTypes // ignore: cast_nullable_to_non_nullable
+as List<DictionaryItem>,layouts: null == layouts ? _self.layouts : layouts // ignore: cast_nullable_to_non_nullable
+as List<DictionaryItem>,
   ));
 }
 /// Create a copy of ProjectDetailsState
@@ -169,10 +171,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Loadable<ProjectDetails> details,  Loadable<List<ProjectUnit>> units)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Loadable<ProjectDetails> details,  Loadable<List<ProjectUnit>> units,  List<DictionaryItem> unitTypes,  List<DictionaryItem> layouts)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ProjectDetailsState() when $default != null:
-return $default(_that.details,_that.units);case _:
+return $default(_that.details,_that.units,_that.unitTypes,_that.layouts);case _:
   return orElse();
 
 }
@@ -190,10 +192,10 @@ return $default(_that.details,_that.units);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Loadable<ProjectDetails> details,  Loadable<List<ProjectUnit>> units)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Loadable<ProjectDetails> details,  Loadable<List<ProjectUnit>> units,  List<DictionaryItem> unitTypes,  List<DictionaryItem> layouts)  $default,) {final _that = this;
 switch (_that) {
 case _ProjectDetailsState():
-return $default(_that.details,_that.units);case _:
+return $default(_that.details,_that.units,_that.unitTypes,_that.layouts);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -210,10 +212,10 @@ return $default(_that.details,_that.units);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Loadable<ProjectDetails> details,  Loadable<List<ProjectUnit>> units)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Loadable<ProjectDetails> details,  Loadable<List<ProjectUnit>> units,  List<DictionaryItem> unitTypes,  List<DictionaryItem> layouts)?  $default,) {final _that = this;
 switch (_that) {
 case _ProjectDetailsState() when $default != null:
-return $default(_that.details,_that.units);case _:
+return $default(_that.details,_that.units,_that.unitTypes,_that.layouts);case _:
   return null;
 
 }
@@ -225,11 +227,25 @@ return $default(_that.details,_that.units);case _:
 
 
 class _ProjectDetailsState implements ProjectDetailsState {
-  const _ProjectDetailsState({this.details = const Loadable<ProjectDetails>.loading(), this.units = const Loadable<List<ProjectUnit>>.loading()});
+  const _ProjectDetailsState({this.details = const Loadable<ProjectDetails>.loading(), this.units = const Loadable<List<ProjectUnit>>.loading(), final  List<DictionaryItem> unitTypes = const <DictionaryItem>[], final  List<DictionaryItem> layouts = const <DictionaryItem>[]}): _unitTypes = unitTypes,_layouts = layouts;
   
 
 @override@JsonKey() final  Loadable<ProjectDetails> details;
 @override@JsonKey() final  Loadable<List<ProjectUnit>> units;
+ final  List<DictionaryItem> _unitTypes;
+@override@JsonKey() List<DictionaryItem> get unitTypes {
+  if (_unitTypes is EqualUnmodifiableListView) return _unitTypes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_unitTypes);
+}
+
+ final  List<DictionaryItem> _layouts;
+@override@JsonKey() List<DictionaryItem> get layouts {
+  if (_layouts is EqualUnmodifiableListView) return _layouts;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_layouts);
+}
+
 
 /// Create a copy of ProjectDetailsState
 /// with the given fields replaced by the non-null parameter values.
@@ -241,16 +257,16 @@ _$ProjectDetailsStateCopyWith<_ProjectDetailsState> get copyWith => __$ProjectDe
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProjectDetailsState&&(identical(other.details, details) || other.details == details)&&(identical(other.units, units) || other.units == units));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProjectDetailsState&&(identical(other.details, details) || other.details == details)&&(identical(other.units, units) || other.units == units)&&const DeepCollectionEquality().equals(other._unitTypes, _unitTypes)&&const DeepCollectionEquality().equals(other._layouts, _layouts));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,details,units);
+int get hashCode => Object.hash(runtimeType,details,units,const DeepCollectionEquality().hash(_unitTypes),const DeepCollectionEquality().hash(_layouts));
 
 @override
 String toString() {
-  return 'ProjectDetailsState(details: $details, units: $units)';
+  return 'ProjectDetailsState(details: $details, units: $units, unitTypes: $unitTypes, layouts: $layouts)';
 }
 
 
@@ -261,7 +277,7 @@ abstract mixin class _$ProjectDetailsStateCopyWith<$Res> implements $ProjectDeta
   factory _$ProjectDetailsStateCopyWith(_ProjectDetailsState value, $Res Function(_ProjectDetailsState) _then) = __$ProjectDetailsStateCopyWithImpl;
 @override @useResult
 $Res call({
- Loadable<ProjectDetails> details, Loadable<List<ProjectUnit>> units
+ Loadable<ProjectDetails> details, Loadable<List<ProjectUnit>> units, List<DictionaryItem> unitTypes, List<DictionaryItem> layouts
 });
 
 
@@ -278,11 +294,13 @@ class __$ProjectDetailsStateCopyWithImpl<$Res>
 
 /// Create a copy of ProjectDetailsState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? details = null,Object? units = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? details = null,Object? units = null,Object? unitTypes = null,Object? layouts = null,}) {
   return _then(_ProjectDetailsState(
 details: null == details ? _self.details : details // ignore: cast_nullable_to_non_nullable
 as Loadable<ProjectDetails>,units: null == units ? _self.units : units // ignore: cast_nullable_to_non_nullable
-as Loadable<List<ProjectUnit>>,
+as Loadable<List<ProjectUnit>>,unitTypes: null == unitTypes ? _self._unitTypes : unitTypes // ignore: cast_nullable_to_non_nullable
+as List<DictionaryItem>,layouts: null == layouts ? _self._layouts : layouts // ignore: cast_nullable_to_non_nullable
+as List<DictionaryItem>,
   ));
 }
 

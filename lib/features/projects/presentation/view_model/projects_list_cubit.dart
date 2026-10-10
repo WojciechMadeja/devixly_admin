@@ -26,6 +26,25 @@ class ProjectsListCubit extends Cubit<ProjectsListState> {
     );
   }
 
+  /// Usuwa projekt i zdejmuje go z listy; zwraca, czy się udało.
+  Future<bool> delete(int id) async {
+    final result = await _projects.deleteProject(id);
+    if (isClosed) return false;
+    return result.match((_) => false, (_) {
+      if (state.projects case Loaded(:final value)) {
+        emit(
+          state.copyWith(
+            projects: Loadable.loaded([
+              for (final project in value)
+                if (project.id != id) project,
+            ]),
+          ),
+        );
+      }
+      return true;
+    });
+  }
+
   void search(String text) {
     emit(state.copyWith(search: text, projects: const Loadable.loading()));
     _debounce?.cancel();

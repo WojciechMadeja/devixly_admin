@@ -10,6 +10,7 @@ extension UnitMapper on sp.Unit {
     number: number ?? '',
     floor: floor ?? '',
     status: status ?? '',
+    height: height ?? '',
     typeName: switch (unitType) {
       final type? => type.namePl ?? type.nameEn,
       null => '',

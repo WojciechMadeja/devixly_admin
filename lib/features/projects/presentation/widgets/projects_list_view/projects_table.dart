@@ -15,10 +15,14 @@ class ProjectsTable extends StatelessWidget {
     super.key,
     required this.projects,
     required this.onOpen,
+    required this.onEdit,
+    required this.onDelete,
   });
 
   final List<ProjectSummary> projects;
   final ValueChanged<ProjectSummary> onOpen;
+  final ValueChanged<ProjectSummary> onEdit;
+  final ValueChanged<ProjectSummary> onDelete;
 
   static const _cellStyle = AppTextStyles.bodySmall;
   static const _nameStyle = AppTextStyles.bodySemiBold;
@@ -41,6 +45,7 @@ class ProjectsTable extends StatelessWidget {
           fixedWidth: 120,
         ),
         DataColumn2(label: header(l10n.projectsColumnPrice)),
+        DataColumn2(label: header(l10n.usersColumnActions), fixedWidth: 150),
       ],
       rowBuilder: (project, index) => [
         TapArea(
@@ -72,6 +77,35 @@ class ProjectsTable extends StatelessWidget {
           null => l10n.valueMissing,
         }),
         _Cell(_priceRange(context, project)),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TapArea(
+              onTap: () => onOpen(project),
+              child: const Icon(
+                Icons.info_outline,
+                color: AppColors.primary,
+                size: 30,
+              ),
+            ),
+            TapArea(
+              onTap: () => onEdit(project),
+              child: const Icon(
+                Icons.edit_outlined,
+                color: AppColors.primary,
+                size: 30,
+              ),
+            ),
+            TapArea(
+              onTap: () => onDelete(project),
+              child: const Icon(
+                Icons.delete_outline,
+                color: AppColors.accent3,
+                size: 30,
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

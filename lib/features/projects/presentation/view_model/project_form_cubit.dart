@@ -31,6 +31,42 @@ class ProjectFormCubit extends Cubit<ProjectFormState> {
     );
   }
 
+  /// Wczytuje projekt do edycji i ustawia pola, których nie trzymają
+  /// kontrolery tekstu.
+  Future<void> loadProject(int id) async {
+    final result = await _projects.getProject(id);
+    if (isClosed) return;
+    result.match((_) {}, (details) {
+      emit(
+        state.copyWith(
+          editing: details,
+          district: _itemById(state.districts, details.summary.districtId),
+          developer: _itemById(state.developers, details.summary.developerId),
+          handover: details.summary.handover,
+          startOfSales: details.startOfSales,
+          ownership: details.ownership,
+          saleTypesDeveloper: details.saleTypesDeveloper,
+          saleTypesResale: details.saleTypesResale,
+        ),
+      );
+    });
+  }
+
+  static DictionaryItem? _itemById(
+    Loadable<List<DictionaryItem>> items,
+    int? id,
+  ) {
+    if (id == null) return null;
+    final loaded = switch (items) {
+      Loaded(:final value) => value,
+      _ => const <DictionaryItem>[],
+    };
+    for (final item in loaded) {
+      if (item.id == id) return item;
+    }
+    return null;
+  }
+
   void selectDistrict(DictionaryItem district) =>
       emit(state.copyWith(district: district));
 
@@ -72,38 +108,44 @@ class ProjectFormCubit extends Cubit<ProjectFormState> {
       return;
     }
     emit(state.copyWith(submission: const SubmissionStatus.submitting()));
-    final result = await _projects.addProject(
-      ProjectDraft(
-        externalId: id,
-        name: name.trim(),
-        noc: nocValue,
-        saleTypesDeveloper: state.saleTypesDeveloper,
-        saleTypesResale: state.saleTypesResale,
-        districtId: state.district?.id,
-        developerId: state.developer?.id,
-        status: _orNull(status),
-        descriptionPl: _orNull(descriptionPl),
-        descriptionEn: _orNull(descriptionEn),
-        priceFrom: int.tryParse(priceFrom.trim()),
-        priceTo: int.tryParse(priceTo.trim()),
-        areaFrom: int.tryParse(areaFrom.trim()),
-        areaTo: int.tryParse(areaTo.trim()),
-        handover: state.handover,
-        startOfSales: state.startOfSales,
-        ownership: state.ownership,
-      ),
+    final draft = ProjectDraft(
+      externalId: id,
+      name: name.trim(),
+      noc: nocValue,
+      saleTypesDeveloper: state.saleTypesDeveloper,
+      saleTypesResale: state.saleTypesResale,
+      districtId: state.district?.id,
+      developerId: state.developer?.id,
+      status: _orNull(status),
+      descriptionPl: _orNull(descriptionPl),
+      descriptionEn: _orNull(descriptionEn),
+      priceFrom: int.tryParse(priceFrom.trim()),
+      priceTo: int.tryParse(priceTo.trim()),
+      areaFrom: int.tryParse(areaFrom.trim()),
+      areaTo: int.tryParse(areaTo.trim()),
+      handover: state.handover,
+      startOfSales: state.startOfSales,
+      ownership: state.ownership,
     );
+    final editing = state.editing;
+    final result = editing == null
+        ? await _projects.addProject(draft)
+        : await _projects.updateProject(editing.summary.id, draft);
     if (isClosed) return;
     result.match((failure) => _finish(SubmissionStatus.failure(failure)), (_) {
-      emit(
-        state.copyWith(
-          district: null,
-          developer: null,
-          handover: null,
-          startOfSales: null,
-          ownership: null,
-        ),
-      );
+      // Po dodaniu formularz czyścimy pod kolejny projekt; przy edycji
+      // zostaje to, co widać na ekranie.
+      if (editing == null) {
+        emit(
+          state.copyWith(
+            district: null,
+            developer: null,
+            handover: null,
+            startOfSales: null,
+            ownership: null,
+          ),
+        );
+      }
       _finish(const SubmissionStatus.success());
     });
   }

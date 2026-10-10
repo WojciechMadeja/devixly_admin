@@ -6,7 +6,9 @@ class ProjectSummary extends Equatable {
     required this.id,
     required this.externalId,
     required this.name,
+    this.districtId,
     this.districtName = '',
+    this.developerId,
     this.developerName = '',
     this.status = '',
     this.handover,
@@ -17,7 +19,9 @@ class ProjectSummary extends Equatable {
   final int id;
   final int externalId;
   final String name;
+  final int? districtId;
   final String districtName;
+  final int? developerId;
   final String developerName;
   final String status;
   final DateTime? handover;
@@ -32,7 +36,9 @@ class ProjectSummary extends Equatable {
     id,
     externalId,
     name,
+    districtId,
     districtName,
+    developerId,
     developerName,
     status,
     handover,

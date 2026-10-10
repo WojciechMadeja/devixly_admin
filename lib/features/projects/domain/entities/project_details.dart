@@ -9,6 +9,7 @@ class ProjectDetails extends Equatable {
     required this.summary,
     required this.paymentPlans,
     this.imageUrls = const [],
+    this.noc,
     this.descriptionPl = '',
     this.descriptionEn = '',
     this.ownership,
@@ -24,6 +25,9 @@ class ProjectDetails extends Equatable {
 
   /// Zdjęcia projektu, w kolejności z backendu.
   final List<String> imageUrls;
+
+  /// Opłata NOC — pole wymagane przy zapisie.
+  final double? noc;
   final String descriptionPl;
   final String descriptionEn;
   final ProjectOwnership? ownership;
@@ -38,6 +42,7 @@ class ProjectDetails extends Equatable {
     summary,
     paymentPlans,
     imageUrls,
+    noc,
     descriptionPl,
     descriptionEn,
     ownership,

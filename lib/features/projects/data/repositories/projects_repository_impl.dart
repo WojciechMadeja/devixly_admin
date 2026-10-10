@@ -24,6 +24,21 @@ class ProjectsRepositoryImpl implements ProjectsRepository {
   List<ProjectOption>? _options;
 
   @override
+  Future<Either<Failure, Unit>> updateProject(int id, ProjectDraft draft) =>
+      guard(() async {
+        await _remote.updateProject(id, draft);
+        _options = null;
+        return unit;
+      });
+
+  @override
+  Future<Either<Failure, Unit>> deleteProject(int id) => guard(() async {
+    await _remote.deleteProject(id);
+    _options = null;
+    return unit;
+  });
+
+  @override
   Future<Either<Failure, List<ProjectSummary>>> getProjects({String? search}) =>
       guard(
         () async => [

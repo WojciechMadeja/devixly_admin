@@ -8,6 +8,7 @@ class ProjectUnit extends Equatable {
     this.number = '',
     this.floor = '',
     this.status = '',
+    this.height = '',
     this.typeName = '',
     this.layoutName = '',
     this.price,
@@ -21,6 +22,9 @@ class ProjectUnit extends Equatable {
   final String number;
   final String floor;
   final String status;
+
+  /// Forma jednostki, np. „Simplex” (tak jak w backendzie).
+  final String height;
   final String typeName;
   final String layoutName;
   final int? price;
@@ -40,6 +44,7 @@ class ProjectUnit extends Equatable {
     number,
     floor,
     status,
+    height,
     typeName,
     layoutName,
     price,

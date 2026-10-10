@@ -15,6 +15,7 @@ abstract final class AppRoutes {
   static const importUsers = '/addListOfUsersPage';
   static const addAdmin = '/addAdminPage';
   static const addProject = '/addProjectPage';
+  static const editProject = '/editProjectPage';
   static const projectsList = '/projectsListPage';
   static const projectDetails = '/projectPage';
   static const addUnit = '/addUnityPage';

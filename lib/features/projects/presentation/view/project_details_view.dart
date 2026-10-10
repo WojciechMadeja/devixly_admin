@@ -15,6 +15,10 @@ import '../../../../core/widgets/gold_divider.dart';
 import '../../../../core/widgets/skeleton.dart';
 import '../../../../core/widgets/dialogs/show_app_dialog.dart';
 import '../../../../core/widgets/image_gallery.dart';
+import '../../../../core/widgets/app_snack_bar.dart';
+import '../../../../core/widgets/dialogs/typed_confirmation_dialog.dart';
+import '../../../units/domain/entities/project_unit.dart';
+import '../../../units/presentation/widgets/shared/edit_unit_dialog.dart';
 import '../../../units/presentation/widgets/shared/unit_preview_dialog.dart';
 import '../../../units/presentation/widgets/shared/units_table.dart';
 import '../view_model/project_details_cubit.dart';
@@ -102,6 +106,65 @@ class _ProjectDetailsBody extends StatelessWidget {
   }
 }
 
+Future<void> _editUnit(BuildContext context, ProjectUnit unit) {
+  final cubit = context.read<ProjectDetailsCubit>();
+  final messenger = ScaffoldMessenger.of(context);
+  final l10n = context.l10n;
+  final projectId = switch (cubit.state.details) {
+    Loaded(:final value) => value.summary.id,
+    _ => null,
+  };
+  if (projectId == null) return Future.value();
+  return showAppDialog<void>(
+    context,
+    builder: (_) => EditUnitDialog(
+      unit: unit,
+      projectId: projectId,
+      unitTypes: cubit.state.unitTypes,
+      layouts: cubit.state.layouts,
+      onSave: (draft) async {
+        final saved = await cubit.updateUnit(unit.id, draft);
+        if (saved) {
+          AppSnackBar.success(messenger, l10n.unitUpdated);
+        } else {
+          AppSnackBar.error(messenger, l10n.unitSaveFailed);
+        }
+        return saved;
+      },
+    ),
+  );
+}
+
+/// Usunięcie jednostki potwierdzamy przepisaniem frazy, jak przy firmach
+/// i użytkownikach.
+Future<void> _confirmDeleteUnit(BuildContext context, ProjectUnit unit) {
+  final cubit = context.read<ProjectDetailsCubit>();
+  final messenger = ScaffoldMessenger.of(context);
+  final l10n = context.l10n;
+  return showAppDialog<void>(
+    context,
+    builder: (_) => TypedConfirmationDialog(
+      messagePrefix: l10n.unitDeleteMessage,
+      highlights: [unit.number],
+      messageSuffix: l10n.userQuestionMark,
+      hint: unit.isManual ? null : l10n.unitSyncedDeleteWarning,
+      phrase: l10n.deletePhrase,
+      mismatchMessage: l10n.deleteMismatch,
+      confirmLabel: l10n.commonDelete,
+      confirmColor: AppColors.accent3,
+      onConfirm: () async {
+        final removed = await cubit.deleteUnit(unit.id);
+        if (removed) {
+          AppSnackBar.success(messenger, l10n.unitDeleted);
+        } else {
+          AppSnackBar.error(messenger, l10n.unitDeleteFailed);
+        }
+        return removed;
+      },
+    ),
+  );
+}
+
 class _SectionTitle extends StatelessWidget {
   const _SectionTitle(this.label);
 
@@ -143,6 +206,8 @@ class _Units extends StatelessWidget {
               context,
               builder: (_) => UnitPreviewDialog(unit: unit),
             ),
+            onEdit: (unit) => _editUnit(context, unit),
+            onDelete: (unit) => _confirmDeleteUnit(context, unit),
           ),
         ),
       },

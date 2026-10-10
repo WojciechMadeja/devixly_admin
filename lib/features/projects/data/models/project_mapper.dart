@@ -9,7 +9,9 @@ extension ProjectSummaryMapper on sp.Project {
     id: id!,
     externalId: externalId,
     name: name,
+    districtId: districtId,
     districtName: district?.name ?? '',
+    developerId: developerId,
     developerName: developer?.name ?? '',
     status: status ?? '',
     handover: handover,
@@ -20,6 +22,7 @@ extension ProjectSummaryMapper on sp.Project {
   ProjectDetails toDetails() => ProjectDetails(
     summary: toSummary(),
     imageUrls: _imageUrls(this),
+    noc: noc,
     paymentPlans: [
       for (final plan in paymentPlans ?? const <sp.PaymentPlan>[])
         plan.toEntity(),

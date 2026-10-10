@@ -211,7 +211,7 @@ void _registerProjects() {
     )
     ..registerFactory(() => ProjectFormCubit(getIt(), getIt()))
     ..registerFactory(() => ProjectsListCubit(getIt()))
-    ..registerFactory(() => ProjectDetailsCubit(getIt(), getIt()));
+    ..registerFactory(() => ProjectDetailsCubit(getIt(), getIt(), getIt()));
 }
 
 void _registerUnits() {

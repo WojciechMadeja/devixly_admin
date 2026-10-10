@@ -10,10 +10,18 @@ import '../../../domain/entities/project_unit.dart';
 /// Tabela jednostek projektu: numer, piętro, powierzchnia, cena, status,
 /// typ i układ.
 class UnitsTable extends StatelessWidget {
-  const UnitsTable({super.key, required this.units, required this.onPreview});
+  const UnitsTable({
+    super.key,
+    required this.units,
+    required this.onPreview,
+    required this.onEdit,
+    required this.onDelete,
+  });
 
   final List<ProjectUnit> units;
   final ValueChanged<ProjectUnit> onPreview;
+  final ValueChanged<ProjectUnit> onEdit;
+  final ValueChanged<ProjectUnit> onDelete;
 
   static const _cellStyle = AppTextStyles.bodySmall;
 
@@ -34,7 +42,7 @@ class UnitsTable extends StatelessWidget {
         DataColumn2(label: header(l10n.unitsColumnStatus)),
         DataColumn2(label: header(l10n.unitsColumnType)),
         DataColumn2(label: header(l10n.unitsColumnLayout)),
-        DataColumn2(label: header(l10n.unitsColumnActions), fixedWidth: 100),
+        DataColumn2(label: header(l10n.unitsColumnActions), fixedWidth: 150),
       ],
       rowBuilder: (unit, index) => [
         Row(
@@ -62,15 +70,34 @@ class UnitsTable extends StatelessWidget {
         _cell(context, unit.status),
         _cell(context, unit.typeName),
         _cell(context, unit.layoutName),
-        Align(
-          child: TapArea(
-            onTap: () => onPreview(unit),
-            child: const Icon(
-              Icons.info_outline,
-              color: AppColors.primary,
-              size: 30,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TapArea(
+              onTap: () => onPreview(unit),
+              child: const Icon(
+                Icons.info_outline,
+                color: AppColors.primary,
+                size: 30,
+              ),
             ),
-          ),
+            TapArea(
+              onTap: () => onEdit(unit),
+              child: const Icon(
+                Icons.edit_outlined,
+                color: AppColors.primary,
+                size: 30,
+              ),
+            ),
+            TapArea(
+              onTap: () => onDelete(unit),
+              child: const Icon(
+                Icons.delete_outline,
+                color: AppColors.accent3,
+                size: 30,
+              ),
+            ),
+          ],
         ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../l10n/l10n.dart';
+import '../../theme/app_colors.dart';
 import '../../theme/app_text_styles.dart';
 import '../app_button.dart';
 import '../app_text_field.dart';
@@ -20,6 +21,7 @@ class TypedConfirmationDialog extends StatefulWidget {
     required this.confirmColor,
     required this.onConfirm,
     this.messageSuffix = '',
+    this.hint,
   });
 
   /// Pytanie przed nazwą elementu, np. „Czy na pewno chcesz zablokować firmę ”.
@@ -37,6 +39,10 @@ class TypedConfirmationDialog extends StatefulWidget {
   final String mismatchMessage;
   final String confirmLabel;
   final Color confirmColor;
+
+  /// Dodatkowe ostrzeżenie pod pytaniem, np. że rekord wróci przy
+  /// najbliższej synchronizacji.
+  final String? hint;
   final Future<bool> Function() onConfirm;
 
   @override
@@ -95,6 +101,12 @@ class _TypedConfirmationDialogState extends State<TypedConfirmationDialog> {
             ],
           ),
         ),
+        if (widget.hint case final hint?)
+          Text(
+            hint,
+            textAlign: TextAlign.center,
+            style: AppTextStyles.bodySmall.copyWith(color: AppColors.accent1),
+          ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
