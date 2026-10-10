@@ -14,7 +14,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AdminFormState {
 
- SubmissionStatus get submission;
+ SubmissionStatus get submission;/// Adresy z ostatniego zapisu, na które nie poszło wygenerowane hasło.
+ List<String> get passwordEmailFailed;
 /// Create a copy of AdminFormState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +26,16 @@ $AdminFormStateCopyWith<AdminFormState> get copyWith => _$AdminFormStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminFormState&&(identical(other.submission, submission) || other.submission == submission));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdminFormState&&(identical(other.submission, submission) || other.submission == submission)&&const DeepCollectionEquality().equals(other.passwordEmailFailed, passwordEmailFailed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,submission);
+int get hashCode => Object.hash(runtimeType,submission,const DeepCollectionEquality().hash(passwordEmailFailed));
 
 @override
 String toString() {
-  return 'AdminFormState(submission: $submission)';
+  return 'AdminFormState(submission: $submission, passwordEmailFailed: $passwordEmailFailed)';
 }
 
 
@@ -45,7 +46,7 @@ abstract mixin class $AdminFormStateCopyWith<$Res>  {
   factory $AdminFormStateCopyWith(AdminFormState value, $Res Function(AdminFormState) _then) = _$AdminFormStateCopyWithImpl;
 @useResult
 $Res call({
- SubmissionStatus submission
+ SubmissionStatus submission, List<String> passwordEmailFailed
 });
 
 
@@ -62,10 +63,11 @@ class _$AdminFormStateCopyWithImpl<$Res>
 
 /// Create a copy of AdminFormState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? submission = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? submission = null,Object? passwordEmailFailed = null,}) {
   return _then(_self.copyWith(
 submission: null == submission ? _self.submission : submission // ignore: cast_nullable_to_non_nullable
-as SubmissionStatus,
+as SubmissionStatus,passwordEmailFailed: null == passwordEmailFailed ? _self.passwordEmailFailed : passwordEmailFailed // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 /// Create a copy of AdminFormState
@@ -159,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SubmissionStatus submission)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( SubmissionStatus submission,  List<String> passwordEmailFailed)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AdminFormState() when $default != null:
-return $default(_that.submission);case _:
+return $default(_that.submission,_that.passwordEmailFailed);case _:
   return orElse();
 
 }
@@ -180,10 +182,10 @@ return $default(_that.submission);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SubmissionStatus submission)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( SubmissionStatus submission,  List<String> passwordEmailFailed)  $default,) {final _that = this;
 switch (_that) {
 case _AdminFormState():
-return $default(_that.submission);case _:
+return $default(_that.submission,_that.passwordEmailFailed);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +202,10 @@ return $default(_that.submission);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SubmissionStatus submission)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( SubmissionStatus submission,  List<String> passwordEmailFailed)?  $default,) {final _that = this;
 switch (_that) {
 case _AdminFormState() when $default != null:
-return $default(_that.submission);case _:
+return $default(_that.submission,_that.passwordEmailFailed);case _:
   return null;
 
 }
@@ -215,10 +217,19 @@ return $default(_that.submission);case _:
 
 
 class _AdminFormState implements AdminFormState {
-  const _AdminFormState({this.submission = const SubmissionStatus.idle()});
+  const _AdminFormState({this.submission = const SubmissionStatus.idle(), final  List<String> passwordEmailFailed = const <String>[]}): _passwordEmailFailed = passwordEmailFailed;
   
 
 @override@JsonKey() final  SubmissionStatus submission;
+/// Adresy z ostatniego zapisu, na które nie poszło wygenerowane hasło.
+ final  List<String> _passwordEmailFailed;
+/// Adresy z ostatniego zapisu, na które nie poszło wygenerowane hasło.
+@override@JsonKey() List<String> get passwordEmailFailed {
+  if (_passwordEmailFailed is EqualUnmodifiableListView) return _passwordEmailFailed;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_passwordEmailFailed);
+}
+
 
 /// Create a copy of AdminFormState
 /// with the given fields replaced by the non-null parameter values.
@@ -230,16 +241,16 @@ _$AdminFormStateCopyWith<_AdminFormState> get copyWith => __$AdminFormStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdminFormState&&(identical(other.submission, submission) || other.submission == submission));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdminFormState&&(identical(other.submission, submission) || other.submission == submission)&&const DeepCollectionEquality().equals(other._passwordEmailFailed, _passwordEmailFailed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,submission);
+int get hashCode => Object.hash(runtimeType,submission,const DeepCollectionEquality().hash(_passwordEmailFailed));
 
 @override
 String toString() {
-  return 'AdminFormState(submission: $submission)';
+  return 'AdminFormState(submission: $submission, passwordEmailFailed: $passwordEmailFailed)';
 }
 
 
@@ -250,7 +261,7 @@ abstract mixin class _$AdminFormStateCopyWith<$Res> implements $AdminFormStateCo
   factory _$AdminFormStateCopyWith(_AdminFormState value, $Res Function(_AdminFormState) _then) = __$AdminFormStateCopyWithImpl;
 @override @useResult
 $Res call({
- SubmissionStatus submission
+ SubmissionStatus submission, List<String> passwordEmailFailed
 });
 
 
@@ -267,10 +278,11 @@ class __$AdminFormStateCopyWithImpl<$Res>
 
 /// Create a copy of AdminFormState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? submission = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? submission = null,Object? passwordEmailFailed = null,}) {
   return _then(_AdminFormState(
 submission: null == submission ? _self.submission : submission // ignore: cast_nullable_to_non_nullable
-as SubmissionStatus,
+as SubmissionStatus,passwordEmailFailed: null == passwordEmailFailed ? _self._passwordEmailFailed : passwordEmailFailed // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

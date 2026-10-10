@@ -148,6 +148,21 @@ void main() {
     expect(call.arguments, {'id': 3});
   });
 
+  test('konto bez hasła zostawia je backendowi', () async {
+    await dataSource.addUser(
+      const NewUser(
+        email: 'marek@example.com',
+        firstName: 'Marek',
+        lastName: 'Lewandowski',
+        phoneNumber: '+48 501 111 222',
+        companyId: 2,
+      ),
+    );
+
+    final input = api.calls.single.arguments['input']! as Map<String, Object?>;
+    expect(input['password'], isNull);
+  });
+
   test('appUser.createUsers z listą z CSV, bez haseł', () async {
     await dataSource.importUsers(
       users: const [

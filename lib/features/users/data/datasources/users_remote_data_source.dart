@@ -6,7 +6,7 @@ import '../../domain/entities/user_drafts.dart';
 abstract interface class UsersRemoteDataSource {
   Future<List<AppUser>> getUsers();
 
-  Future<void> addUser(NewUser user);
+  Future<List<String>> addUser(NewUser user);
 
   Future<AppUser> updateUser(int id, UserUpdate update);
 
@@ -31,9 +31,10 @@ class UsersRemoteDataSourceImpl implements UsersRemoteDataSource {
   @override
   Future<List<AppUser>> getUsers() => backendCall(_client.appUser.list);
 
+  /// Bez hasła backend wygeneruje je i wyśle użytkownikowi mailem.
   @override
-  Future<void> addUser(NewUser user) => backendCall(
-    () => _client.appUser.createUser(
+  Future<List<String>> addUser(NewUser user) => backendCall(() async {
+    final result = await _client.appUser.createUser(
       NewUserInput(
         email: user.email,
         firstName: user.firstName,
@@ -42,8 +43,9 @@ class UsersRemoteDataSourceImpl implements UsersRemoteDataSource {
         companyId: user.companyId,
         password: user.password,
       ),
-    ),
-  );
+    );
+    return result.passwordEmailFailed;
+  });
 
   /// Odpowiedź zapisu nie zawiera firmy, więc użytkownik jest potem
   /// czytany ponownie (z firmą, którą pokazuje lista).

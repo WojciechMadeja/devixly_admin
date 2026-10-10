@@ -12,8 +12,6 @@ class AdminsRepositoryImpl implements AdminsRepository {
   final AdminsRemoteDataSource _remote;
 
   @override
-  Future<Either<Failure, Unit>> addAdmin(NewAdmin admin) => guard(() async {
-    await _remote.addAdmin(admin);
-    return unit;
-  });
+  Future<Either<Failure, List<String>>> addAdmin(NewAdmin admin) =>
+      guard(() => _remote.addAdmin(admin));
 }

@@ -15,5 +15,8 @@ abstract class UserFormState with _$UserFormState {
     Loadable<List<Company>> companies,
     Company? selectedCompany,
     @Default(SubmissionStatus.idle()) SubmissionStatus submission,
+
+    /// Adresy z ostatniego zapisu, na które nie poszło wygenerowane hasło.
+    @Default(<String>[]) List<String> passwordEmailFailed,
   }) = _UserFormState;
 }

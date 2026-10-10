@@ -24,12 +24,12 @@ class AdminFormCubit extends Cubit<AdminFormState> {
     if (email.trim().isEmpty ||
         firstName.trim().isEmpty ||
         lastName.trim().isEmpty ||
-        phoneNumber.trim().isEmpty ||
-        password.isEmpty) {
+        phoneNumber.trim().isEmpty) {
       _finish(const SubmissionStatus.failure(ValidationFailure()));
       return;
     }
-    if (!Validators.isValidPassword(password)) {
+    // Puste hasło jest w porządku — backend wygeneruje je i wyśle mailem.
+    if (password.isNotEmpty && !Validators.isValidPassword(password)) {
       _finish(const SubmissionStatus.failure(WeakPasswordFailure()));
       return;
     }
@@ -40,16 +40,16 @@ class AdminFormCubit extends Cubit<AdminFormState> {
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         phoneNumber: phoneNumber.trim(),
-        password: password,
+        password: password.isEmpty ? null : password,
       ),
     );
     if (isClosed) return;
-    _finish(
-      result.match(
-        SubmissionStatus.failure,
-        (_) => const SubmissionStatus.success(),
-      ),
-    );
+    result.match((failure) => _finish(SubmissionStatus.failure(failure)), (
+      passwordEmailFailed,
+    ) {
+      emit(state.copyWith(passwordEmailFailed: passwordEmailFailed));
+      _finish(const SubmissionStatus.success());
+    });
   }
 
   void _finish(SubmissionStatus result) {

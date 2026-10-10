@@ -41,12 +41,12 @@ class UserFormCubit extends Cubit<UserFormState> {
         firstName.trim().isEmpty ||
         lastName.trim().isEmpty ||
         phoneNumber.trim().isEmpty ||
-        password.isEmpty ||
         company == null) {
       _finish(const SubmissionStatus.failure(ValidationFailure()));
       return;
     }
-    if (!Validators.isValidPassword(password)) {
+    // Puste hasło jest w porządku — backend wygeneruje je i wyśle mailem.
+    if (password.isNotEmpty && !Validators.isValidPassword(password)) {
       _finish(const SubmissionStatus.failure(WeakPasswordFailure()));
       return;
     }
@@ -57,13 +57,20 @@ class UserFormCubit extends Cubit<UserFormState> {
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         phoneNumber: phoneNumber.trim(),
-        password: password,
+        password: password.isEmpty ? null : password,
         companyId: company.id,
       ),
     );
     if (isClosed) return;
-    result.match((failure) => _finish(SubmissionStatus.failure(failure)), (_) {
-      emit(state.copyWith(selectedCompany: null));
+    result.match((failure) => _finish(SubmissionStatus.failure(failure)), (
+      passwordEmailFailed,
+    ) {
+      emit(
+        state.copyWith(
+          selectedCompany: null,
+          passwordEmailFailed: passwordEmailFailed,
+        ),
+      );
       _finish(const SubmissionStatus.success());
     });
   }

@@ -7,15 +7,17 @@ class NewUser extends Equatable {
     required this.firstName,
     required this.lastName,
     required this.phoneNumber,
-    required this.password,
     required this.companyId,
+    this.password,
   });
 
   final String email;
   final String firstName;
   final String lastName;
   final String phoneNumber;
-  final String password;
+
+  /// Puste hasło oznacza, że backend wygeneruje je i wyśle mailem.
+  final String? password;
   final int companyId;
 
   @override

@@ -72,7 +72,7 @@ Things worth knowing:
 - password reset has two steps (the backend e-mails a code): `startPasswordReset` → the dialog asks for the code and a new password → `verifyPasswordResetCode` + `finishPasswordReset`. This second step is new UI, not in the FlutterFlow baselines. In development without Mailgun keys the server logs the code;
 - `update` endpoints replace the whole record, so fields a form does not edit are read first and sent back (`company.update` keeps `adminId`/`isBlocked`, `news.update` keeps `imagePath`, the profile keeps e-mail and company);
 - a news image is uploaded first (`news.createImageUpload` + `FileUploadFunction`), and the article points at its storage path;
-- CSV import (`appUser.createUsers`) sends no passwords — the backend generates and e-mails them, and creates all accounts or none; the answer's `passwordEmailFailed` lists the addresses the password never reached;
+- a password is optional everywhere accounts are created (`appUser.createUser`, `createAdministrator`, `createUsers`): without one the backend generates it and e-mails it, and the answer's `passwordEmailFailed` lists the addresses the mail never reached — the panel shows them in `EmailListDialog`. CSV import never sends passwords; both user forms leave the field empty by choice;
 - projects are created with `project.create` (admin only) and picked for a unit with `project.listOptionsForUnit`, a lightweight list the panel filters locally;
 - `unit.create` was added to the backend for this panel — GenieMap stays the source of truth for everything it syncs.
 
@@ -108,4 +108,4 @@ Every user-visible string goes into `lib/l10n/app_pl.arb` and is read through `c
 - The home tile "Oferty" is visible but inactive on purpose.
 - `kProtectedOwnerName` (`core/constants/business_rules.dart`) is the company that cannot be edited or deleted.
 - Golden baselines for some mobile viewports show the old overflowing layout; those views are compared manually, desktop goldens are the automated check.
-- Screens without a FlutterFlow ancestor (`AddProjectView`, the rebuilt `AddUnitView`) and the home screen with its extra "Dodaj projekty" tile keep their own goldens under `test/features/<feature>/goldens/`; `test/goldens/baseline/` stays the record of the old UI.
+- Screens without a FlutterFlow ancestor (`AddProjectView`, the rebuilt `AddUnitView`), the home screen with its extra "Dodaj projekty" tile and both account forms (a note under the password field) keep their own goldens under `test/features/<feature>/goldens/`; `test/goldens/baseline/` stays the record of the old UI.

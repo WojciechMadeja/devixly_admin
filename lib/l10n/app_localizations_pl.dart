@@ -335,6 +335,17 @@ class AppLocalizationsPl extends AppLocalizations {
   String get userPasswordHint => 'Hasło';
 
   @override
+  String get userPasswordOptionalNote =>
+      'Puste hasło wygeneruje backend i wyśle je mailem.';
+
+  @override
+  String get userPasswordEmailFailedTitle => 'Konto utworzone, ale bez hasła';
+
+  @override
+  String get userPasswordEmailFailedDescription =>
+      'Nie udało się wysłać hasła na poniższy adres. Poproś tę osobę o użycie opcji „Zapomniałeś hasła”:';
+
+  @override
   String get addUserTitle => 'Dodaj dane użytkownika';
 
   @override

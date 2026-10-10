@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 import '../../../../../core/l10n/l10n.dart';
+import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_text_styles.dart';
 import '../../../../../core/widgets/app_text_field.dart';
 
 /// Kontrolery pól formularza użytkownika i administratora.
@@ -56,6 +58,16 @@ class UserFormFields extends StatelessWidget {
           controller: controllers.password,
           hint: l10n.userPasswordHint,
           obscure: true,
+        ),
+        SizedBox(
+          width: 250,
+          child: Text(
+            l10n.userPasswordOptionalNote,
+            textAlign: TextAlign.center,
+            style: AppTextStyles.bodySmall.copyWith(
+              color: AppColors.secondaryText,
+            ),
+          ),
         ),
         ?trailing,
       ],

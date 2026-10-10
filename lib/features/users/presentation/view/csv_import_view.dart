@@ -23,7 +23,7 @@ import '../view_model/csv_import_cubit.dart';
 import '../view_model/csv_import_state.dart';
 import '../widgets/csv_import_view/csv_users_table.dart';
 import '../widgets/csv_import_view/edit_csv_user_dialog.dart';
-import '../widgets/csv_import_view/email_list_dialog.dart';
+import '../../../../core/widgets/dialogs/email_list_dialog.dart';
 
 /// Import użytkowników z pliku CSV.
 class CsvImportView extends StatelessWidget {

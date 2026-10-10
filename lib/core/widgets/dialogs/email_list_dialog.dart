@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/l10n/l10n.dart';
-import '../../../../../core/theme/app_colors.dart';
-import '../../../../../core/theme/app_text_styles.dart';
-import '../../../../../core/widgets/app_button.dart';
-import '../../../../../core/widgets/dialogs/dialog_card.dart';
+import '../../l10n/l10n.dart';
+import '../../theme/app_colors.dart';
+import '../../theme/app_text_styles.dart';
+import '../app_button.dart';
+import 'dialog_card.dart';
 
 /// Dialog z listą adresów e-mail: błędnych w pliku CSV albo takich, na
-/// które nie udało się wysłać hasła po imporcie.
+/// które backendowi nie udało się wysłać hasła nowego konta.
 class EmailListDialog extends StatelessWidget {
   const EmailListDialog({
     super.key,

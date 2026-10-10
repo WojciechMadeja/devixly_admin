@@ -4,5 +4,7 @@ import '../../../../core/errors/failures.dart';
 import '../entities/new_admin.dart';
 
 abstract interface class AdminsRepository {
-  Future<Either<Failure, Unit>> addAdmin(NewAdmin admin);
+  /// Zakłada konto administratora; zwraca adresy, na które backend nie
+  /// zdołał wysłać wygenerowanego hasła.
+  Future<Either<Failure, List<String>>> addAdmin(NewAdmin admin);
 }

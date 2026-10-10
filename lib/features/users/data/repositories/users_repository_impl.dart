@@ -21,10 +21,8 @@ class UsersRepositoryImpl implements UsersRepository {
   );
 
   @override
-  Future<Either<Failure, Unit>> addUser(NewUser user) => guard(() async {
-    await _remote.addUser(user);
-    return unit;
-  });
+  Future<Either<Failure, List<String>>> addUser(NewUser user) =>
+      guard(() => _remote.addUser(user));
 
   @override
   Future<Either<Failure, ManagedUser>> updateUser(

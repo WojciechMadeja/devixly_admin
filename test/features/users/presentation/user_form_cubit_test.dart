@@ -69,9 +69,40 @@ void main() {
     build: build,
     setUp: () => when(
       () => users.addUser(any()),
-    ).thenAnswer((_) async => const Right(unit)),
+    ).thenAnswer((_) async => const Right(<String>[])),
     act: (cubit) => submit(cubit, password: 'haslo123'),
     verify: (_) => verify(() => users.addUser(newUser)).called(1),
+  );
+
+  blocTest<UserFormCubit, UserFormState>(
+    'puste hasło zostawiamy backendowi do wygenerowania',
+    build: build,
+    setUp: () => when(
+      () => users.addUser(any()),
+    ).thenAnswer((_) async => const Right(<String>[])),
+    act: (cubit) => submit(cubit, password: ''),
+    verify: (_) => verify(
+      () => users.addUser(
+        const NewUser(
+          email: 'marek@example.com',
+          firstName: 'Marek',
+          lastName: 'Lewandowski',
+          phoneNumber: '+48 501 111 222',
+          companyId: 2,
+        ),
+      ),
+    ).called(1),
+  );
+
+  blocTest<UserFormCubit, UserFormState>(
+    'adres bez wysłanego hasła trafia do stanu',
+    build: build,
+    setUp: () => when(
+      () => users.addUser(any()),
+    ).thenAnswer((_) async => const Right(['marek@example.com'])),
+    act: (cubit) => submit(cubit, password: ''),
+    verify: (cubit) =>
+        expect(cubit.state.passwordEmailFailed, ['marek@example.com']),
   );
 
   blocTest<UserFormCubit, UserFormState>(

@@ -13,7 +13,7 @@ import 'package:devixly_admin/features/users/presentation/view/add_user_view.dar
 import 'package:devixly_admin/features/users/presentation/view/csv_import_view.dart';
 import 'package:devixly_admin/features/users/presentation/view/users_list_view.dart';
 import 'package:devixly_admin/features/users/presentation/widgets/csv_import_view/edit_csv_user_dialog.dart';
-import 'package:devixly_admin/features/users/presentation/widgets/csv_import_view/email_list_dialog.dart';
+import 'package:devixly_admin/core/widgets/dialogs/email_list_dialog.dart';
 import 'package:devixly_admin/features/users/presentation/widgets/users_list_view/edit_user_dialog.dart';
 import 'package:devixly_admin/features/users/presentation/widgets/users_list_view/user_preview_dialog.dart';
 import 'package:devixly_admin/features/users/presentation/view_model/csv_import_cubit.dart';
@@ -89,24 +89,32 @@ void main() {
     await _expectBaseline('pages/users_list_desktop');
   });
 
-  testWidgets('AddUserView wygląda jak w FlutterFlow', (tester) async {
+  // Oba formularze mają pod polem hasła notkę, że puste hasło wyśle
+  // backend — stąd własne wzorce zamiast `goldens/baseline/pages`.
+  testWidgets('AddUserView z notką o haśle', (tester) async {
     await setUpTestDependencies();
     await pumpView(
       tester,
       const AddUserView(),
       viewport: GoldenViewport.desktop,
     );
-    await _expectBaseline('pages/add_user_desktop');
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/add_user_desktop.png'),
+    );
   });
 
-  testWidgets('AddAdminView wygląda jak w FlutterFlow', (tester) async {
+  testWidgets('AddAdminView z notką o haśle', (tester) async {
     await setUpTestDependencies();
     await pumpView(
       tester,
       const AddAdminView(),
       viewport: GoldenViewport.desktop,
     );
-    await _expectBaseline('pages/add_admin_desktop');
+    await expectLater(
+      find.byType(MaterialApp),
+      matchesGoldenFile('goldens/add_admin_desktop.png'),
+    );
   });
 
   group('CsvImportView', () {

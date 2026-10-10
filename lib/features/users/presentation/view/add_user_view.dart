@@ -14,6 +14,8 @@ import '../../../../core/utils/responsive.dart';
 import '../../../../core/widgets/admin_page_scaffold.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
+import '../../../../core/widgets/dialogs/email_list_dialog.dart';
+import '../../../../core/widgets/dialogs/show_app_dialog.dart';
 import '../../../companies/presentation/widgets/shared/company_picker_field.dart';
 import '../view_model/user_form_cubit.dart';
 import '../view_model/user_form_state.dart';
@@ -50,13 +52,25 @@ class _AddUserBodyState extends State<_AddUserBody> {
     super.dispose();
   }
 
-  void _onSubmission(BuildContext context, SubmissionStatus status) {
+  void _onSubmission(BuildContext context, UserFormState state) {
     final messenger = ScaffoldMessenger.of(context);
     final l10n = context.l10n;
-    switch (status) {
+    switch (state.submission) {
       case SubmissionSuccess():
         _fields.clear();
         AppSnackBar.success(messenger, l10n.userSaved);
+        // Konto powstało, ale hasło nie dotarło — bez niego nikt się nie
+        // zaloguje.
+        if (state.passwordEmailFailed.isNotEmpty) {
+          showAppDialog<void>(
+            context,
+            builder: (_) => EmailListDialog(
+              title: l10n.userPasswordEmailFailedTitle,
+              description: l10n.userPasswordEmailFailedDescription,
+              emails: state.passwordEmailFailed,
+            ),
+          );
+        }
       case SubmissionFailure(failure: ValidationFailure()):
         AppSnackBar.error(messenger, l10n.formIncomplete);
       case SubmissionFailure(failure: WeakPasswordFailure()):
@@ -81,7 +95,7 @@ class _AddUserBodyState extends State<_AddUserBody> {
     final sidePadding = Responsive.percentOfWidth(context, 15);
     return BlocListener<UserFormCubit, UserFormState>(
       listenWhen: (a, b) => a.submission != b.submission,
-      listener: (context, state) => _onSubmission(context, state.submission),
+      listener: _onSubmission,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: sidePadding),
         child: SingleChildScrollView(

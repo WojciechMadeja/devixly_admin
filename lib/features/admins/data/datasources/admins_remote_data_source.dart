@@ -4,7 +4,7 @@ import '../../../../core/network/backend_call.dart';
 import '../../domain/entities/new_admin.dart';
 
 abstract interface class AdminsRemoteDataSource {
-  Future<void> addAdmin(NewAdmin admin);
+  Future<List<String>> addAdmin(NewAdmin admin);
 }
 
 /// Zakładanie kont administratorów (`AppUserEndpoint.createAdministrator`).
@@ -14,9 +14,10 @@ class AdminsRemoteDataSourceImpl implements AdminsRemoteDataSource {
 
   final Client _client;
 
+  /// Bez hasła backend wygeneruje je i wyśle administratorowi mailem.
   @override
-  Future<void> addAdmin(NewAdmin admin) => backendCall(
-    () => _client.appUser.createAdministrator(
+  Future<List<String>> addAdmin(NewAdmin admin) => backendCall(() async {
+    final result = await _client.appUser.createAdministrator(
       NewUserInput(
         email: admin.email,
         firstName: admin.firstName,
@@ -24,6 +25,7 @@ class AdminsRemoteDataSourceImpl implements AdminsRemoteDataSource {
         phoneNumber: admin.phoneNumber,
         password: admin.password,
       ),
-    ),
-  );
+    );
+    return result.passwordEmailFailed;
+  });
 }

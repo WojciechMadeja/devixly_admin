@@ -7,7 +7,9 @@ import '../entities/user_drafts.dart';
 abstract interface class UsersRepository {
   Future<Either<Failure, List<ManagedUser>>> getUsers();
 
-  Future<Either<Failure, Unit>> addUser(NewUser user);
+  /// Zakłada konto; zwraca adresy, na które backend nie zdołał wysłać
+  /// wygenerowanego hasła (puste, gdy hasło podał administrator).
+  Future<Either<Failure, List<String>>> addUser(NewUser user);
 
   Future<Either<Failure, ManagedUser>> updateUser(
     ManagedUser user,

@@ -14,7 +14,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserFormState {
 
- Loadable<List<Company>> get companies; Company? get selectedCompany; SubmissionStatus get submission;
+ Loadable<List<Company>> get companies; Company? get selectedCompany; SubmissionStatus get submission;/// Adresy z ostatniego zapisu, na które nie poszło wygenerowane hasło.
+ List<String> get passwordEmailFailed;
 /// Create a copy of UserFormState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +26,16 @@ $UserFormStateCopyWith<UserFormState> get copyWith => _$UserFormStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserFormState&&(identical(other.companies, companies) || other.companies == companies)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&(identical(other.submission, submission) || other.submission == submission));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserFormState&&(identical(other.companies, companies) || other.companies == companies)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&(identical(other.submission, submission) || other.submission == submission)&&const DeepCollectionEquality().equals(other.passwordEmailFailed, passwordEmailFailed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,companies,selectedCompany,submission);
+int get hashCode => Object.hash(runtimeType,companies,selectedCompany,submission,const DeepCollectionEquality().hash(passwordEmailFailed));
 
 @override
 String toString() {
-  return 'UserFormState(companies: $companies, selectedCompany: $selectedCompany, submission: $submission)';
+  return 'UserFormState(companies: $companies, selectedCompany: $selectedCompany, submission: $submission, passwordEmailFailed: $passwordEmailFailed)';
 }
 
 
@@ -45,7 +46,7 @@ abstract mixin class $UserFormStateCopyWith<$Res>  {
   factory $UserFormStateCopyWith(UserFormState value, $Res Function(UserFormState) _then) = _$UserFormStateCopyWithImpl;
 @useResult
 $Res call({
- Loadable<List<Company>> companies, Company? selectedCompany, SubmissionStatus submission
+ Loadable<List<Company>> companies, Company? selectedCompany, SubmissionStatus submission, List<String> passwordEmailFailed
 });
 
 
@@ -62,12 +63,13 @@ class _$UserFormStateCopyWithImpl<$Res>
 
 /// Create a copy of UserFormState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? companies = null,Object? selectedCompany = freezed,Object? submission = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? companies = null,Object? selectedCompany = freezed,Object? submission = null,Object? passwordEmailFailed = null,}) {
   return _then(_self.copyWith(
 companies: null == companies ? _self.companies : companies // ignore: cast_nullable_to_non_nullable
 as Loadable<List<Company>>,selectedCompany: freezed == selectedCompany ? _self.selectedCompany : selectedCompany // ignore: cast_nullable_to_non_nullable
 as Company?,submission: null == submission ? _self.submission : submission // ignore: cast_nullable_to_non_nullable
-as SubmissionStatus,
+as SubmissionStatus,passwordEmailFailed: null == passwordEmailFailed ? _self.passwordEmailFailed : passwordEmailFailed // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 /// Create a copy of UserFormState
@@ -170,10 +172,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Loadable<List<Company>> companies,  Company? selectedCompany,  SubmissionStatus submission)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Loadable<List<Company>> companies,  Company? selectedCompany,  SubmissionStatus submission,  List<String> passwordEmailFailed)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserFormState() when $default != null:
-return $default(_that.companies,_that.selectedCompany,_that.submission);case _:
+return $default(_that.companies,_that.selectedCompany,_that.submission,_that.passwordEmailFailed);case _:
   return orElse();
 
 }
@@ -191,10 +193,10 @@ return $default(_that.companies,_that.selectedCompany,_that.submission);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Loadable<List<Company>> companies,  Company? selectedCompany,  SubmissionStatus submission)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Loadable<List<Company>> companies,  Company? selectedCompany,  SubmissionStatus submission,  List<String> passwordEmailFailed)  $default,) {final _that = this;
 switch (_that) {
 case _UserFormState():
-return $default(_that.companies,_that.selectedCompany,_that.submission);case _:
+return $default(_that.companies,_that.selectedCompany,_that.submission,_that.passwordEmailFailed);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -211,10 +213,10 @@ return $default(_that.companies,_that.selectedCompany,_that.submission);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Loadable<List<Company>> companies,  Company? selectedCompany,  SubmissionStatus submission)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Loadable<List<Company>> companies,  Company? selectedCompany,  SubmissionStatus submission,  List<String> passwordEmailFailed)?  $default,) {final _that = this;
 switch (_that) {
 case _UserFormState() when $default != null:
-return $default(_that.companies,_that.selectedCompany,_that.submission);case _:
+return $default(_that.companies,_that.selectedCompany,_that.submission,_that.passwordEmailFailed);case _:
   return null;
 
 }
@@ -226,12 +228,21 @@ return $default(_that.companies,_that.selectedCompany,_that.submission);case _:
 
 
 class _UserFormState implements UserFormState {
-  const _UserFormState({this.companies = const Loadable<List<Company>>.loading(), this.selectedCompany, this.submission = const SubmissionStatus.idle()});
+  const _UserFormState({this.companies = const Loadable<List<Company>>.loading(), this.selectedCompany, this.submission = const SubmissionStatus.idle(), final  List<String> passwordEmailFailed = const <String>[]}): _passwordEmailFailed = passwordEmailFailed;
   
 
 @override@JsonKey() final  Loadable<List<Company>> companies;
 @override final  Company? selectedCompany;
 @override@JsonKey() final  SubmissionStatus submission;
+/// Adresy z ostatniego zapisu, na które nie poszło wygenerowane hasło.
+ final  List<String> _passwordEmailFailed;
+/// Adresy z ostatniego zapisu, na które nie poszło wygenerowane hasło.
+@override@JsonKey() List<String> get passwordEmailFailed {
+  if (_passwordEmailFailed is EqualUnmodifiableListView) return _passwordEmailFailed;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_passwordEmailFailed);
+}
+
 
 /// Create a copy of UserFormState
 /// with the given fields replaced by the non-null parameter values.
@@ -243,16 +254,16 @@ _$UserFormStateCopyWith<_UserFormState> get copyWith => __$UserFormStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserFormState&&(identical(other.companies, companies) || other.companies == companies)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&(identical(other.submission, submission) || other.submission == submission));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserFormState&&(identical(other.companies, companies) || other.companies == companies)&&(identical(other.selectedCompany, selectedCompany) || other.selectedCompany == selectedCompany)&&(identical(other.submission, submission) || other.submission == submission)&&const DeepCollectionEquality().equals(other._passwordEmailFailed, _passwordEmailFailed));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,companies,selectedCompany,submission);
+int get hashCode => Object.hash(runtimeType,companies,selectedCompany,submission,const DeepCollectionEquality().hash(_passwordEmailFailed));
 
 @override
 String toString() {
-  return 'UserFormState(companies: $companies, selectedCompany: $selectedCompany, submission: $submission)';
+  return 'UserFormState(companies: $companies, selectedCompany: $selectedCompany, submission: $submission, passwordEmailFailed: $passwordEmailFailed)';
 }
 
 
@@ -263,7 +274,7 @@ abstract mixin class _$UserFormStateCopyWith<$Res> implements $UserFormStateCopy
   factory _$UserFormStateCopyWith(_UserFormState value, $Res Function(_UserFormState) _then) = __$UserFormStateCopyWithImpl;
 @override @useResult
 $Res call({
- Loadable<List<Company>> companies, Company? selectedCompany, SubmissionStatus submission
+ Loadable<List<Company>> companies, Company? selectedCompany, SubmissionStatus submission, List<String> passwordEmailFailed
 });
 
 
@@ -280,12 +291,13 @@ class __$UserFormStateCopyWithImpl<$Res>
 
 /// Create a copy of UserFormState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? companies = null,Object? selectedCompany = freezed,Object? submission = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? companies = null,Object? selectedCompany = freezed,Object? submission = null,Object? passwordEmailFailed = null,}) {
   return _then(_UserFormState(
 companies: null == companies ? _self.companies : companies // ignore: cast_nullable_to_non_nullable
 as Loadable<List<Company>>,selectedCompany: freezed == selectedCompany ? _self.selectedCompany : selectedCompany // ignore: cast_nullable_to_non_nullable
 as Company?,submission: null == submission ? _self.submission : submission // ignore: cast_nullable_to_non_nullable
-as SubmissionStatus,
+as SubmissionStatus,passwordEmailFailed: null == passwordEmailFailed ? _self._passwordEmailFailed : passwordEmailFailed // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

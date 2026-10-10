@@ -7,14 +7,16 @@ class NewAdmin extends Equatable {
     required this.firstName,
     required this.lastName,
     required this.phoneNumber,
-    required this.password,
+    this.password,
   });
 
   final String email;
   final String firstName;
   final String lastName;
   final String phoneNumber;
-  final String password;
+
+  /// Puste hasło oznacza, że backend wygeneruje je i wyśle mailem.
+  final String? password;
 
   @override
   List<Object?> get props => [

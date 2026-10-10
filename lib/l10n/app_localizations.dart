@@ -712,6 +712,24 @@ abstract class AppLocalizations {
   /// **'Hasło'**
   String get userPasswordHint;
 
+  /// No description provided for @userPasswordOptionalNote.
+  ///
+  /// In pl, this message translates to:
+  /// **'Puste hasło wygeneruje backend i wyśle je mailem.'**
+  String get userPasswordOptionalNote;
+
+  /// No description provided for @userPasswordEmailFailedTitle.
+  ///
+  /// In pl, this message translates to:
+  /// **'Konto utworzone, ale bez hasła'**
+  String get userPasswordEmailFailedTitle;
+
+  /// No description provided for @userPasswordEmailFailedDescription.
+  ///
+  /// In pl, this message translates to:
+  /// **'Nie udało się wysłać hasła na poniższy adres. Poproś tę osobę o użycie opcji „Zapomniałeś hasła”:'**
+  String get userPasswordEmailFailedDescription;
+
   /// No description provided for @addUserTitle.
   ///
   /// In pl, this message translates to:
