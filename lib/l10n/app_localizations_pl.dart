@@ -618,6 +618,9 @@ class AppLocalizationsPl extends AppLocalizations {
   String get unitProjectPlaceholder => 'Wyszukaj projekt';
 
   @override
+  String get unitProjectLoading => 'Wczytywanie projektów…';
+
+  @override
   String get unitProjectSearchHint => 'Szukaj po nazwie lub numerze';
 
   @override

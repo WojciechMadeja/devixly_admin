@@ -13,17 +13,25 @@ class ProjectsRepositoryImpl implements ProjectsRepository {
 
   final ProjectsRemoteDataSource _remote;
 
+  /// Lista do wyboru zmienia się rzadko, a jest potrzebna przy każdym
+  /// wejściu na formularz jednostki — pobieramy ją raz na uruchomienie
+  /// panelu i odświeżamy po dodaniu projektu.
+  List<ProjectOption>? _options;
+
   @override
   Future<Either<Failure, Unit>> addProject(ProjectDraft draft) =>
       guard(() async {
         await _remote.addProject(draft);
+        _options = null;
         return unit;
       });
 
   @override
-  Future<Either<Failure, List<ProjectOption>>> getProjectOptions() => guard(
-    () async => [
-      for (final option in await _remote.getProjectOptions()) option.toEntity(),
-    ],
-  );
+  Future<Either<Failure, List<ProjectOption>>> getProjectOptions() =>
+      guard(() async {
+        return _options ??= [
+          for (final option in await _remote.getProjectOptions())
+            option.toEntity(),
+        ];
+      });
 }

@@ -2,6 +2,7 @@ import 'package:devixly_admin/app/di/injection.dart';
 import 'package:devixly_admin/features/projects/data/datasources/projects_remote_data_source.dart';
 import 'package:devixly_admin/features/projects/data/models/project_option_mapper.dart';
 import 'package:devixly_admin/features/projects/domain/entities/project_draft.dart';
+import 'package:devixly_admin/features/projects/domain/repositories/projects_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../helpers/fake_backend.dart';
@@ -70,5 +71,35 @@ void main() {
     expect(options.first.name, 'Marina Heights');
     expect(options.first.externalId, 5001);
     expect(options.map((option) => option.id), [1, 2, 3]);
+  });
+
+  test(
+    'lista do wyboru jest pobierana raz, a nie przy każdym wejściu',
+    () async {
+      final repository = getIt<ProjectsRepository>();
+
+      await repository.getProjectOptions();
+      await repository.getProjectOptions();
+
+      expect(api.callsOf('project.listOptionsForUnit'), hasLength(1));
+    },
+  );
+
+  test('po dodaniu projektu lista jest pobierana ponownie', () async {
+    final repository = getIt<ProjectsRepository>();
+    await repository.getProjectOptions();
+
+    await repository.addProject(
+      const ProjectDraft(
+        externalId: 9002,
+        name: 'Kolejna inwestycja',
+        noc: 1,
+        saleTypesDeveloper: true,
+        saleTypesResale: false,
+      ),
+    );
+    await repository.getProjectOptions();
+
+    expect(api.callsOf('project.listOptionsForUnit'), hasLength(2));
   });
 }

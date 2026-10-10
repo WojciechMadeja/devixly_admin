@@ -14,12 +14,17 @@ class ProjectPickerField extends StatelessWidget {
     required this.projects,
     required this.selected,
     required this.onSelected,
+    this.loading = false,
     this.width = 250,
   });
 
   final List<ProjectOption> projects;
   final ProjectOption? selected;
   final ValueChanged<ProjectOption> onSelected;
+
+  /// Lista jeszcze się pobiera — pole mówi o tym zamiast otwierać pustą
+  /// wyszukiwarkę.
+  final bool loading;
   final double? width;
 
   Future<void> _openPicker(BuildContext context) async {
@@ -41,9 +46,13 @@ class ProjectPickerField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return PickerField(
       value: selected?.name,
-      placeholder: context.l10n.unitProjectPlaceholder,
+      placeholder: loading
+          ? l10n.unitProjectLoading
+          : l10n.unitProjectPlaceholder,
+      loading: loading,
       width: width,
       onTap: () => _openPicker(context),
     );

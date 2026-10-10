@@ -1264,6 +1264,12 @@ abstract class AppLocalizations {
   /// **'Wyszukaj projekt'**
   String get unitProjectPlaceholder;
 
+  /// No description provided for @unitProjectLoading.
+  ///
+  /// In pl, this message translates to:
+  /// **'Wczytywanie projektów…'**
+  String get unitProjectLoading;
+
   /// No description provided for @unitProjectSearchHint.
   ///
   /// In pl, this message translates to:

@@ -14,6 +14,7 @@ class LookupPickerField extends StatelessWidget {
     required this.selected,
     required this.placeholder,
     required this.onSelected,
+    this.loading = false,
     this.width = 250,
   });
 
@@ -21,6 +22,9 @@ class LookupPickerField extends StatelessWidget {
   final DictionaryItem? selected;
   final String placeholder;
   final ValueChanged<DictionaryItem> onSelected;
+
+  /// Słownik jeszcze się pobiera.
+  final bool loading;
   final double? width;
 
   Future<void> _openPicker(BuildContext context) async {
@@ -41,6 +45,7 @@ class LookupPickerField extends StatelessWidget {
     return PickerField(
       value: selected?.name,
       placeholder: placeholder,
+      loading: loading,
       width: width,
       onTap: () => _openPicker(context),
     );

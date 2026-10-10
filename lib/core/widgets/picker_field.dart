@@ -12,6 +12,7 @@ class PickerField extends StatefulWidget {
     required this.value,
     required this.placeholder,
     required this.onTap,
+    this.loading = false,
     this.width = 250,
   });
 
@@ -19,6 +20,10 @@ class PickerField extends StatefulWidget {
   final String? value;
   final String placeholder;
   final VoidCallback onTap;
+
+  /// Dane do wyboru jeszcze się pobierają: pole pokazuje kręciołek
+  /// i nie otwiera listy.
+  final bool loading;
 
   /// `null` oznacza szerokość rodzica.
   final double? width;
@@ -42,7 +47,7 @@ class _PickerFieldState extends State<PickerField> {
       onEnter: (_) => setState(() => _hovered = true),
       onExit: (_) => setState(() => _hovered = false),
       child: TapArea(
-        onTap: widget.onTap,
+        onTap: widget.loading ? null : widget.onTap,
         child: Container(
           width: widget.width,
           height: 40,
@@ -54,12 +59,24 @@ class _PickerFieldState extends State<PickerField> {
             border: Border.all(color: AppColors.secondary, width: 2),
           ),
           alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.only(left: 10),
-          child: Text(
-            widget.value ?? widget.placeholder,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: _labelStyle,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  widget.value ?? widget.placeholder,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: _labelStyle,
+                ),
+              ),
+              if (widget.loading)
+                const SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+            ],
           ),
         ),
       ),

@@ -114,6 +114,27 @@ void main() {
       expect(find.text('Nr 5002'), findsOneWidget);
     });
 
+    testWidgets('w trakcie pobierania pole mówi o ładowaniu', (tester) async {
+      await getIt.reset();
+      api = await setUpTestDependencies(
+        api: FakeBackend(responseDelay: const Duration(seconds: 5)),
+      );
+      await pumpView(
+        tester,
+        const AddUnitView(),
+        viewport: GoldenViewport.desktop,
+      );
+
+      expect(find.text('Wczytywanie projektów…'), findsOneWidget);
+      // Pusta wyszukiwarka się nie otwiera.
+      await tester.tap(find.text('Wczytywanie projektów…'));
+      await tester.pump();
+      expect(find.byType(SearchablePickerDialog<ProjectOption>), findsNothing);
+
+      await tester.pump(const Duration(seconds: 6));
+      expect(find.text('Wyszukaj projekt'), findsOneWidget);
+    });
+
     testWidgets('bez projektu nie wysyłamy jednostki', (tester) async {
       await pumpView(
         tester,

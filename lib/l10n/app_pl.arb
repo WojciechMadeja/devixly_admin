@@ -223,6 +223,7 @@
   "projectSaveFailed": "Nie udało się zapisać projektu",
   "projectRequiredFields": "Uzupełnij nazwę, numer projektu i NOC",
   "unitProjectPlaceholder": "Wyszukaj projekt",
+  "unitProjectLoading": "Wczytywanie projektów…",
   "unitProjectSearchHint": "Szukaj po nazwie lub numerze",
   "unitProjectLabel": "Projekt",
   "projectExternalIdLabel": "Nr",

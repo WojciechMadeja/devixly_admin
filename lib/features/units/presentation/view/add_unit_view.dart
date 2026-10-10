@@ -184,6 +184,7 @@ class _ProjectSearch extends StatelessWidget {
           _ => const <ProjectOption>[],
         },
         selected: state.project,
+        loading: state.projects is Loading<List<ProjectOption>>,
         onSelected: context.read<AddUnitCubit>().selectProject,
       ),
     );
@@ -204,6 +205,7 @@ class _UnitTypePicker extends StatelessWidget {
           _ => const <DictionaryItem>[],
         },
         selected: state.unitType,
+        loading: state.unitTypes is Loading<List<DictionaryItem>>,
         placeholder: context.l10n.unitTypePlaceholder,
         onSelected: context.read<AddUnitCubit>().selectUnitType,
       ),
@@ -224,6 +226,7 @@ class _LayoutPicker extends StatelessWidget {
           _ => const <DictionaryItem>[],
         },
         selected: state.layout,
+        loading: state.layouts is Loading<List<DictionaryItem>>,
         placeholder: context.l10n.unitLayoutPlaceholder,
         onSelected: context.read<AddUnitCubit>().selectLayout,
       ),
